@@ -1,0 +1,80 @@
+/**
+ * Do not edit directly, this file was auto-generated.
+ */
+
+:root {
+  --kofa-color-neutral-50: #fafbfb;
+  --kofa-color-neutral-100: #f3f3f4;
+  --kofa-color-neutral-200: #e7e8e9;
+  --kofa-color-neutral-300: #cfd1d2;
+  --kofa-color-neutral-400: #abaeb1;
+  --kofa-color-neutral-500: #93979b;
+  --kofa-color-neutral-600: #878b8f;
+  --kofa-color-neutral-700: #585e63;
+  --kofa-color-neutral-800: #40474d;
+  --kofa-color-neutral-white: #ffffff;
+  --kofa-color-neutral-black: #101820;
+  --kofa-color-blue-100: #f4f9fe;
+  --kofa-color-blue-200: #def1fd;
+  --kofa-color-blue-300: #a7d4f9;
+  --kofa-color-blue-400: #4ea9f4;
+  --kofa-color-blue-500: #2293f1;
+  --kofa-color-blue-600: #1e7ac7;
+  --kofa-color-blue-700: #1b629d;
+  --kofa-color-blue-800: #174a74;
+  --kofa-color-amber-100: #fffaf2;
+  --kofa-color-amber-200: #fff2d9;
+  --kofa-color-amber-300: #ffd380;
+  --kofa-color-amber-400: #ffb833;
+  --kofa-color-amber-500: #ffa600;
+  --kofa-color-amber-600: #cf8a06;
+  --kofa-color-amber-700: #9f6d0d;
+  --kofa-color-amber-800: #704f13;
+  --kofa-color-red-100: #fff4f4;
+  --kofa-color-red-200: #fedfde;
+  --kofa-color-red-300: #fd7d79;
+  --kofa-color-red-400: #fc534d; /** Uses the rendered Figma fill. The card's hex label reads #FC514D. */
+  --kofa-color-red-500: #fb2620;
+  --kofa-color-red-600: #cc2320;
+  --kofa-color-red-700: #9d2420;
+  --kofa-color-red-800: #6e211e;
+  --kofa-color-green-100: #f5f8f3;
+  --kofa-color-green-200: #d8e5cd;
+  --kofa-color-green-300: #9fbe83;
+  --kofa-color-green-400: #659739;
+  --kofa-color-green-500: #4a8f0f;
+  --kofa-color-green-600: #37690c;
+  --kofa-color-green-700: #345f0f; /** Uses the rendered Figma fill. The card's hex label reads #335F0F. */
+  --kofa-color-green-800: #305511; /** Uses the rendered Figma fill. The card's hex label reads #315511. */
+  --kofa-color-yellow-100: #fffbeb;
+  --kofa-color-yellow-200: #ffea99; /** Uses the rendered Figma fill. The card's hex label reads #FFE066. */
+  --kofa-color-yellow-300: #ffe066;
+  --kofa-color-yellow-400: #ffd42e;
+  --kofa-color-yellow-500: #ffcb02;
+  --kofa-color-yellow-600: #e0b200;
+  --kofa-color-yellow-700: #b28d00;
+  --kofa-color-yellow-800: #806500;
+  --kofa-space-0: 0px;
+  --kofa-space-1: 4px;
+  --kofa-space-2: 8px;
+  --kofa-space-3: 12px;
+  --kofa-space-4: 16px;
+  --kofa-space-6: 24px;
+  --kofa-space-8: 32px;
+  --kofa-radius-sm: 6px;
+  --kofa-radius-md: 10px;
+  --kofa-radius-full: 9999px;
+  --kofa-font-family-sans: Inter, ui-sans-serif, system-ui, sans-serif;
+  --kofa-font-weight-regular: 400;
+  --kofa-font-weight-medium: 500;
+  --kofa-font-weight-semibold: 600;
+  --kofa-semantic-color-background-canvas: var(--kofa-color-neutral-white);
+  --kofa-semantic-color-background-subtle: var(--kofa-color-neutral-50);
+  --kofa-semantic-color-background-brand: var(--kofa-color-blue-500); /** Provisional action/brand mapping until semantic colours are supplied in Figma. */
+  --kofa-semantic-color-text-primary: var(--kofa-color-neutral-black);
+  --kofa-semantic-color-text-secondary: var(--kofa-color-neutral-700);
+  --kofa-semantic-color-text-on-brand: var(--kofa-color-neutral-white);
+  --kofa-semantic-color-text-danger: var(--kofa-color-red-600);
+  --kofa-semantic-color-border-default: var(--kofa-color-neutral-200);
+  --kofa-semantic-color-border-brand: var(--kofa-color-blue-500);
+}

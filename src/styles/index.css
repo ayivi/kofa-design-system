@@ -1,0 +1,10 @@
+@import './generated/tokens.css';
+@import '../components/Button/Button.css';
+
+@layer kofa.base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+}

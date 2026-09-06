@@ -1,0 +1,83 @@
+{
+  "color": {
+    "neutral": {
+      "white": { "$type": "color", "$value": "#ffffff" },
+      "50": { "$type": "color", "$value": "#fafbfb" },
+      "100": { "$type": "color", "$value": "#f3f3f4" },
+      "200": { "$type": "color", "$value": "#e7e8e9" },
+      "300": { "$type": "color", "$value": "#cfd1d2" },
+      "400": { "$type": "color", "$value": "#abaeb1" },
+      "500": { "$type": "color", "$value": "#93979b" },
+      "600": { "$type": "color", "$value": "#878b8f" },
+      "700": { "$type": "color", "$value": "#585e63" },
+      "800": { "$type": "color", "$value": "#40474d" },
+      "black": { "$type": "color", "$value": "#101820" }
+    },
+    "blue": {
+      "100": { "$type": "color", "$value": "#f4f9fe" },
+      "200": { "$type": "color", "$value": "#def1fd" },
+      "300": { "$type": "color", "$value": "#a7d4f9" },
+      "400": { "$type": "color", "$value": "#4ea9f4" },
+      "500": { "$type": "color", "$value": "#2293f1" },
+      "600": { "$type": "color", "$value": "#1e7ac7" },
+      "700": { "$type": "color", "$value": "#1b629d" },
+      "800": { "$type": "color", "$value": "#174a74" }
+    },
+    "amber": {
+      "100": { "$type": "color", "$value": "#fffaf2" },
+      "200": { "$type": "color", "$value": "#fff2d9" },
+      "300": { "$type": "color", "$value": "#ffd380" },
+      "400": { "$type": "color", "$value": "#ffb833" },
+      "500": { "$type": "color", "$value": "#ffa600" },
+      "600": { "$type": "color", "$value": "#cf8a06" },
+      "700": { "$type": "color", "$value": "#9f6d0d" },
+      "800": { "$type": "color", "$value": "#704f13" }
+    },
+    "red": {
+      "100": { "$type": "color", "$value": "#fff4f4" },
+      "200": { "$type": "color", "$value": "#fedfde" },
+      "300": { "$type": "color", "$value": "#fd7d79" },
+      "400": {
+        "$type": "color",
+        "$value": "#fc534d",
+        "$description": "Uses the rendered Figma fill. The card's hex label reads #FC514D."
+      },
+      "500": { "$type": "color", "$value": "#fb2620" },
+      "600": { "$type": "color", "$value": "#cc2320" },
+      "700": { "$type": "color", "$value": "#9d2420" },
+      "800": { "$type": "color", "$value": "#6e211e" }
+    },
+    "green": {
+      "100": { "$type": "color", "$value": "#f5f8f3" },
+      "200": { "$type": "color", "$value": "#d8e5cd" },
+      "300": { "$type": "color", "$value": "#9fbe83" },
+      "400": { "$type": "color", "$value": "#659739" },
+      "500": { "$type": "color", "$value": "#4a8f0f" },
+      "600": { "$type": "color", "$value": "#37690c" },
+      "700": {
+        "$type": "color",
+        "$value": "#345f0f",
+        "$description": "Uses the rendered Figma fill. The card's hex label reads #335F0F."
+      },
+      "800": {
+        "$type": "color",
+        "$value": "#305511",
+        "$description": "Uses the rendered Figma fill. The card's hex label reads #315511."
+      }
+    },
+    "yellow": {
+      "100": { "$type": "color", "$value": "#fffbeb" },
+      "200": {
+        "$type": "color",
+        "$value": "#ffea99",
+        "$description": "Uses the rendered Figma fill. The card's hex label reads #FFE066."
+      },
+      "300": { "$type": "color", "$value": "#ffe066" },
+      "400": { "$type": "color", "$value": "#ffd42e" },
+      "500": { "$type": "color", "$value": "#ffcb02" },
+      "600": { "$type": "color", "$value": "#e0b200" },
+      "700": { "$type": "color", "$value": "#b28d00" },
+      "800": { "$type": "color", "$value": "#806500" }
+    }
+  }
+}

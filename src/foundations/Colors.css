@@ -1,0 +1,76 @@
+@layer kofa.documentation {
+  .kofa-colors {
+    background: var(--kofa-semantic-color-background-canvas);
+    color: var(--kofa-semantic-color-text-primary);
+    font-family: var(--kofa-font-family-sans);
+    min-height: 100vh;
+    padding: clamp(2rem, 5vw, 4rem);
+  }
+
+  .kofa-colors__header {
+    max-width: 42rem;
+  }
+
+  .kofa-colors__header h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    letter-spacing: -0.04em;
+    margin: 0 0 var(--kofa-space-4);
+  }
+
+  .kofa-colors__header > p:last-child {
+    color: var(--kofa-semantic-color-text-secondary);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .kofa-colors__eyebrow {
+    color: var(--kofa-color-blue-600);
+    font-size: 0.75rem;
+    font-weight: var(--kofa-font-weight-semibold);
+    letter-spacing: 0.12em;
+    margin: 0 0 var(--kofa-space-3);
+    text-transform: uppercase;
+  }
+
+  .kofa-colors__palettes {
+    display: grid;
+    gap: var(--kofa-space-8);
+    margin-top: 3rem;
+  }
+
+  .kofa-colors__palette h2 {
+    font-size: 1.125rem;
+    margin: 0 0 var(--kofa-space-4);
+  }
+
+  .kofa-colors__grid {
+    display: grid;
+    gap: var(--kofa-space-4);
+    grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+  }
+
+  .kofa-colors__swatch {
+    border: 1px solid var(--kofa-semantic-color-border-default);
+    border-radius: var(--kofa-radius-md);
+    overflow: hidden;
+  }
+
+  .kofa-colors__sample {
+    height: 6rem;
+  }
+
+  .kofa-colors__details {
+    align-items: center;
+    background: var(--kofa-semantic-color-background-canvas);
+    display: flex;
+    font-size: 0.75rem;
+    justify-content: space-between;
+    padding: var(--kofa-space-3);
+  }
+
+  .kofa-colors__details code {
+    color: var(--kofa-semantic-color-text-secondary);
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.6875rem;
+  }
+}

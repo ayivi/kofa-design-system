@@ -1,0 +1,102 @@
+@layer kofa.components {
+  .kofa-button {
+    align-items: center;
+    border: 1px solid transparent;
+    border-radius: var(--kofa-radius-sm);
+    cursor: pointer;
+    display: inline-flex;
+    font-family: var(--kofa-font-family-sans);
+    font-weight: var(--kofa-font-weight-semibold);
+    gap: var(--kofa-space-2);
+    justify-content: center;
+    line-height: 1;
+    transition:
+      background-color 150ms ease,
+      border-color 150ms ease,
+      box-shadow 150ms ease;
+  }
+
+  .kofa-button:focus-visible {
+    box-shadow:
+      0 0 0 2px var(--kofa-semantic-color-background-canvas),
+      0 0 0 4px var(--kofa-semantic-color-border-brand);
+    outline: none;
+  }
+
+  .kofa-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.52;
+  }
+
+  .kofa-button--primary {
+    background: var(--kofa-semantic-color-background-brand);
+    color: var(--kofa-semantic-color-text-on-brand);
+  }
+
+  .kofa-button--primary:hover:not(:disabled) {
+    filter: brightness(0.9);
+  }
+
+  .kofa-button--secondary {
+    background: var(--kofa-semantic-color-background-canvas);
+    border-color: var(--kofa-semantic-color-border-default);
+    color: var(--kofa-semantic-color-text-primary);
+  }
+
+  .kofa-button--secondary:hover:not(:disabled),
+  .kofa-button--ghost:hover:not(:disabled) {
+    background: var(--kofa-semantic-color-background-subtle);
+  }
+
+  .kofa-button--ghost {
+    background: transparent;
+    color: var(--kofa-semantic-color-text-primary);
+  }
+
+  .kofa-button--sm {
+    font-size: 0.8125rem;
+    min-height: 2rem;
+    padding: var(--kofa-space-2) var(--kofa-space-3);
+  }
+
+  .kofa-button--md {
+    font-size: 0.875rem;
+    min-height: 2.5rem;
+    padding: var(--kofa-space-3) var(--kofa-space-4);
+  }
+
+  .kofa-button--lg {
+    font-size: 1rem;
+    min-height: 3rem;
+    padding: var(--kofa-space-4) var(--kofa-space-6);
+  }
+
+  .kofa-button__icon {
+    align-items: center;
+    display: inline-flex;
+    flex: none;
+  }
+
+  .kofa-button__spinner {
+    animation: kofa-spin 700ms linear infinite;
+    border: 2px solid currentColor;
+    border-right-color: transparent;
+    border-radius: var(--kofa-radius-full);
+    height: 1em;
+    width: 1em;
+  }
+
+  @keyframes kofa-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .kofa-button,
+    .kofa-button__spinner {
+      animation-duration: 1ms;
+      transition-duration: 1ms;
+    }
+  }
+}
