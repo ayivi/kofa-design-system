@@ -1,0 +1,104 @@
+.kofa-metrics {
+  background: var(--kofa-semantic-color-background-canvas);
+  color: var(--kofa-semantic-color-text-primary);
+  display: grid;
+  gap: var(--kofa-space-6xl);
+  min-height: 100vh;
+  padding: var(--kofa-space-6xl);
+}
+
+.kofa-metrics header,
+.kofa-metrics section {
+  display: grid;
+  gap: var(--kofa-space-xl);
+}
+
+.kofa-metrics header p {
+  color: var(--kofa-semantic-color-text-secondary);
+}
+
+.kofa-metrics__list {
+  border: 1px solid var(--kofa-semantic-color-border-default);
+  border-radius: var(--kofa-radius-xl);
+  overflow: hidden;
+}
+
+.kofa-metrics__row {
+  align-items: center;
+  display: grid;
+  gap: var(--kofa-space-xl);
+  grid-template-columns: 150px 70px minmax(180px, 1fr);
+  min-height: 56px;
+  padding: var(--kofa-space-lg) var(--kofa-space-xl);
+}
+
+.kofa-metrics__row + .kofa-metrics__row {
+  border-top: 1px solid var(--kofa-semantic-color-border-default);
+}
+
+.kofa-metrics__row code,
+.kofa-metrics__row span,
+.kofa-metrics__radius-grid code,
+.kofa-metrics__radius-grid span {
+  font-size: var(--kofa-font-size-body-small);
+}
+
+.kofa-metrics__row span,
+.kofa-metrics__radius-grid span {
+  color: var(--kofa-semantic-color-text-secondary);
+}
+
+.kofa-metrics__space {
+  align-items: center;
+  display: flex;
+}
+
+.kofa-metrics__space i {
+  background: var(--kofa-color-amber-500);
+  border-radius: var(--kofa-radius-full);
+  height: 30px;
+  width: 3px;
+}
+
+.kofa-metrics__space b {
+  background: color-mix(in srgb, var(--kofa-color-amber-500) 12%, transparent);
+  border-block: 1px dashed var(--kofa-color-amber-500);
+  height: 20px;
+  min-width: 1px;
+}
+
+.kofa-metrics__radius-grid {
+  display: grid;
+  gap: var(--kofa-space-lg);
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+}
+
+.kofa-metrics__radius-grid article {
+  background: var(--kofa-color-neutral-50);
+  border: 1px solid var(--kofa-semantic-color-border-default);
+  border-radius: var(--kofa-radius-xl);
+  display: grid;
+  gap: var(--kofa-space-xs);
+  overflow: hidden;
+  padding: var(--kofa-space-xl);
+}
+
+.kofa-metrics__radius-preview {
+  background: color-mix(in srgb, var(--kofa-color-amber-500) 12%, white);
+  border-left: 2px solid var(--kofa-color-amber-500);
+  border-top: 2px solid var(--kofa-color-amber-500);
+  height: 72px;
+  margin-bottom: var(--kofa-space-lg);
+}
+
+@media (max-width: 620px) {
+  .kofa-metrics {
+    padding: var(--kofa-space-3xl);
+  }
+
+  .kofa-metrics__row {
+    gap: var(--kofa-space-md);
+    grid-template-columns: 112px 48px minmax(100px, 1fr);
+    overflow: hidden;
+  }
+}

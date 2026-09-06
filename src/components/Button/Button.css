@@ -2,12 +2,12 @@
   .kofa-button {
     align-items: center;
     border: 1px solid transparent;
-    border-radius: var(--kofa-radius-sm);
+    border-radius: var(--kofa-radius-s);
     cursor: pointer;
     display: inline-flex;
     font-family: var(--kofa-font-family-product);
     font-weight: var(--kofa-font-weight-medium);
-    gap: var(--kofa-space-2);
+    gap: var(--kofa-space-md);
     justify-content: center;
     line-height: 1;
     transition:
@@ -56,19 +56,19 @@
   .kofa-button--sm {
     font-size: 0.8125rem;
     min-height: 2rem;
-    padding: var(--kofa-space-2) var(--kofa-space-3);
+    padding: var(--kofa-space-md) var(--kofa-space-lg);
   }
 
   .kofa-button--md {
     font-size: 0.875rem;
     min-height: 2.5rem;
-    padding: var(--kofa-space-3) var(--kofa-space-4);
+    padding: var(--kofa-space-lg) var(--kofa-space-xl);
   }
 
   .kofa-button--lg {
     font-size: 1rem;
     min-height: 3rem;
-    padding: var(--kofa-space-4) var(--kofa-space-6);
+    padding: var(--kofa-space-xl) var(--kofa-space-3xl);
   }
 
   .kofa-button__icon {

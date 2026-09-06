@@ -14,7 +14,7 @@
   .kofa-colors__header h1 {
     font-size: clamp(2rem, 5vw, 3.5rem);
     letter-spacing: -0.04em;
-    margin: 0 0 var(--kofa-space-4);
+    margin: 0 0 var(--kofa-space-xl);
   }
 
   .kofa-colors__header > p:last-child {
@@ -28,30 +28,30 @@
     font-size: 0.75rem;
     font-weight: var(--kofa-font-weight-semibold);
     letter-spacing: 0.12em;
-    margin: 0 0 var(--kofa-space-3);
+    margin: 0 0 var(--kofa-space-lg);
     text-transform: uppercase;
   }
 
   .kofa-colors__palettes {
     display: grid;
-    gap: var(--kofa-space-8);
+    gap: var(--kofa-space-4xl);
     margin-top: 3rem;
   }
 
   .kofa-colors__palette h2 {
     font-size: 1.125rem;
-    margin: 0 0 var(--kofa-space-4);
+    margin: 0 0 var(--kofa-space-xl);
   }
 
   .kofa-colors__grid {
     display: grid;
-    gap: var(--kofa-space-4);
+    gap: var(--kofa-space-xl);
     grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
   }
 
   .kofa-colors__swatch {
     border: 1px solid var(--kofa-semantic-color-border-default);
-    border-radius: var(--kofa-radius-md);
+    border-radius: var(--kofa-radius-lg);
     overflow: hidden;
   }
 
@@ -65,7 +65,7 @@
     display: flex;
     font-size: 0.75rem;
     justify-content: space-between;
-    padding: var(--kofa-space-3);
+    padding: var(--kofa-space-lg);
   }
 
   .kofa-colors__details code {

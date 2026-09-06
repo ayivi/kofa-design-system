@@ -24,5 +24,11 @@
       "@testing-library/jest-dom"
     ]
   },
-  "include": ["src", ".storybook", "vite.config.ts"]
+  "include": [
+    "src",
+    "docs",
+    ".storybook",
+    "vite.config.ts",
+    "vite.docs.config.ts"
+  ]
 }

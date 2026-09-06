@@ -14,6 +14,7 @@ The React component library for Kofa web products. Components are authored in Ty
 - DTCG-format design tokens compiled to CSS custom properties by Style Dictionary
 - Self-hosted TWK Everett Regular and Medium font faces
 - Figma-derived web typography tokens, responsive mappings, and a React Text primitive
+- Responsive documentation app with searchable navigation and interactive token references
 - Changesets for versioning and a GitHub Actions verification workflow
 - A tested, accessible Button reference implementation
 
@@ -22,6 +23,12 @@ The React component library for Kofa web products. Components are authored in Ty
 ```bash
 npm install
 npm run dev
+```
+
+Run the Kofa documentation site:
+
+```bash
+npm run docs:dev
 ```
 
 Storybook opens at `http://localhost:6006`.
@@ -76,6 +83,8 @@ The source files in `tokens/` follow the Design Tokens Community Group shape. Th
 The source audit and four Figma label/fill discrepancies are documented in `tokens/FIGMA_SOURCE.md`.
 
 The web type ramp and responsive mappings are documented in `tokens/FIGMA_TYPOGRAPHY_SOURCE.md`. TWK Everett Regular and Medium are bundled locally; the Thin file is still required before Thin styles are production-ready.
+
+The approved spacing and radius scales are documented in `tokens/FIGMA_SPACING_RADIUS_SOURCE.md` and are available as generated CSS variables and typed JavaScript references.
 
 Useful details to include with the Figma file:
 
