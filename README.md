@@ -12,6 +12,8 @@ The React component library for Kofa web products. Components are authored in Ty
 - Vitest, Testing Library, and coverage reporting
 - ESLint and Prettier
 - DTCG-format design tokens compiled to CSS custom properties by Style Dictionary
+- Self-hosted TWK Everett Regular and Medium font faces
+- Figma-derived web typography tokens, responsive mappings, and a React Text primitive
 - Changesets for versioning and a GitHub Actions verification workflow
 - A tested, accessible Button reference implementation
 
@@ -63,6 +65,7 @@ scripts/                 Build utilities
 src/components/          Component source, tests, stories, and styles
 src/styles/              CSS entry point and generated variables
 src/tokens/              Type-safe CSS-variable references
+font/                    Licensed source font files bundled by Vite
 tokens/                  Platform-neutral token source files
 ```
 
@@ -71,6 +74,8 @@ tokens/                  Platform-neutral token source files
 The source files in `tokens/` follow the Design Tokens Community Group shape. The colour primitives in `tokens/colours.json` were extracted from the Foundation file's rendered swatches. Components consume semantic tokens rather than raw palette values. The generated file in `src/styles/generated/` should never be edited by hand.
 
 The source audit and four Figma label/fill discrepancies are documented in `tokens/FIGMA_SOURCE.md`.
+
+The web type ramp and responsive mappings are documented in `tokens/FIGMA_TYPOGRAPHY_SOURCE.md`. TWK Everett Regular and Medium are bundled locally; the Thin file is still required before Thin styles are production-ready.
 
 Useful details to include with the Figma file:
 

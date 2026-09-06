@@ -1,0 +1,88 @@
+@layer kofa.components {
+  .kofa-text {
+    color: inherit;
+    font-family: var(--kofa-font-family-product);
+    margin: 0;
+  }
+
+  .kofa-text--display-1,
+  .kofa-text--display-2,
+  .kofa-text--display-3,
+  .kofa-text--heading-1,
+  .kofa-text--heading-2,
+  .kofa-text--heading-3 {
+    font-weight: var(--kofa-font-weight-medium);
+  }
+
+  .kofa-text--display-1 {
+    font-size: var(--kofa-font-size-display-1);
+    letter-spacing: var(--kofa-letter-spacing-display-1);
+    line-height: var(--kofa-line-height-display-1);
+  }
+
+  .kofa-text--display-2 {
+    font-size: var(--kofa-font-size-display-2);
+    letter-spacing: var(--kofa-letter-spacing-display-2);
+    line-height: var(--kofa-line-height-display-2);
+  }
+
+  .kofa-text--display-3 {
+    font-size: var(--kofa-font-size-display-3);
+    letter-spacing: var(--kofa-letter-spacing-display-3);
+    line-height: var(--kofa-line-height-display-3);
+  }
+
+  .kofa-text--heading-1 {
+    font-size: var(--kofa-font-size-heading-1);
+    letter-spacing: var(--kofa-letter-spacing-heading-1);
+    line-height: var(--kofa-line-height-heading-1);
+  }
+
+  .kofa-text--heading-2 {
+    font-size: var(--kofa-font-size-heading-2);
+    letter-spacing: var(--kofa-letter-spacing-heading-2);
+    line-height: var(--kofa-line-height-heading-2);
+  }
+
+  .kofa-text--heading-3 {
+    font-size: var(--kofa-font-size-heading-3);
+    letter-spacing: var(--kofa-letter-spacing-heading-3);
+    line-height: var(--kofa-line-height-heading-3);
+  }
+
+  .kofa-text--body-large {
+    font-size: var(--kofa-font-size-body-large);
+    letter-spacing: var(--kofa-letter-spacing-body-large);
+    line-height: var(--kofa-line-height-body-large);
+  }
+
+  .kofa-text--body-base {
+    font-size: var(--kofa-font-size-body-base);
+    letter-spacing: var(--kofa-letter-spacing-body-base);
+    line-height: var(--kofa-line-height-body-base);
+  }
+
+  .kofa-text--body-small {
+    font-size: var(--kofa-font-size-body-small);
+    letter-spacing: var(--kofa-letter-spacing-body-small);
+    line-height: var(--kofa-line-height-body-small);
+  }
+
+  .kofa-text--body-xsmall {
+    font-size: var(--kofa-font-size-body-xsmall);
+    letter-spacing: var(--kofa-letter-spacing-body-xsmall);
+    line-height: var(--kofa-line-height-body-xsmall);
+  }
+
+  .kofa-text--weight-thin {
+    font-weight: var(--kofa-font-weight-thin);
+  }
+
+  .kofa-text--weight-regular {
+    font-weight: var(--kofa-font-weight-regular);
+  }
+
+  .kofa-text--weight-medium {
+    font-weight: var(--kofa-font-weight-medium);
+  }
+}

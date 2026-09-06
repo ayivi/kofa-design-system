@@ -12,18 +12,5 @@
     "sm": { "$type": "dimension", "$value": { "value": 6, "unit": "px" } },
     "md": { "$type": "dimension", "$value": { "value": 10, "unit": "px" } },
     "full": { "$type": "dimension", "$value": { "value": 9999, "unit": "px" } }
-  },
-  "font": {
-    "family": {
-      "sans": {
-        "$type": "fontFamily",
-        "$value": ["Inter", "ui-sans-serif", "system-ui", "sans-serif"]
-      }
-    },
-    "weight": {
-      "regular": { "$type": "fontWeight", "$value": 400 },
-      "medium": { "$type": "fontWeight", "$value": 500 },
-      "semibold": { "$type": "fontWeight", "$value": 600 }
-    }
   }
 }

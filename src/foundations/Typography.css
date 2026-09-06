@@ -1,0 +1,79 @@
+@layer kofa.documentation {
+  .kofa-type-docs {
+    background: var(--kofa-semantic-color-background-canvas);
+    color: var(--kofa-semantic-color-text-primary);
+    font-family: var(--kofa-font-family-product);
+    min-height: 100vh;
+    padding: clamp(2rem, 5vw, 4rem);
+  }
+
+  .kofa-type-docs > header {
+    display: grid;
+    gap: var(--kofa-space-4);
+    max-width: 48rem;
+  }
+
+  .kofa-type-docs__eyebrow {
+    color: var(--kofa-color-blue-600);
+    font-size: var(--kofa-font-size-body-small);
+    font-weight: var(--kofa-font-weight-medium);
+    letter-spacing: 0.12em;
+    margin: 0;
+    text-transform: uppercase;
+  }
+
+  .kofa-type-docs__section {
+    margin-top: 4rem;
+  }
+
+  .kofa-type-docs__table-wrap {
+    margin-top: var(--kofa-space-6);
+    overflow-x: auto;
+  }
+
+  .kofa-type-docs table {
+    border-collapse: collapse;
+    min-width: 64rem;
+    width: 100%;
+  }
+
+  .kofa-type-docs th,
+  .kofa-type-docs td {
+    border-bottom: 1px solid var(--kofa-semantic-color-border-default);
+    padding: var(--kofa-space-4);
+    text-align: left;
+    vertical-align: middle;
+  }
+
+  .kofa-type-docs th {
+    color: var(--kofa-semantic-color-text-secondary);
+    font-size: var(--kofa-font-size-body-small);
+    font-weight: var(--kofa-font-weight-medium);
+  }
+
+  .kofa-type-docs__mapping {
+    display: grid;
+    gap: 1px;
+    margin-top: var(--kofa-space-6);
+    overflow-x: auto;
+  }
+
+  .kofa-type-docs__mapping > div {
+    align-items: center;
+    background: var(--kofa-semantic-color-background-subtle);
+    display: grid;
+    gap: var(--kofa-space-4);
+    grid-template-columns: repeat(4, minmax(9rem, 1fr));
+    padding: var(--kofa-space-4);
+  }
+
+  .kofa-type-docs__notice {
+    background: var(--kofa-color-amber-100);
+    border: 1px solid var(--kofa-color-amber-300);
+    border-radius: var(--kofa-radius-md);
+    font-size: var(--kofa-font-size-body-base);
+    line-height: var(--kofa-line-height-body-base);
+    margin-top: var(--kofa-space-8);
+    padding: var(--kofa-space-4);
+  }
+}

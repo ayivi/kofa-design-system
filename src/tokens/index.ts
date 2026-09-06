@@ -94,4 +94,84 @@ export const tokens = {
     md: 'var(--kofa-radius-md)',
     full: 'var(--kofa-radius-full)',
   },
+  font: {
+    family: {
+      product: 'var(--kofa-font-family-product)',
+    },
+    weight: {
+      thin: 'var(--kofa-font-weight-thin)',
+      regular: 'var(--kofa-font-weight-regular)',
+      medium: 'var(--kofa-font-weight-medium)',
+    },
+    size: {
+      display1: 'var(--kofa-font-size-display-1)',
+      display2: 'var(--kofa-font-size-display-2)',
+      display3: 'var(--kofa-font-size-display-3)',
+      heading1: 'var(--kofa-font-size-heading-1)',
+      heading2: 'var(--kofa-font-size-heading-2)',
+      heading3: 'var(--kofa-font-size-heading-3)',
+      bodyLarge: 'var(--kofa-font-size-body-large)',
+      bodyBase: 'var(--kofa-font-size-body-base)',
+      bodySmall: 'var(--kofa-font-size-body-small)',
+      bodyXSmall: 'var(--kofa-font-size-body-xsmall)',
+    },
+    lineHeight: {
+      display1: 'var(--kofa-line-height-display-1)',
+      display2: 'var(--kofa-line-height-display-2)',
+      display3: 'var(--kofa-line-height-display-3)',
+      heading1: 'var(--kofa-line-height-heading-1)',
+      heading2: 'var(--kofa-line-height-heading-2)',
+      heading3: 'var(--kofa-line-height-heading-3)',
+      bodyLarge: 'var(--kofa-line-height-body-large)',
+      bodyBase: 'var(--kofa-line-height-body-base)',
+      bodySmall: 'var(--kofa-line-height-body-small)',
+      bodyXSmall: 'var(--kofa-line-height-body-xsmall)',
+    },
+    letterSpacing: {
+      display1: 'var(--kofa-letter-spacing-display-1)',
+      display2: 'var(--kofa-letter-spacing-display-2)',
+      display3: 'var(--kofa-letter-spacing-display-3)',
+      heading1: 'var(--kofa-letter-spacing-heading-1)',
+      heading2: 'var(--kofa-letter-spacing-heading-2)',
+      heading3: 'var(--kofa-letter-spacing-heading-3)',
+      bodyLarge: 'var(--kofa-letter-spacing-body-large)',
+      bodyBase: 'var(--kofa-letter-spacing-body-base)',
+      bodySmall: 'var(--kofa-letter-spacing-body-small)',
+      bodyXSmall: 'var(--kofa-letter-spacing-body-xsmall)',
+    },
+  },
+} as const;
+
+/** Figma's responsive style mapping; breakpoint widths are product-defined. */
+export const responsiveTypographyScale = {
+  display1: {
+    desktop: { variant: 'display-1', weight: 'medium' },
+    tablet: { variant: 'display-2', weight: 'medium' },
+    mobile: { variant: 'display-3', weight: 'medium' },
+  },
+  display2: {
+    desktop: { variant: 'display-2', weight: 'medium' },
+    tablet: { variant: 'display-3', weight: 'medium' },
+    mobile: { variant: 'heading-1', weight: 'medium' },
+  },
+  display3: {
+    desktop: { variant: 'display-3', weight: 'medium' },
+    tablet: { variant: 'heading-1', weight: 'medium' },
+    mobile: { variant: 'heading-2', weight: 'medium' },
+  },
+  heading1: {
+    desktop: { variant: 'heading-1', weight: 'medium' },
+    tablet: { variant: 'heading-2', weight: 'medium' },
+    mobile: { variant: 'heading-3', weight: 'medium' },
+  },
+  heading2: {
+    desktop: { variant: 'heading-2', weight: 'medium' },
+    tablet: { variant: 'heading-3', weight: 'medium' },
+    mobile: { variant: 'body-large', weight: 'medium' },
+  },
+  heading3: {
+    desktop: { variant: 'heading-3', weight: 'medium' },
+    tablet: { variant: 'body-large', weight: 'medium' },
+    mobile: { variant: 'body-base', weight: 'medium' },
+  },
 } as const;

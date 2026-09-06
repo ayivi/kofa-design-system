@@ -5,8 +5,8 @@
     border-radius: var(--kofa-radius-sm);
     cursor: pointer;
     display: inline-flex;
-    font-family: var(--kofa-font-family-sans);
-    font-weight: var(--kofa-font-weight-semibold);
+    font-family: var(--kofa-font-family-product);
+    font-weight: var(--kofa-font-weight-medium);
     gap: var(--kofa-space-2);
     justify-content: center;
     line-height: 1;

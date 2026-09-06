@@ -1,0 +1,145 @@
+{
+  "font": {
+    "family": {
+      "product": {
+        "$type": "fontFamily",
+        "$value": ["TWK Everett", "Arial", "sans-serif"]
+      }
+    },
+    "weight": {
+      "thin": {
+        "$type": "fontWeight",
+        "$value": 100,
+        "$description": "Specified in Figma; the Thin font file has not yet been supplied."
+      },
+      "regular": { "$type": "fontWeight", "$value": 400 },
+      "medium": { "$type": "fontWeight", "$value": 500 }
+    },
+    "size": {
+      "display-1": {
+        "$type": "dimension",
+        "$value": { "value": 64, "unit": "px" }
+      },
+      "display-2": {
+        "$type": "dimension",
+        "$value": { "value": 36, "unit": "px" }
+      },
+      "display-3": {
+        "$type": "dimension",
+        "$value": { "value": 32, "unit": "px" }
+      },
+      "heading-1": {
+        "$type": "dimension",
+        "$value": { "value": 24, "unit": "px" }
+      },
+      "heading-2": {
+        "$type": "dimension",
+        "$value": { "value": 20, "unit": "px" }
+      },
+      "heading-3": {
+        "$type": "dimension",
+        "$value": { "value": 18, "unit": "px" }
+      },
+      "body-large": {
+        "$type": "dimension",
+        "$value": { "value": 16, "unit": "px" }
+      },
+      "body-base": {
+        "$type": "dimension",
+        "$value": { "value": 13, "unit": "px" }
+      },
+      "body-small": {
+        "$type": "dimension",
+        "$value": { "value": 12, "unit": "px" }
+      },
+      "body-xsmall": {
+        "$type": "dimension",
+        "$value": { "value": 10, "unit": "px" }
+      }
+    }
+  },
+  "line-height": {
+    "display-1": {
+      "$type": "dimension",
+      "$value": { "value": 64, "unit": "px" }
+    },
+    "display-2": {
+      "$type": "dimension",
+      "$value": { "value": 44, "unit": "px" }
+    },
+    "display-3": {
+      "$type": "dimension",
+      "$value": { "value": 40, "unit": "px" }
+    },
+    "heading-1": {
+      "$type": "dimension",
+      "$value": { "value": 28, "unit": "px" }
+    },
+    "heading-2": {
+      "$type": "dimension",
+      "$value": { "value": 26, "unit": "px" }
+    },
+    "heading-3": {
+      "$type": "dimension",
+      "$value": { "value": 26, "unit": "px" }
+    },
+    "body-large": {
+      "$type": "dimension",
+      "$value": { "value": 22, "unit": "px" }
+    },
+    "body-base": {
+      "$type": "dimension",
+      "$value": { "value": 18, "unit": "px" }
+    },
+    "body-small": {
+      "$type": "dimension",
+      "$value": { "value": 18, "unit": "px" }
+    },
+    "body-xsmall": {
+      "$type": "dimension",
+      "$value": { "value": 14, "unit": "px" }
+    }
+  },
+  "letter-spacing": {
+    "display-1": {
+      "$type": "dimension",
+      "$value": { "value": -1.28, "unit": "px" }
+    },
+    "display-2": {
+      "$type": "dimension",
+      "$value": { "value": -0.72, "unit": "px" }
+    },
+    "display-3": {
+      "$type": "dimension",
+      "$value": { "value": -0.64, "unit": "px" }
+    },
+    "heading-1": {
+      "$type": "dimension",
+      "$value": { "value": -0.48, "unit": "px" }
+    },
+    "heading-2": {
+      "$type": "dimension",
+      "$value": { "value": -0.4, "unit": "px" }
+    },
+    "heading-3": {
+      "$type": "dimension",
+      "$value": { "value": -0.36, "unit": "px" }
+    },
+    "body-large": {
+      "$type": "dimension",
+      "$value": { "value": -0.32, "unit": "px" }
+    },
+    "body-base": {
+      "$type": "dimension",
+      "$value": { "value": 0, "unit": "px" }
+    },
+    "body-small": {
+      "$type": "dimension",
+      "$value": { "value": 0, "unit": "px" }
+    },
+    "body-xsmall": {
+      "$type": "dimension",
+      "$value": { "value": 0, "unit": "px" }
+    }
+  }
+}
