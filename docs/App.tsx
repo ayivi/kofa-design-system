@@ -9,6 +9,22 @@ import { Logo, PoweredByKofa } from '../src/components/Logo';
 import { ModalFooter, ModalHeader } from '../src/components/Modal';
 import { Pagination } from '../src/components/Pagination';
 import {
+  Sidebar as KofaSidebar,
+  SidebarFooter,
+  SidebarHeader,
+  SidebarMenuItem,
+  SidebarNav,
+  SidebarSection,
+} from '../src/components/Sidebar';
+import sidebarBilling from '../src/components/Sidebar/assets/billing.svg';
+import sidebarDashboard from '../src/components/Sidebar/assets/dashboard.svg';
+import sidebarDashboardBlue from '../src/components/Sidebar/assets/dashboard-active-blue.svg';
+import sidebarMembers from '../src/components/Sidebar/assets/members.svg';
+import sidebarNetwork from '../src/components/Sidebar/assets/network-active.svg';
+import sidebarSettings from '../src/components/Sidebar/assets/settings.svg';
+import sidebarStorage from '../src/components/Sidebar/assets/storage.svg';
+import sidebarVehicles from '../src/components/Sidebar/assets/vehicles.svg';
+import {
   Table,
   TableBody,
   TableCell,
@@ -38,7 +54,8 @@ type PageId =
   | 'avatar'
   | 'table'
   | 'tabs'
-  | 'toast';
+  | 'toast'
+  | 'sidebar';
 type Theme = 'light' | 'dark';
 type ColorToken = { $value: string; $description?: string };
 type DimensionToken = { $value: { value: number; unit: string } };
@@ -76,6 +93,7 @@ const navigation: Array<{ label: string; items: NavigationItem[] }> = [
       { label: 'Table', page: 'table' },
       { label: 'Tabs', page: 'tabs' },
       { label: 'Toast', page: 'toast' },
+      { label: 'Sidebar', page: 'sidebar' },
       { label: 'Text', status: 'Soon' },
     ],
   },
@@ -140,7 +158,8 @@ function getPageFromHash(): PageId {
     page === 'avatar' ||
     page === 'table' ||
     page === 'tabs' ||
-    page === 'toast'
+    page === 'toast' ||
+    page === 'sidebar'
   ) {
     return page;
   }
@@ -218,7 +237,8 @@ function Header({
     currentPage === 'avatar' ||
     currentPage === 'table' ||
     currentPage === 'tabs' ||
-    currentPage === 'toast';
+    currentPage === 'toast' ||
+    currentPage === 'sidebar';
 
   return (
     <header className="topbar">
@@ -2522,7 +2542,13 @@ function TabsPage({
   );
 }
 
-function ToastPage({ onPrevious }: { onPrevious: () => void }) {
+function ToastPage({
+  onPrevious,
+  onNext,
+}: {
+  onPrevious: () => void;
+  onNext: () => void;
+}) {
   const states: Array<{ state: ToastState; label: string; message: string }> = [
     {
       state: 'success',
@@ -2636,10 +2662,267 @@ function ToastPage({ onPrevious }: { onPrevious: () => void }) {
         </div>
       </section>
 
+      <div className="page-pagination-group">
+        <PagePagination
+          direction="previous"
+          eyebrow="Previous component"
+          title="Tabs"
+          onClick={onPrevious}
+        />
+        <PagePagination
+          direction="next"
+          eyebrow="Next component"
+          title="Sidebar"
+          onClick={onNext}
+        />
+      </div>
+    </>
+  );
+}
+
+function SidebarDemoIcon({ src }: { src: string }) {
+  return <img src={src} alt="" />;
+}
+
+function SidebarPage({ onPrevious }: { onPrevious: () => void }) {
+  const fleetItems = [
+    { label: 'Dashboard', icon: sidebarDashboard },
+    { label: 'Vehicles', icon: sidebarVehicles },
+    { label: 'Members', icon: sidebarMembers },
+    { label: 'Storage depot', icon: sidebarStorage },
+    { label: 'Billing', icon: sidebarBilling },
+    { label: 'Settings', icon: sidebarSettings },
+  ];
+
+  return (
+    <>
+      <PageIntro eyebrow="Navigation" title="Sidebar">
+        Create persistent product navigation with account context, compact menu
+        items, optional sections, and an accessible collapsed rail.
+      </PageIntro>
+
+      <section className="doc-section" id="sidebar-layouts">
+        <div className="section-heading">
+          <div>
+            <p className="section-kicker">Figma components</p>
+            <h2>Expanded and collapsed</h2>
+          </div>
+          <span className="count-pill">240px / 60px</span>
+        </div>
+        <p>
+          The expanded sidebar provides account and navigation context. The
+          collapsed rail retains the same destinations as icon-only controls
+          with accessible names and native tooltips.
+        </p>
+        <div className="sidebar-layout-showcase">
+          <article>
+            <code>Fleet · expanded</code>
+            <KofaSidebar style={{ height: 560, minHeight: 0 }}>
+              <SidebarHeader />
+              <SidebarNav>
+                <SidebarMenuItem
+                  active
+                  icon={<SidebarDemoIcon src={sidebarNetwork} />}
+                >
+                  Network
+                </SidebarMenuItem>
+                {fleetItems.map(({ label, icon }) => (
+                  <SidebarMenuItem
+                    key={label}
+                    icon={<SidebarDemoIcon src={icon} />}
+                  >
+                    {label}
+                  </SidebarMenuItem>
+                ))}
+              </SidebarNav>
+              <SidebarFooter platformLabel="Fleet Platform" />
+            </KofaSidebar>
+          </article>
+          <article>
+            <code>Atlas · collapsed</code>
+            <KofaSidebar
+              collapsed
+              accent="blue"
+              style={{ height: 560, minHeight: 0 }}
+            >
+              <SidebarHeader />
+              <SidebarNav>
+                <SidebarMenuItem
+                  icon={<SidebarDemoIcon src={sidebarDashboard} />}
+                >
+                  Dashboard
+                </SidebarMenuItem>
+                <SidebarMenuItem
+                  active
+                  background
+                  icon={<SidebarDemoIcon src={sidebarDashboardBlue} />}
+                >
+                  Members
+                </SidebarMenuItem>
+                {fleetItems.slice(2).map(({ label, icon }) => (
+                  <SidebarMenuItem
+                    key={label}
+                    icon={<SidebarDemoIcon src={icon} />}
+                  >
+                    {label}
+                  </SidebarMenuItem>
+                ))}
+              </SidebarNav>
+              <SidebarFooter platformLabel="Atlas Platform" />
+            </KofaSidebar>
+          </article>
+        </div>
+      </section>
+
+      <section className="doc-section" id="sidebar-items">
+        <div className="section-heading">
+          <div>
+            <p className="section-kicker">Menu-item primitive</p>
+            <h2>Active, background, and badge states</h2>
+          </div>
+          <span className="count-pill">34px item</span>
+        </div>
+        <p>
+          Items support leading and trailing artwork, active-page semantics, the
+          shared counter badge, and an optional four-percent accent wash.
+        </p>
+        <div className="sidebar-item-showcase">
+          <KofaSidebar style={{ height: 250, minHeight: 0 }}>
+            <SidebarNav>
+              <SidebarMenuItem
+                icon={<SidebarDemoIcon src={sidebarDashboard} />}
+              >
+                Account &amp; billing
+              </SidebarMenuItem>
+              <SidebarMenuItem
+                active
+                icon={<SidebarDemoIcon src={sidebarNetwork} />}
+              >
+                Billing
+              </SidebarMenuItem>
+              <SidebarMenuItem
+                active
+                background
+                icon={<SidebarDemoIcon src={sidebarNetwork} />}
+              >
+                Billing
+              </SidebarMenuItem>
+              <SidebarMenuItem
+                icon={<SidebarDemoIcon src={sidebarDashboard} />}
+                badge={3}
+              >
+                Account &amp; billing
+              </SidebarMenuItem>
+            </SidebarNav>
+          </KofaSidebar>
+        </div>
+      </section>
+
+      <section className="doc-section" id="sidebar-sections">
+        <div className="section-heading">
+          <div>
+            <p className="section-kicker">Atlas navigation</p>
+            <h2>Disclosure sections</h2>
+          </div>
+          <span className="count-pill">Blue accent</span>
+        </div>
+        <p>
+          Section triggers expose <Code>aria-expanded</Code> and link to their
+          controlled groups. In collapsed mode, section labels are removed
+          visually while their names remain on the item groups.
+        </p>
+        <div className="sidebar-section-showcase">
+          <KofaSidebar accent="blue" style={{ height: 520, minHeight: 0 }}>
+            <SidebarHeader
+              initials="FA"
+              name="Francis Amponsah"
+              description="Admin"
+            />
+            <SidebarNav inset={false}>
+              <SidebarSection label="GENERAL" defaultExpanded>
+                <SidebarMenuItem
+                  active
+                  background
+                  icon={<SidebarDemoIcon src={sidebarDashboardBlue} />}
+                >
+                  Dashboard
+                </SidebarMenuItem>
+              </SidebarSection>
+              <SidebarSection label="CUSTOMER 360">
+                <SidebarMenuItem
+                  icon={<SidebarDemoIcon src={sidebarMembers} />}
+                >
+                  Customers
+                </SidebarMenuItem>
+              </SidebarSection>
+              <SidebarSection label="OPERATIONS">
+                <SidebarMenuItem
+                  icon={<SidebarDemoIcon src={sidebarStorage} />}
+                >
+                  Inventory
+                </SidebarMenuItem>
+              </SidebarSection>
+              <SidebarSection label="FINANCE">
+                <SidebarMenuItem
+                  icon={<SidebarDemoIcon src={sidebarBilling} />}
+                >
+                  Payments
+                </SidebarMenuItem>
+              </SidebarSection>
+              <SidebarSection label="SETTINGS">
+                <SidebarMenuItem
+                  icon={<SidebarDemoIcon src={sidebarSettings} />}
+                >
+                  Members
+                </SidebarMenuItem>
+              </SidebarSection>
+            </SidebarNav>
+            <SidebarFooter platformLabel="Atlas Platform" />
+          </KofaSidebar>
+        </div>
+      </section>
+
+      <section className="doc-section" id="sidebar-api">
+        <div className="section-heading">
+          <div>
+            <p className="section-kicker">React</p>
+            <h2>Composing Sidebar</h2>
+          </div>
+        </div>
+        <div className="code-sample">
+          <div className="code-sample__bar">
+            <span>TSX</span>
+            <CopyButton
+              value={`<Sidebar>
+  <SidebarHeader initials="EN" name="Edison Nicholas" />
+  <SidebarNav>
+    <SidebarMenuItem active icon={<NetworkIcon />}>
+      Network
+    </SidebarMenuItem>
+  </SidebarNav>
+  <SidebarFooter platformLabel="Fleet Platform" />
+</Sidebar>`}
+              label="Copy"
+            />
+          </div>
+          <pre>
+            <code>{`<Sidebar>
+  <SidebarHeader initials="EN" name="Edison Nicholas" />
+  <SidebarNav>
+    <SidebarMenuItem active icon={<NetworkIcon />}>
+      Network
+    </SidebarMenuItem>
+  </SidebarNav>
+  <SidebarFooter platformLabel="Fleet Platform" />
+</Sidebar>`}</code>
+          </pre>
+        </div>
+      </section>
+
       <PagePagination
         direction="previous"
         eyebrow="Previous component"
-        title="Tabs"
+        title="Toast"
         onClick={onPrevious}
       />
     </>
@@ -2759,6 +3042,12 @@ function TableOfContents({ page }: { page: PageId }) {
       ['toast-accessibility', 'Live-region defaults'],
       ['toast-api', 'Using Toast'],
     ],
+    sidebar: [
+      ['sidebar-layouts', 'Expanded and collapsed'],
+      ['sidebar-items', 'Menu-item states'],
+      ['sidebar-sections', 'Disclosure sections'],
+      ['sidebar-api', 'Composing Sidebar'],
+    ],
   };
   const links = pageLinks[page];
 
@@ -2806,7 +3095,9 @@ function TableOfContents({ page }: { page: PageId }) {
                               ? 'https://www.figma.com/design/BVk88Tno1MTxZiM0k3MToy/Foundation?node-id=37-8157'
                               : page === 'toast'
                                 ? 'https://www.figma.com/design/BVk88Tno1MTxZiM0k3MToy/Foundation?node-id=37-8205'
-                                : 'https://www.figma.com/design/BVk88Tno1MTxZiM0k3MToy/Foundation'
+                                : page === 'sidebar'
+                                  ? 'https://www.figma.com/design/BVk88Tno1MTxZiM0k3MToy/Foundation?node-id=37-3463'
+                                  : 'https://www.figma.com/design/BVk88Tno1MTxZiM0k3MToy/Foundation'
         }
         target="_blank"
         rel="noreferrer"
@@ -2943,7 +3234,13 @@ export function App() {
             />
           )}
           {currentPage === 'toast' && (
-            <ToastPage onPrevious={() => navigate('tabs')} />
+            <ToastPage
+              onPrevious={() => navigate('tabs')}
+              onNext={() => navigate('sidebar')}
+            />
+          )}
+          {currentPage === 'sidebar' && (
+            <SidebarPage onPrevious={() => navigate('toast')} />
           )}
           <footer className="article-footer">
             <span>Kofa Design System</span>

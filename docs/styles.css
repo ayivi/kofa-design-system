@@ -1450,6 +1450,59 @@ button.side-nav__item:hover {
   text-transform: uppercase;
 }
 
+.sidebar-layout-showcase {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: minmax(0, 1fr) minmax(160px, 0.6fr);
+  margin-top: 28px;
+}
+
+.sidebar-layout-showcase article,
+.sidebar-item-showcase,
+.sidebar-section-showcase {
+  background: var(--docs-surface);
+  border: 1px solid var(--docs-border);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.sidebar-layout-showcase article {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px;
+}
+
+.sidebar-layout-showcase article > code {
+  color: var(--docs-muted);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.sidebar-item-showcase,
+.sidebar-section-showcase {
+  display: flex;
+  justify-content: center;
+  margin-top: 28px;
+  padding: 24px;
+}
+
+.sidebar-item-showcase {
+  background:
+    linear-gradient(var(--docs-surface), var(--docs-surface)) padding-box,
+    repeating-linear-gradient(
+        45deg,
+        var(--docs-border) 0,
+        var(--docs-border) 1px,
+        transparent 1px,
+        transparent 8px
+      )
+      border-box;
+  border-color: transparent;
+}
+
 .pagination-showcase {
   background:
     linear-gradient(var(--docs-surface), var(--docs-surface)) padding-box,
@@ -1913,6 +1966,10 @@ button.side-nav__item:hover {
     grid-template-columns: 1fr;
   }
 
+  .sidebar-layout-showcase {
+    grid-template-columns: 1fr;
+  }
+
   .pagination-showcase .kofa-pagination,
   .pagination-state-grid .kofa-pagination {
     min-width: 0;
@@ -1951,6 +2008,12 @@ button.side-nav__item:hover {
   }
 
   .toast-state-grid article {
+    padding-inline: 12px;
+  }
+
+  .sidebar-layout-showcase article,
+  .sidebar-item-showcase,
+  .sidebar-section-showcase {
     padding-inline: 12px;
   }
 
