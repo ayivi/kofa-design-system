@@ -1,0 +1,96 @@
+@layer kofa.components {
+  .kofa-modal-header {
+    align-items: center;
+    background: var(--kofa-color-neutral-white);
+    border-bottom: 1px solid var(--kofa-color-neutral-100);
+    display: flex;
+    height: 50px;
+    padding: var(--kofa-space-xl);
+    width: 100%;
+  }
+
+  .kofa-modal-header[data-icon='none'] {
+    justify-content: center;
+  }
+
+  .kofa-modal-header[data-icon='right'],
+  .kofa-modal-header[data-icon='both'] {
+    justify-content: space-between;
+  }
+
+  .kofa-modal-header__leading {
+    align-items: center;
+    display: inline-flex;
+    gap: var(--kofa-space-lg);
+    min-width: 0;
+  }
+
+  .kofa-modal-header__title {
+    color: var(--kofa-color-neutral-black);
+    font-family: var(--kofa-font-family-product);
+    font-size: var(--kofa-font-size-body-base);
+    font-weight: var(--kofa-font-weight-medium);
+    line-height: var(--kofa-line-height-body-base);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .kofa-modal-header__icon-button {
+    appearance: none;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    flex: 0 0 16px;
+    height: 16px;
+    padding: 0;
+    position: relative;
+    width: 16px;
+  }
+
+  .kofa-modal-header__icon-button::before {
+    content: '';
+    inset: -8px;
+    position: absolute;
+  }
+
+  .kofa-modal-header__icon-button:focus-visible {
+    border-radius: var(--kofa-radius-xxs);
+    outline: 2px solid var(--kofa-semantic-color-border-brand);
+    outline-offset: 3px;
+  }
+
+  .kofa-modal-header__icon-button img {
+    display: block;
+    height: 16px;
+    width: 16px;
+  }
+
+  .kofa-modal-footer {
+    align-items: center;
+    background: var(--kofa-semantic-color-background-canvas);
+    display: flex;
+    gap: 14px;
+    height: 62px;
+    justify-content: flex-end;
+    padding: var(--kofa-space-lg) var(--kofa-space-xl);
+    width: 100%;
+  }
+
+  .kofa-modal-footer[data-device='mobile'][data-orientation='horizontal']
+    > .kofa-button {
+    flex: 1 1 0;
+  }
+
+  .kofa-modal-footer[data-device='mobile'][data-orientation='vertical'] {
+    align-items: stretch;
+    flex-direction: column;
+    height: 114px;
+    justify-content: center;
+  }
+
+  .kofa-modal-footer[data-device='mobile'][data-orientation='vertical']
+    > .kofa-button {
+    width: 100%;
+  }
+}

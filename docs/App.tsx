@@ -3,6 +3,7 @@ import { Badge, CounterBadge } from '../src/components/Badge';
 import { Button } from '../src/components/Button';
 import { DropdownMenu, DropdownMenuItem } from '../src/components/DropdownMenu';
 import { Header as KofaHeader } from '../src/components/Header';
+import { ModalFooter, ModalHeader } from '../src/components/Modal';
 import colourSource from '../tokens/colours.json';
 import coreSource from '../tokens/core.json';
 import semanticSource from '../tokens/semantic.json';
@@ -16,7 +17,8 @@ type PageId =
   | 'button'
   | 'dropdown-menu'
   | 'badge'
-  | 'header';
+  | 'header'
+  | 'modal';
 type Theme = 'light' | 'dark';
 type ColorToken = { $value: string; $description?: string };
 type DimensionToken = { $value: { value: number; unit: string } };
@@ -47,6 +49,7 @@ const navigation: Array<{ label: string; items: NavigationItem[] }> = [
       { label: 'Dropdown menu', page: 'dropdown-menu' },
       { label: 'Badge', page: 'badge' },
       { label: 'Header', page: 'header' },
+      { label: 'Modal', page: 'modal' },
       { label: 'Text', status: 'Soon' },
     ],
   },
@@ -104,7 +107,8 @@ function getPageFromHash(): PageId {
     page === 'button' ||
     page === 'dropdown-menu' ||
     page === 'badge' ||
-    page === 'header'
+    page === 'header' ||
+    page === 'modal'
   ) {
     return page;
   }
@@ -175,7 +179,8 @@ function Header({
     currentPage === 'button' ||
     currentPage === 'dropdown-menu' ||
     currentPage === 'badge' ||
-    currentPage === 'header';
+    currentPage === 'header' ||
+    currentPage === 'modal';
 
   return (
     <header className="topbar">
@@ -1375,7 +1380,13 @@ function BadgePage({
   );
 }
 
-function HeaderPage({ onPrevious }: { onPrevious: () => void }) {
+function HeaderPage({
+  onPrevious,
+  onNext,
+}: {
+  onPrevious: () => void;
+  onNext: () => void;
+}) {
   const placements = ['right', 'none', 'both', 'left'] as const;
 
   return (
@@ -1491,10 +1502,142 @@ function HeaderPage({ onPrevious }: { onPrevious: () => void }) {
         </div>
       </section>
 
+      <div className="page-pagination-group">
+        <PagePagination
+          direction="previous"
+          eyebrow="Previous component"
+          title="Badge"
+          onClick={onPrevious}
+        />
+        <PagePagination
+          direction="next"
+          eyebrow="Next component"
+          title="Modal"
+          onClick={onNext}
+        />
+      </div>
+    </>
+  );
+}
+
+function ModalPage({ onPrevious }: { onPrevious: () => void }) {
+  return (
+    <>
+      <PageIntro eyebrow="Components" title="Modal">
+        Modal headers and footers create consistent framing, navigation, and
+        action placement for focused tasks across desktop and mobile.
+      </PageIntro>
+
+      <section className="doc-section" id="modal-header">
+        <div className="section-heading">
+          <div>
+            <p className="section-kicker">Navigation</p>
+            <h2>Modal header</h2>
+          </div>
+          <span className="count-pill">3 Figma variants</span>
+        </div>
+        <p>
+          The 50px header supports a centered title, a right-side close control,
+          or back and close controls around a left-aligned title.
+        </p>
+        <div className="modal-parts-showcase">
+          <ModalHeader title="Remove From Fleet" />
+          <ModalHeader title="Remove From Fleet" icon="right" />
+          <ModalHeader title="Create new member" icon="both" />
+        </div>
+      </section>
+
+      <section className="doc-section" id="modal-footer">
+        <div className="section-heading">
+          <div>
+            <p className="section-kicker">Actions</p>
+            <h2>Modal footer</h2>
+          </div>
+          <span className="count-pill">3 Figma variants</span>
+        </div>
+        <p>
+          Desktop actions align right. Mobile actions can share the row equally
+          or stack vertically with the primary action first.
+        </p>
+        <div className="modal-footer-showcase">
+          <ModalFooter />
+          <ModalFooter device="mobile" />
+          <ModalFooter device="mobile" orientation="vertical" />
+        </div>
+      </section>
+
+      <section className="doc-section" id="modal-composition">
+        <div className="section-heading">
+          <div>
+            <p className="section-kicker">Accessibility</p>
+            <h2>Composing a dialog</h2>
+          </div>
+        </div>
+        <p>
+          These pieces provide the visual framing. Compose them inside your
+          application’s accessible dialog primitive so focus trapping,
+          dismissal, labelling, and portal behavior remain controlled by the
+          product shell.
+        </p>
+        <div className="callout">
+          <InfoIcon />
+          <p>
+            Connect <Code>onClose</Code> to both the header close control and
+            the footer Close button. The exported icons include accessible
+            button labels while remaining decorative artwork.
+          </p>
+        </div>
+      </section>
+
+      <section className="doc-section" id="modal-api">
+        <div className="section-heading">
+          <div>
+            <p className="section-kicker">React</p>
+            <h2>Using modal parts</h2>
+          </div>
+        </div>
+        <div className="code-sample">
+          <div className="code-sample__bar">
+            <span>TSX</span>
+            <CopyButton
+              value={`<ModalHeader
+  title="Create new member"
+  icon="both"
+  onBack={goBack}
+  onClose={closeModal}
+/>
+
+<ModalFooter
+  device="mobile"
+  orientation="vertical"
+  onClose={closeModal}
+  onPrimaryAction={saveMember}
+/>`}
+              label="Copy"
+            />
+          </div>
+          <pre>
+            <code>{`<ModalHeader
+  title="Create new member"
+  icon="both"
+  onBack={goBack}
+  onClose={closeModal}
+/>
+
+<ModalFooter
+  device="mobile"
+  orientation="vertical"
+  onClose={closeModal}
+  onPrimaryAction={saveMember}
+/>`}</code>
+          </pre>
+        </div>
+      </section>
+
       <PagePagination
         direction="previous"
         eyebrow="Previous component"
-        title="Badge"
+        title="Header"
         onClick={onPrevious}
       />
     </>
@@ -1572,6 +1715,12 @@ function TableOfContents({ page }: { page: PageId }) {
       ['header-actions', 'Custom actions'],
       ['header-api', 'Using Header'],
     ],
+    modal: [
+      ['modal-header', 'Modal header'],
+      ['modal-footer', 'Modal footer'],
+      ['modal-composition', 'Composing a dialog'],
+      ['modal-api', 'Using modal parts'],
+    ],
   };
   const links = pageLinks[page];
 
@@ -1605,7 +1754,9 @@ function TableOfContents({ page }: { page: PageId }) {
                 ? 'https://www.figma.com/design/BVk88Tno1MTxZiM0k3MToy/Foundation?node-id=37-2746'
                 : page === 'header'
                   ? 'https://www.figma.com/design/BVk88Tno1MTxZiM0k3MToy/Foundation?node-id=37-2846'
-                  : 'https://www.figma.com/design/BVk88Tno1MTxZiM0k3MToy/Foundation'
+                  : page === 'modal'
+                    ? 'https://www.figma.com/design/BVk88Tno1MTxZiM0k3MToy/Foundation?node-id=37-3240'
+                    : 'https://www.figma.com/design/BVk88Tno1MTxZiM0k3MToy/Foundation'
         }
         target="_blank"
         rel="noreferrer"
@@ -1700,7 +1851,13 @@ export function App() {
             />
           )}
           {currentPage === 'header' && (
-            <HeaderPage onPrevious={() => navigate('badge')} />
+            <HeaderPage
+              onPrevious={() => navigate('badge')}
+              onNext={() => navigate('modal')}
+            />
+          )}
+          {currentPage === 'modal' && (
+            <ModalPage onPrevious={() => navigate('header')} />
           )}
           <footer className="article-footer">
             <span>Kofa Design System</span>

@@ -1143,6 +1143,28 @@ button.side-nav__item:hover {
   font-size: 10px;
 }
 
+.modal-parts-showcase,
+.modal-footer-showcase {
+  background: var(--kofa-color-neutral-200);
+  border: 1px solid var(--docs-border);
+  border-radius: 14px;
+  display: grid;
+  gap: 16px;
+  margin-top: 28px;
+  overflow-x: auto;
+  padding: 16px;
+}
+
+.modal-parts-showcase > *,
+.modal-footer-showcase > * {
+  flex: none;
+  width: 536px;
+}
+
+.modal-footer-showcase > [data-device='mobile'] {
+  width: 393px;
+}
+
 .button-matrix {
   border: 1px solid var(--docs-border);
   border-radius: 14px;
