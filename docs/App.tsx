@@ -16,6 +16,7 @@ import {
   TableHeaderCell,
   TableRow,
 } from '../src/components/Table';
+import { Tab, TabList, TabPanel, Tabs } from '../src/components/Tabs';
 import colourSource from '../tokens/colours.json';
 import coreSource from '../tokens/core.json';
 import semanticSource from '../tokens/semantic.json';
@@ -34,7 +35,8 @@ type PageId =
   | 'logo'
   | 'pagination'
   | 'avatar'
-  | 'table';
+  | 'table'
+  | 'tabs';
 type Theme = 'light' | 'dark';
 type ColorToken = { $value: string; $description?: string };
 type DimensionToken = { $value: { value: number; unit: string } };
@@ -70,6 +72,7 @@ const navigation: Array<{ label: string; items: NavigationItem[] }> = [
       { label: 'Pagination', page: 'pagination' },
       { label: 'Avatar', page: 'avatar' },
       { label: 'Table', page: 'table' },
+      { label: 'Tabs', page: 'tabs' },
       { label: 'Text', status: 'Soon' },
     ],
   },
@@ -132,7 +135,8 @@ function getPageFromHash(): PageId {
     page === 'logo' ||
     page === 'pagination' ||
     page === 'avatar' ||
-    page === 'table'
+    page === 'table' ||
+    page === 'tabs'
   ) {
     return page;
   }
@@ -208,7 +212,8 @@ function Header({
     currentPage === 'logo' ||
     currentPage === 'pagination' ||
     currentPage === 'avatar' ||
-    currentPage === 'table';
+    currentPage === 'table' ||
+    currentPage === 'tabs';
 
   return (
     <header className="topbar">
@@ -2145,7 +2150,13 @@ function AvatarPage({
   );
 }
 
-function TablePage({ onPrevious }: { onPrevious: () => void }) {
+function TablePage({
+  onPrevious,
+  onNext,
+}: {
+  onPrevious: () => void;
+  onNext: () => void;
+}) {
   const positions = ['none', 'left', 'right', 'both'] as const;
 
   return (
@@ -2331,10 +2342,161 @@ function TablePage({ onPrevious }: { onPrevious: () => void }) {
         </div>
       </section>
 
+      <div className="page-pagination-group">
+        <PagePagination
+          direction="previous"
+          eyebrow="Previous component"
+          title="Avatar"
+          onClick={onPrevious}
+        />
+        <PagePagination
+          direction="next"
+          eyebrow="Next component"
+          title="Tabs"
+          onClick={onNext}
+        />
+      </div>
+    </>
+  );
+}
+
+function TabsPage({ onPrevious }: { onPrevious: () => void }) {
+  const [activeTab, setActiveTab] = useState('overview');
+  const labels = [
+    'Tab item 1',
+    'Tab item 2',
+    'Tab item 3',
+    'Tab item 4',
+    'Tab item 5',
+  ];
+
+  return (
+    <>
+      <PageIntro eyebrow="Navigation" title="Tabs">
+        Organize related views at the same hierarchy level with a compact,
+        keyboard-accessible navigation pattern.
+      </PageIntro>
+
+      <section className="doc-section" id="tabs-anatomy">
+        <div className="section-heading">
+          <div>
+            <p className="section-kicker">Figma component</p>
+            <h2>Tabs and panels</h2>
+          </div>
+          <span className="count-pill">30px item</span>
+        </div>
+        <p>
+          The active tab uses medium text and a 2px underline. Inactive tabs use
+          regular neutral text while retaining the same compact dimensions.
+        </p>
+        <div className="tabs-showcase">
+          <Tabs value={activeTab} onValueChange={setActiveTab}>
+            <TabList aria-label="Vehicle sections">
+              <Tab value="overview">Overview</Tab>
+              <Tab value="activity">Activity</Tab>
+              <Tab value="assignments">Assignments</Tab>
+              <Tab value="settings">Settings</Tab>
+            </TabList>
+            <TabPanel value="overview">Overview content</TabPanel>
+            <TabPanel value="activity">Activity content</TabPanel>
+            <TabPanel value="assignments">Assignments content</TabPanel>
+            <TabPanel value="settings">Settings content</TabPanel>
+          </Tabs>
+        </div>
+      </section>
+
+      <section className="doc-section" id="tabs-counts">
+        <div className="section-heading">
+          <div>
+            <p className="section-kicker">Figma compositions</p>
+            <h2>Two to five items</h2>
+          </div>
+          <span className="count-pill">16px gap</span>
+        </div>
+        <p>
+          Use concise labels and include only peer destinations. The list
+          scrolls horizontally when its labels exceed the available space.
+        </p>
+        <div className="tabs-count-grid">
+          {[5, 4, 3, 2].map((count) => (
+            <article key={count}>
+              <code>{count} tabs</code>
+              <Tabs defaultValue="tab-1">
+                <TabList aria-label={`${count} tab example`}>
+                  {labels.slice(0, count).map((label, index) => (
+                    <Tab value={`tab-${index + 1}`} key={label}>
+                      {label}
+                    </Tab>
+                  ))}
+                </TabList>
+              </Tabs>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="doc-section" id="tabs-keyboard">
+        <div className="section-heading">
+          <div>
+            <p className="section-kicker">Accessibility</p>
+            <h2>Keyboard behavior</h2>
+          </div>
+        </div>
+        <p>
+          Left and Right Arrow move focus, Home and End jump to the boundaries,
+          and disabled tabs are skipped. Automatic activation follows focus;
+          choose <Code>activationMode="manual"</Code> when panel changes are
+          expensive.
+        </p>
+        <div className="callout">
+          <InfoIcon />
+          <p>
+            Every <Code>Tab</Code> and <Code>TabPanel</Code> pair shares a
+            stable <Code>value</Code>. The component creates the required ARIA
+            IDs and relationships automatically.
+          </p>
+        </div>
+      </section>
+
+      <section className="doc-section" id="tabs-api">
+        <div className="section-heading">
+          <div>
+            <p className="section-kicker">React</p>
+            <h2>Using Tabs</h2>
+          </div>
+        </div>
+        <div className="code-sample">
+          <div className="code-sample__bar">
+            <span>TSX</span>
+            <CopyButton
+              value={`<Tabs defaultValue="overview">
+  <TabList aria-label="Vehicle sections">
+    <Tab value="overview">Overview</Tab>
+    <Tab value="activity">Activity</Tab>
+  </TabList>
+  <TabPanel value="overview">Overview content</TabPanel>
+  <TabPanel value="activity">Activity content</TabPanel>
+</Tabs>`}
+              label="Copy"
+            />
+          </div>
+          <pre>
+            <code>{`<Tabs defaultValue="overview">
+  <TabList aria-label="Vehicle sections">
+    <Tab value="overview">Overview</Tab>
+    <Tab value="activity">Activity</Tab>
+  </TabList>
+  <TabPanel value="overview">Overview content</TabPanel>
+  <TabPanel value="activity">Activity content</TabPanel>
+</Tabs>`}</code>
+          </pre>
+        </div>
+      </section>
+
       <PagePagination
         direction="previous"
         eyebrow="Previous component"
-        title="Avatar"
+        title="Table"
         onClick={onPrevious}
       />
     </>
@@ -2442,6 +2604,12 @@ function TableOfContents({ page }: { page: PageId }) {
       ['table-cells', 'Cell content'],
       ['table-api', 'Using table primitives'],
     ],
+    tabs: [
+      ['tabs-anatomy', 'Tabs and panels'],
+      ['tabs-counts', 'Two to five items'],
+      ['tabs-keyboard', 'Keyboard behavior'],
+      ['tabs-api', 'Using Tabs'],
+    ],
   };
   const links = pageLinks[page];
 
@@ -2485,7 +2653,9 @@ function TableOfContents({ page }: { page: PageId }) {
                           ? 'https://www.figma.com/design/BVk88Tno1MTxZiM0k3MToy/Foundation?node-id=37-8287'
                           : page === 'table'
                             ? 'https://www.figma.com/design/BVk88Tno1MTxZiM0k3MToy/Foundation?node-id=37-7899'
-                            : 'https://www.figma.com/design/BVk88Tno1MTxZiM0k3MToy/Foundation'
+                            : page === 'tabs'
+                              ? 'https://www.figma.com/design/BVk88Tno1MTxZiM0k3MToy/Foundation?node-id=37-8157'
+                              : 'https://www.figma.com/design/BVk88Tno1MTxZiM0k3MToy/Foundation'
         }
         target="_blank"
         rel="noreferrer"
@@ -2610,7 +2780,13 @@ export function App() {
             />
           )}
           {currentPage === 'table' && (
-            <TablePage onPrevious={() => navigate('avatar')} />
+            <TablePage
+              onPrevious={() => navigate('avatar')}
+              onNext={() => navigate('tabs')}
+            />
+          )}
+          {currentPage === 'tabs' && (
+            <TabsPage onPrevious={() => navigate('table')} />
           )}
           <footer className="article-footer">
             <span>Kofa Design System</span>

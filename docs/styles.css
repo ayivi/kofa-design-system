@@ -1346,6 +1346,63 @@ button.side-nav__item:hover {
   width: 250px;
 }
 
+.tabs-showcase {
+  background:
+    linear-gradient(var(--docs-surface), var(--docs-surface)) padding-box,
+    repeating-linear-gradient(
+        45deg,
+        var(--docs-border) 0,
+        var(--docs-border) 1px,
+        transparent 1px,
+        transparent 8px
+      )
+      border-box;
+  border: 1px solid transparent;
+  border-radius: 14px;
+  margin-top: 28px;
+  padding: 34px;
+}
+
+.tabs-showcase .kofa-tabs__panel {
+  background: var(--docs-surface-raised);
+  border: 1px solid var(--docs-border);
+  border-radius: 10px;
+  color: var(--docs-muted);
+  font-size: 12px;
+  margin-top: 22px;
+  min-height: 88px;
+  padding: 20px;
+}
+
+.tabs-count-grid {
+  background: var(--docs-surface);
+  border: 1px solid var(--docs-border);
+  border-radius: 14px;
+  display: grid;
+  gap: 22px;
+  margin-top: 28px;
+  overflow: hidden;
+  padding: 24px;
+}
+
+.tabs-count-grid article {
+  align-items: center;
+  display: grid;
+  gap: 24px;
+  grid-template-columns: 58px minmax(0, 1fr);
+  min-width: 0;
+}
+
+.tabs-count-grid article > code {
+  color: var(--docs-muted);
+  font-size: 10px;
+  text-transform: uppercase;
+}
+
+.tabs-count-grid .kofa-tabs {
+  min-width: 0;
+}
+
 .pagination-showcase {
   background:
     linear-gradient(var(--docs-surface), var(--docs-surface)) padding-box,
@@ -1799,6 +1856,10 @@ button.side-nav__item:hover {
 
   .table-variant-grid {
     grid-template-columns: 1fr;
+  }
+
+  .tabs-showcase {
+    padding: 24px;
   }
 
   .pagination-showcase .kofa-pagination,

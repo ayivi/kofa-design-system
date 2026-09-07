@@ -9,5 +9,6 @@ export * from './components/Logo';
 export * from './components/Modal';
 export * from './components/Pagination';
 export * from './components/Table';
+export * from './components/Tabs';
 export * from './components/Text';
 export * from './tokens';

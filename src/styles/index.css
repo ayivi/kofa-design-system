@@ -10,6 +10,7 @@
 @import '../components/Modal/Modal.css';
 @import '../components/Pagination/Pagination.css';
 @import '../components/Table/Table.css';
+@import '../components/Tabs/Tabs.css';
 
 @layer kofa.base {
   *,
