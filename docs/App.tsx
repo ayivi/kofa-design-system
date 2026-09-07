@@ -1,4 +1,6 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
+import { Avatar } from '../src/components/Avatar';
+import avatarExample from '../src/components/Avatar/assets/avatar-example.jpg';
 import { Badge, CounterBadge } from '../src/components/Badge';
 import { Button } from '../src/components/Button';
 import { DropdownMenu, DropdownMenuItem } from '../src/components/DropdownMenu';
@@ -22,7 +24,8 @@ type PageId =
   | 'header'
   | 'modal'
   | 'logo'
-  | 'pagination';
+  | 'pagination'
+  | 'avatar';
 type Theme = 'light' | 'dark';
 type ColorToken = { $value: string; $description?: string };
 type DimensionToken = { $value: { value: number; unit: string } };
@@ -56,6 +59,7 @@ const navigation: Array<{ label: string; items: NavigationItem[] }> = [
       { label: 'Modal', page: 'modal' },
       { label: 'Logo', page: 'logo' },
       { label: 'Pagination', page: 'pagination' },
+      { label: 'Avatar', page: 'avatar' },
       { label: 'Text', status: 'Soon' },
     ],
   },
@@ -116,7 +120,8 @@ function getPageFromHash(): PageId {
     page === 'header' ||
     page === 'modal' ||
     page === 'logo' ||
-    page === 'pagination'
+    page === 'pagination' ||
+    page === 'avatar'
   ) {
     return page;
   }
@@ -190,7 +195,8 @@ function Header({
     currentPage === 'header' ||
     currentPage === 'modal' ||
     currentPage === 'logo' ||
-    currentPage === 'pagination';
+    currentPage === 'pagination' ||
+    currentPage === 'avatar';
 
   return (
     <header className="topbar">
@@ -1821,7 +1827,13 @@ function LogoPage({
   );
 }
 
-function PaginationPage({ onPrevious }: { onPrevious: () => void }) {
+function PaginationPage({
+  onPrevious,
+  onNext,
+}: {
+  onPrevious: () => void;
+  onNext: () => void;
+}) {
   const [page, setPage] = useState(2);
 
   return (
@@ -1948,10 +1960,159 @@ function PaginationPage({ onPrevious }: { onPrevious: () => void }) {
         </div>
       </section>
 
+      <div className="page-pagination-group">
+        <PagePagination
+          direction="previous"
+          eyebrow="Previous component"
+          title="Logo"
+          onClick={onPrevious}
+        />
+        <PagePagination
+          direction="next"
+          eyebrow="Next component"
+          title="Avatar"
+          onClick={onNext}
+        />
+      </div>
+    </>
+  );
+}
+
+function AvatarPage({ onPrevious }: { onPrevious: () => void }) {
+  const sizes = ['2xl', 'xl', 'lg', 'md', 's', 'xs', 'xxs'] as const;
+
+  return (
+    <>
+      <PageIntro eyebrow="Identity" title="Avatar">
+        Represent people consistently with compact initials or user-provided
+        profile imagery across seven interface sizes.
+      </PageIntro>
+
+      <section className="doc-section" id="avatar-treatments">
+        <div className="section-heading">
+          <div>
+            <p className="section-kicker">Figma variants</p>
+            <h2>Avatar treatments</h2>
+          </div>
+          <span className="count-pill">2 treatments</span>
+        </div>
+        <p>
+          Initials use Kofa amber as the dependable fallback. Image avatars crop
+          user-supplied artwork to the same square frame.
+        </p>
+        <div className="avatar-treatment-grid">
+          <article>
+            <Avatar size="2xl" initials="AL" aria-label="Alex Lamptey" />
+            <div>
+              <h3>Initials</h3>
+              <code>variant="initials"</code>
+            </div>
+          </article>
+          <article>
+            <Avatar
+              size="2xl"
+              src={avatarExample}
+              alt="Person sitting on a motorcycle"
+            />
+            <div>
+              <h3>Image</h3>
+              <code>variant="image"</code>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section className="doc-section" id="avatar-scale">
+        <div className="section-heading">
+          <div>
+            <p className="section-kicker">Size system</p>
+            <h2>Seven-step scale</h2>
+          </div>
+          <span className="count-pill">16–128px</span>
+        </div>
+        <p>
+          Select the smallest size that remains legible in context. The same
+          tokens apply to both initials and image treatments.
+        </p>
+        <div className="avatar-scale-table">
+          {sizes.map((size) => (
+            <article key={size}>
+              <code>{size}</code>
+              <div className="avatar-scale-table__preview">
+                <Avatar size={size} initials="AL" />
+                <Avatar
+                  size={size}
+                  src={avatarExample}
+                  alt=""
+                  aria-hidden="true"
+                />
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="doc-section" id="avatar-fallback">
+        <div className="section-heading">
+          <div>
+            <p className="section-kicker">Resilience</p>
+            <h2>Image and fallback behavior</h2>
+          </div>
+        </div>
+        <p>
+          Supplying <Code>src</Code> selects the image treatment automatically.
+          If the image fails to load, Avatar returns to its initials treatment
+          without changing dimensions.
+        </p>
+        <div className="callout">
+          <InfoIcon />
+          <p>
+            Write useful <Code>alt</Code> text when the person’s identity is not
+            available nearby. Use an empty string when adjacent content already
+            provides their name.
+          </p>
+        </div>
+      </section>
+
+      <section className="doc-section" id="avatar-api">
+        <div className="section-heading">
+          <div>
+            <p className="section-kicker">React</p>
+            <h2>Using Avatar</h2>
+          </div>
+        </div>
+        <div className="code-sample">
+          <div className="code-sample__bar">
+            <span>TSX</span>
+            <CopyButton
+              value={`<Avatar initials="AL" size="md" aria-label="Alex Lamptey" />
+
+<Avatar
+  src={profileUrl}
+  alt="Alex Lamptey"
+  initials="AL"
+  size="lg"
+/>`}
+              label="Copy"
+            />
+          </div>
+          <pre>
+            <code>{`<Avatar initials="AL" size="md" aria-label="Alex Lamptey" />
+
+<Avatar
+  src={profileUrl}
+  alt="Alex Lamptey"
+  initials="AL"
+  size="lg"
+/>`}</code>
+          </pre>
+        </div>
+      </section>
+
       <PagePagination
         direction="previous"
         eyebrow="Previous component"
-        title="Logo"
+        title="Pagination"
         onClick={onPrevious}
       />
     </>
@@ -2047,6 +2208,12 @@ function TableOfContents({ page }: { page: PageId }) {
       ['pagination-states', 'Navigation states'],
       ['pagination-api', 'Using Pagination'],
     ],
+    avatar: [
+      ['avatar-treatments', 'Avatar treatments'],
+      ['avatar-scale', 'Seven-step scale'],
+      ['avatar-fallback', 'Fallback behavior'],
+      ['avatar-api', 'Using Avatar'],
+    ],
   };
   const links = pageLinks[page];
 
@@ -2086,7 +2253,9 @@ function TableOfContents({ page }: { page: PageId }) {
                       ? 'https://www.figma.com/design/BVk88Tno1MTxZiM0k3MToy/Foundation?node-id=37-2886'
                       : page === 'pagination'
                         ? 'https://www.figma.com/design/BVk88Tno1MTxZiM0k3MToy/Foundation?node-id=37-3300'
-                        : 'https://www.figma.com/design/BVk88Tno1MTxZiM0k3MToy/Foundation'
+                        : page === 'avatar'
+                          ? 'https://www.figma.com/design/BVk88Tno1MTxZiM0k3MToy/Foundation?node-id=37-8287'
+                          : 'https://www.figma.com/design/BVk88Tno1MTxZiM0k3MToy/Foundation'
         }
         target="_blank"
         rel="noreferrer"
@@ -2199,7 +2368,13 @@ export function App() {
             />
           )}
           {currentPage === 'pagination' && (
-            <PaginationPage onPrevious={() => navigate('logo')} />
+            <PaginationPage
+              onPrevious={() => navigate('logo')}
+              onNext={() => navigate('avatar')}
+            />
+          )}
+          {currentPage === 'avatar' && (
+            <AvatarPage onPrevious={() => navigate('pagination')} />
           )}
           <footer className="article-footer">
             <span>Kofa Design System</span>

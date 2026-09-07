@@ -1243,6 +1243,65 @@ button.side-nav__item:hover {
   padding: 28px;
 }
 
+.avatar-treatment-grid {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 28px;
+}
+
+.avatar-treatment-grid article {
+  align-items: center;
+  background: var(--docs-surface);
+  border: 1px solid var(--docs-border);
+  border-radius: 14px;
+  display: flex;
+  gap: 24px;
+  min-width: 0;
+  padding: 24px;
+}
+
+.avatar-treatment-grid h3 {
+  color: var(--docs-ink);
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0 0 7px;
+}
+
+.avatar-treatment-grid code,
+.avatar-scale-table > article > code {
+  color: var(--docs-muted);
+  font-size: 10px;
+}
+
+.avatar-scale-table {
+  border: 1px solid var(--docs-border);
+  border-radius: 14px;
+  display: grid;
+  margin-top: 28px;
+  overflow: hidden;
+}
+
+.avatar-scale-table article {
+  align-items: center;
+  background: var(--docs-surface);
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 64px minmax(0, 1fr);
+  min-height: 76px;
+  padding: 14px 20px;
+}
+
+.avatar-scale-table article + article {
+  border-top: 1px solid var(--docs-border);
+}
+
+.avatar-scale-table__preview {
+  align-items: center;
+  display: flex;
+  gap: 18px;
+}
+
 .pagination-showcase {
   background:
     linear-gradient(var(--docs-surface), var(--docs-surface)) padding-box,
@@ -1690,6 +1749,10 @@ button.side-nav__item:hover {
     grid-template-columns: 1fr;
   }
 
+  .avatar-treatment-grid {
+    grid-template-columns: 1fr;
+  }
+
   .pagination-showcase .kofa-pagination,
   .pagination-state-grid .kofa-pagination {
     min-width: 0;
@@ -1714,6 +1777,11 @@ button.side-nav__item:hover {
   }
 
   .button-icon-grid > div {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .avatar-treatment-grid article {
     align-items: flex-start;
     flex-direction: column;
   }

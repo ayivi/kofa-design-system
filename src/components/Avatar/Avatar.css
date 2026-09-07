@@ -1,0 +1,89 @@
+@layer kofa.components {
+  .kofa-avatar {
+    align-items: center;
+    background: var(--kofa-color-amber-500);
+    border-radius: var(--kofa-radius-xxs);
+    color: var(--kofa-color-neutral-black);
+    display: inline-flex;
+    flex: none;
+    font-family: var(--kofa-font-family-product);
+    font-weight: var(--kofa-font-weight-medium);
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    vertical-align: middle;
+  }
+
+  .kofa-avatar[data-variant='image'] {
+    background: transparent;
+    border: 0.5px solid rgb(255 255 255 / 10%);
+  }
+
+  .kofa-avatar__image {
+    display: block;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+    width: 100%;
+  }
+
+  .kofa-avatar__initials {
+    display: block;
+    white-space: nowrap;
+  }
+
+  .kofa-avatar[data-size='xxs'] {
+    font-size: 6px;
+    height: 16px;
+    letter-spacing: 0.5px;
+    line-height: 18px;
+    width: 16px;
+  }
+
+  .kofa-avatar[data-size='xs'] {
+    font-size: 10px;
+    height: 24px;
+    line-height: 18px;
+    width: 24px;
+  }
+
+  .kofa-avatar[data-size='s'] {
+    font-size: 14px;
+    height: 32px;
+    line-height: 20px;
+    width: 32px;
+  }
+
+  .kofa-avatar[data-size='md'] {
+    font-size: 16px;
+    height: 40px;
+    letter-spacing: -0.32px;
+    line-height: 24px;
+    width: 40px;
+  }
+
+  .kofa-avatar[data-size='lg'] {
+    font-size: 18px;
+    height: 48px;
+    letter-spacing: -0.36px;
+    line-height: 26px;
+    width: 48px;
+  }
+
+  .kofa-avatar[data-size='xl'] {
+    height: 72px;
+    width: 72px;
+  }
+
+  .kofa-avatar[data-size='2xl'] {
+    height: 128px;
+    width: 128px;
+  }
+
+  .kofa-avatar[data-size='xl'],
+  .kofa-avatar[data-size='2xl'] {
+    font-size: var(--kofa-font-size-display-2);
+    letter-spacing: var(--kofa-letter-spacing-display-2);
+    line-height: var(--kofa-line-height-display-2);
+  }
+}

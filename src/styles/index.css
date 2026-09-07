@@ -1,6 +1,7 @@
 @import './fonts.css';
 @import './generated/tokens.css';
 @import './typography.css';
+@import '../components/Avatar/Avatar.css';
 @import '../components/Badge/Badge.css';
 @import '../components/Button/Button.css';
 @import '../components/DropdownMenu/DropdownMenu.css';
