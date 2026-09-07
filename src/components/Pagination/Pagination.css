@@ -1,0 +1,100 @@
+@layer kofa.components {
+  .kofa-pagination {
+    align-items: center;
+    background: var(--kofa-color-neutral-white);
+    color: var(--kofa-color-neutral-black);
+    display: flex;
+    font-family: var(--kofa-font-family-product);
+    font-size: 14px;
+    font-weight: var(--kofa-font-weight-medium);
+    justify-content: space-between;
+    line-height: 20px;
+    padding: var(--kofa-space-s) var(--kofa-space-lg);
+    width: 100%;
+  }
+
+  .kofa-pagination__summary {
+    white-space: nowrap;
+  }
+
+  .kofa-pagination__controls,
+  .kofa-pagination__pages,
+  .kofa-pagination__navigation,
+  .kofa-pagination__page {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+  }
+
+  .kofa-pagination__controls {
+    gap: var(--kofa-space-xxs);
+  }
+
+  .kofa-pagination__pages {
+    gap: var(--kofa-space-xxs);
+  }
+
+  .kofa-pagination__navigation,
+  .kofa-pagination__page {
+    appearance: none;
+    background: transparent;
+    border: 0;
+    color: inherit;
+    cursor: pointer;
+    font: inherit;
+    min-height: 36px;
+    padding: var(--kofa-space-md);
+  }
+
+  .kofa-pagination__navigation {
+    gap: var(--kofa-space-md);
+  }
+
+  .kofa-pagination__page {
+    border-radius: var(--kofa-radius-s);
+    min-width: 36px;
+  }
+
+  .kofa-pagination__page[aria-current='page'] {
+    background: var(--kofa-color-blue-500);
+    color: var(--kofa-color-neutral-white);
+  }
+
+  .kofa-pagination__navigation:hover:not(:disabled),
+  .kofa-pagination__page:hover:not([aria-current='page']) {
+    background: var(--kofa-color-neutral-50);
+  }
+
+  .kofa-pagination__navigation:focus-visible,
+  .kofa-pagination__page:focus-visible {
+    box-shadow:
+      0 0 0 2px var(--kofa-color-neutral-white),
+      0 0 0 4px var(--kofa-color-blue-500);
+    outline: none;
+  }
+
+  .kofa-pagination__navigation:disabled {
+    color: rgb(16 24 32 / 50%);
+    cursor: not-allowed;
+  }
+
+  .kofa-pagination__caret {
+    display: block;
+    flex: none;
+    height: 16px;
+    width: 16px;
+  }
+
+  @media (max-width: 640px) {
+    .kofa-pagination {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: var(--kofa-space-md);
+    }
+
+    .kofa-pagination__controls {
+      align-self: stretch;
+      justify-content: space-between;
+    }
+  }
+}

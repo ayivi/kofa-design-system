@@ -5,6 +5,7 @@ import { DropdownMenu, DropdownMenuItem } from '../src/components/DropdownMenu';
 import { Header as KofaHeader } from '../src/components/Header';
 import { Logo, PoweredByKofa } from '../src/components/Logo';
 import { ModalFooter, ModalHeader } from '../src/components/Modal';
+import { Pagination } from '../src/components/Pagination';
 import colourSource from '../tokens/colours.json';
 import coreSource from '../tokens/core.json';
 import semanticSource from '../tokens/semantic.json';
@@ -20,7 +21,8 @@ type PageId =
   | 'badge'
   | 'header'
   | 'modal'
-  | 'logo';
+  | 'logo'
+  | 'pagination';
 type Theme = 'light' | 'dark';
 type ColorToken = { $value: string; $description?: string };
 type DimensionToken = { $value: { value: number; unit: string } };
@@ -53,6 +55,7 @@ const navigation: Array<{ label: string; items: NavigationItem[] }> = [
       { label: 'Header', page: 'header' },
       { label: 'Modal', page: 'modal' },
       { label: 'Logo', page: 'logo' },
+      { label: 'Pagination', page: 'pagination' },
       { label: 'Text', status: 'Soon' },
     ],
   },
@@ -112,7 +115,8 @@ function getPageFromHash(): PageId {
     page === 'badge' ||
     page === 'header' ||
     page === 'modal' ||
-    page === 'logo'
+    page === 'logo' ||
+    page === 'pagination'
   ) {
     return page;
   }
@@ -185,7 +189,8 @@ function Header({
     currentPage === 'badge' ||
     currentPage === 'header' ||
     currentPage === 'modal' ||
-    currentPage === 'logo';
+    currentPage === 'logo' ||
+    currentPage === 'pagination';
 
   return (
     <header className="topbar">
@@ -1663,7 +1668,13 @@ function ModalPage({
   );
 }
 
-function LogoPage({ onPrevious }: { onPrevious: () => void }) {
+function LogoPage({
+  onPrevious,
+  onNext,
+}: {
+  onPrevious: () => void;
+  onNext: () => void;
+}) {
   const variants = ['wordmark', 'icon', 'lockup', 'stack'] as const;
   const sizes = [40, 32, 24, 20, 16] as const;
 
@@ -1792,10 +1803,155 @@ function LogoPage({ onPrevious }: { onPrevious: () => void }) {
         </div>
       </section>
 
+      <div className="page-pagination-group">
+        <PagePagination
+          direction="previous"
+          eyebrow="Previous component"
+          title="Modal"
+          onClick={onPrevious}
+        />
+        <PagePagination
+          direction="next"
+          eyebrow="Next component"
+          title="Pagination"
+          onClick={onNext}
+        />
+      </div>
+    </>
+  );
+}
+
+function PaginationPage({ onPrevious }: { onPrevious: () => void }) {
+  const [page, setPage] = useState(2);
+
+  return (
+    <>
+      <PageIntro eyebrow="Navigation" title="Pagination">
+        Help people understand their position in a collection and move between
+        compact, predictable groups of results.
+      </PageIntro>
+
+      <section className="doc-section" id="pagination-anatomy">
+        <div className="section-heading">
+          <div>
+            <p className="section-kicker">Figma component</p>
+            <h2>Pagination anatomy</h2>
+          </div>
+          <span className="count-pill">48px bar</span>
+        </div>
+        <p>
+          The bar combines a live entry range, Previous and Next controls, and
+          three 36px page indicators. Select a control to try the component.
+        </p>
+        <div className="pagination-showcase">
+          <Pagination
+            currentPage={page}
+            totalItems={12232}
+            pageSize={15}
+            onPageChange={setPage}
+          />
+        </div>
+      </section>
+
+      <section className="doc-section" id="pagination-window">
+        <div className="section-heading">
+          <div>
+            <p className="section-kicker">Large collections</p>
+            <h2>Moving page window</h2>
+          </div>
+        </div>
+        <p>
+          Pagination renders three indicators by default and keeps the active
+          page centered whenever possible. Change <Code>maxVisiblePages</Code>{' '}
+          when a product needs a wider window.
+        </p>
+        <div className="pagination-showcase pagination-showcase--compact">
+          <Pagination
+            currentPage={48}
+            totalItems={1000}
+            pageSize={10}
+            onPageChange={() => undefined}
+          />
+        </div>
+      </section>
+
+      <section className="doc-section" id="pagination-states">
+        <div className="section-heading">
+          <div>
+            <p className="section-kicker">Boundaries and icons</p>
+            <h2>Navigation states</h2>
+          </div>
+        </div>
+        <p>
+          Previous and Next disable automatically at the first and last page.
+          Enable carets when the surrounding interface benefits from an extra
+          directional cue.
+        </p>
+        <div className="pagination-state-grid">
+          <article>
+            <code>first page</code>
+            <Pagination
+              currentPage={1}
+              totalItems={45}
+              showIcons
+              onPageChange={() => undefined}
+            />
+          </article>
+          <article>
+            <code>last page</code>
+            <Pagination
+              currentPage={3}
+              totalItems={45}
+              showIcons
+              onPageChange={() => undefined}
+            />
+          </article>
+        </div>
+      </section>
+
+      <section className="doc-section" id="pagination-api">
+        <div className="section-heading">
+          <div>
+            <p className="section-kicker">React</p>
+            <h2>Using Pagination</h2>
+          </div>
+        </div>
+        <div className="code-sample">
+          <div className="code-sample__bar">
+            <span>TSX</span>
+            <CopyButton
+              value={`<Pagination
+  currentPage={page}
+  totalItems={12232}
+  pageSize={15}
+  onPageChange={setPage}
+/>`}
+              label="Copy"
+            />
+          </div>
+          <pre>
+            <code>{`<Pagination
+  currentPage={page}
+  totalItems={12232}
+  pageSize={15}
+  onPageChange={setPage}
+/>`}</code>
+          </pre>
+        </div>
+        <div className="callout">
+          <InfoIcon />
+          <p>
+            <Code>currentPage</Code> is one-based and controlled. Update it from{' '}
+            <Code>onPageChange</Code> after loading the requested page. The
+            summary and boundary states update from the supplied values.
+          </p>
+        </div>
+      </section>
+
       <PagePagination
         direction="previous"
         eyebrow="Previous component"
-        title="Modal"
+        title="Logo"
         onClick={onPrevious}
       />
     </>
@@ -1885,6 +2041,12 @@ function TableOfContents({ page }: { page: PageId }) {
       ['powered-by-kofa', 'Powered by Kofa'],
       ['logo-api', 'Using Logo'],
     ],
+    pagination: [
+      ['pagination-anatomy', 'Pagination anatomy'],
+      ['pagination-window', 'Moving page window'],
+      ['pagination-states', 'Navigation states'],
+      ['pagination-api', 'Using Pagination'],
+    ],
   };
   const links = pageLinks[page];
 
@@ -1922,7 +2084,9 @@ function TableOfContents({ page }: { page: PageId }) {
                     ? 'https://www.figma.com/design/BVk88Tno1MTxZiM0k3MToy/Foundation?node-id=37-3240'
                     : page === 'logo'
                       ? 'https://www.figma.com/design/BVk88Tno1MTxZiM0k3MToy/Foundation?node-id=37-2886'
-                      : 'https://www.figma.com/design/BVk88Tno1MTxZiM0k3MToy/Foundation'
+                      : page === 'pagination'
+                        ? 'https://www.figma.com/design/BVk88Tno1MTxZiM0k3MToy/Foundation?node-id=37-3300'
+                        : 'https://www.figma.com/design/BVk88Tno1MTxZiM0k3MToy/Foundation'
         }
         target="_blank"
         rel="noreferrer"
@@ -2029,7 +2193,13 @@ export function App() {
             />
           )}
           {currentPage === 'logo' && (
-            <LogoPage onPrevious={() => navigate('modal')} />
+            <LogoPage
+              onPrevious={() => navigate('modal')}
+              onNext={() => navigate('pagination')}
+            />
+          )}
+          {currentPage === 'pagination' && (
+            <PaginationPage onPrevious={() => navigate('logo')} />
           )}
           <footer className="article-footer">
             <span>Kofa Design System</span>

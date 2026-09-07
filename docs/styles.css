@@ -1243,6 +1243,59 @@ button.side-nav__item:hover {
   padding: 28px;
 }
 
+.pagination-showcase {
+  background:
+    linear-gradient(var(--docs-surface), var(--docs-surface)) padding-box,
+    repeating-linear-gradient(
+        45deg,
+        var(--docs-border) 0,
+        var(--docs-border) 1px,
+        transparent 1px,
+        transparent 8px
+      )
+      border-box;
+  border: 1px solid transparent;
+  border-radius: 14px;
+  margin-top: 28px;
+  overflow-x: auto;
+  padding: 34px;
+}
+
+.pagination-showcase .kofa-pagination {
+  min-width: 640px;
+}
+
+.pagination-showcase--compact .kofa-pagination {
+  min-width: 560px;
+}
+
+.pagination-state-grid {
+  display: grid;
+  gap: 14px;
+  margin-top: 28px;
+}
+
+.pagination-state-grid article {
+  background: var(--docs-surface);
+  border: 1px solid var(--docs-border);
+  border-radius: 14px;
+  overflow-x: auto;
+  padding: 16px;
+}
+
+.pagination-state-grid article > code {
+  color: var(--docs-muted);
+  display: block;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  margin: 0 0 12px;
+  text-transform: uppercase;
+}
+
+.pagination-state-grid .kofa-pagination {
+  min-width: 620px;
+}
+
 .button-matrix {
   border: 1px solid var(--docs-border);
   border-radius: 14px;
@@ -1635,6 +1688,11 @@ button.side-nav__item:hover {
 
   .page-pagination-group {
     grid-template-columns: 1fr;
+  }
+
+  .pagination-showcase .kofa-pagination,
+  .pagination-state-grid .kofa-pagination {
+    min-width: 0;
   }
 
   .article-footer {

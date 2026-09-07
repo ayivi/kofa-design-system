@@ -7,6 +7,7 @@
 @import '../components/Header/Header.css';
 @import '../components/Logo/Logo.css';
 @import '../components/Modal/Modal.css';
+@import '../components/Pagination/Pagination.css';
 
 @layer kofa.base {
   *,
