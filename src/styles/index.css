@@ -5,6 +5,7 @@
 @import '../components/Button/Button.css';
 @import '../components/DropdownMenu/DropdownMenu.css';
 @import '../components/Header/Header.css';
+@import '../components/Logo/Logo.css';
 @import '../components/Modal/Modal.css';
 
 @layer kofa.base {

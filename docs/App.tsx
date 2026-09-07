@@ -3,6 +3,7 @@ import { Badge, CounterBadge } from '../src/components/Badge';
 import { Button } from '../src/components/Button';
 import { DropdownMenu, DropdownMenuItem } from '../src/components/DropdownMenu';
 import { Header as KofaHeader } from '../src/components/Header';
+import { Logo, PoweredByKofa } from '../src/components/Logo';
 import { ModalFooter, ModalHeader } from '../src/components/Modal';
 import colourSource from '../tokens/colours.json';
 import coreSource from '../tokens/core.json';
@@ -18,7 +19,8 @@ type PageId =
   | 'dropdown-menu'
   | 'badge'
   | 'header'
-  | 'modal';
+  | 'modal'
+  | 'logo';
 type Theme = 'light' | 'dark';
 type ColorToken = { $value: string; $description?: string };
 type DimensionToken = { $value: { value: number; unit: string } };
@@ -50,6 +52,7 @@ const navigation: Array<{ label: string; items: NavigationItem[] }> = [
       { label: 'Badge', page: 'badge' },
       { label: 'Header', page: 'header' },
       { label: 'Modal', page: 'modal' },
+      { label: 'Logo', page: 'logo' },
       { label: 'Text', status: 'Soon' },
     ],
   },
@@ -108,7 +111,8 @@ function getPageFromHash(): PageId {
     page === 'dropdown-menu' ||
     page === 'badge' ||
     page === 'header' ||
-    page === 'modal'
+    page === 'modal' ||
+    page === 'logo'
   ) {
     return page;
   }
@@ -180,7 +184,8 @@ function Header({
     currentPage === 'dropdown-menu' ||
     currentPage === 'badge' ||
     currentPage === 'header' ||
-    currentPage === 'modal';
+    currentPage === 'modal' ||
+    currentPage === 'logo';
 
   return (
     <header className="topbar">
@@ -1520,7 +1525,13 @@ function HeaderPage({
   );
 }
 
-function ModalPage({ onPrevious }: { onPrevious: () => void }) {
+function ModalPage({
+  onPrevious,
+  onNext,
+}: {
+  onPrevious: () => void;
+  onNext: () => void;
+}) {
   return (
     <>
       <PageIntro eyebrow="Components" title="Modal">
@@ -1634,10 +1645,157 @@ function ModalPage({ onPrevious }: { onPrevious: () => void }) {
         </div>
       </section>
 
+      <div className="page-pagination-group">
+        <PagePagination
+          direction="previous"
+          eyebrow="Previous component"
+          title="Header"
+          onClick={onPrevious}
+        />
+        <PagePagination
+          direction="next"
+          eyebrow="Next component"
+          title="Logo"
+          onClick={onNext}
+        />
+      </div>
+    </>
+  );
+}
+
+function LogoPage({ onPrevious }: { onPrevious: () => void }) {
+  const variants = ['wordmark', 'icon', 'lockup', 'stack'] as const;
+  const sizes = [40, 32, 24, 20, 16] as const;
+
+  return (
+    <>
+      <PageIntro eyebrow="Brand assets" title="Logo">
+        The Kofa logo system provides consistent wordmark, icon, lockup, and
+        stacked artwork for product and platform surfaces.
+      </PageIntro>
+
+      <section className="doc-section" id="logo-families">
+        <div className="section-heading">
+          <div>
+            <p className="section-kicker">Core marks</p>
+            <h2>Logo families</h2>
+          </div>
+          <span className="count-pill">40 Figma variants</span>
+        </div>
+        <p>
+          Choose the family that fits the available space without rebuilding,
+          cropping, or recoloring the supplied artwork.
+        </p>
+        <div className="logo-family-grid">
+          {variants.map((variant) => (
+            <article key={variant}>
+              <div className="logo-family-grid__preview">
+                <Logo variant={variant} size={40} />
+              </div>
+              <code>{variant}</code>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="doc-section" id="logo-scale">
+        <div className="section-heading">
+          <div>
+            <p className="section-kicker">Size and contrast</p>
+            <h2>Logo scale</h2>
+          </div>
+        </div>
+        <p>
+          Every family is supplied at 40, 32, 24, 20, and 16px in black and
+          white. Use the color with sufficient contrast for its surface.
+        </p>
+        <div className="logo-scale-grid">
+          {variants.map((variant) => (
+            <article key={variant}>
+              <h3>{variant}</h3>
+              <div className="logo-scale-row logo-scale-row--dark">
+                {sizes.map((size) => (
+                  <Logo
+                    key={size}
+                    variant={variant}
+                    size={size}
+                    color="white"
+                  />
+                ))}
+              </div>
+              <div className="logo-scale-row">
+                {sizes.map((size) => (
+                  <Logo
+                    key={size}
+                    variant={variant}
+                    size={size}
+                    color="black"
+                  />
+                ))}
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="doc-section" id="powered-by-kofa">
+        <div className="section-heading">
+          <div>
+            <p className="section-kicker">Platform endorsement</p>
+            <h2>Powered by Kofa</h2>
+          </div>
+          <span className="count-pill">4 platforms</span>
+        </div>
+        <p>
+          Use the platform endorsement on distributor, fleet, operations, and
+          networking experiences backed by Kofa.
+        </p>
+        <div className="powered-by-grid">
+          {(['distributor', 'fleet', 'ops', 'networking'] as const).map(
+            (platform) => (
+              <PoweredByKofa key={platform} platform={platform} />
+            ),
+          )}
+        </div>
+      </section>
+
+      <section className="doc-section" id="logo-api">
+        <div className="section-heading">
+          <div>
+            <p className="section-kicker">React</p>
+            <h2>Using Logo</h2>
+          </div>
+        </div>
+        <div className="code-sample">
+          <div className="code-sample__bar">
+            <span>TSX</span>
+            <CopyButton
+              value={`<Logo variant="lockup" size={32} color="black" />
+
+<PoweredByKofa platform="fleet" />`}
+              label="Copy"
+            />
+          </div>
+          <pre>
+            <code>{`<Logo variant="lockup" size={32} color="black" />
+
+<PoweredByKofa platform="fleet" />`}</code>
+          </pre>
+        </div>
+        <div className="callout">
+          <InfoIcon />
+          <p>
+            Logo has a default accessible name of “Kofa”. Override{' '}
+            <Code>label</Code> when additional context is required, or set{' '}
+            <Code>aria-hidden</Code> when adjacent text already names the brand.
+          </p>
+        </div>
+      </section>
+
       <PagePagination
         direction="previous"
         eyebrow="Previous component"
-        title="Header"
+        title="Modal"
         onClick={onPrevious}
       />
     </>
@@ -1721,6 +1879,12 @@ function TableOfContents({ page }: { page: PageId }) {
       ['modal-composition', 'Composing a dialog'],
       ['modal-api', 'Using modal parts'],
     ],
+    logo: [
+      ['logo-families', 'Logo families'],
+      ['logo-scale', 'Logo scale'],
+      ['powered-by-kofa', 'Powered by Kofa'],
+      ['logo-api', 'Using Logo'],
+    ],
   };
   const links = pageLinks[page];
 
@@ -1756,7 +1920,9 @@ function TableOfContents({ page }: { page: PageId }) {
                   ? 'https://www.figma.com/design/BVk88Tno1MTxZiM0k3MToy/Foundation?node-id=37-2846'
                   : page === 'modal'
                     ? 'https://www.figma.com/design/BVk88Tno1MTxZiM0k3MToy/Foundation?node-id=37-3240'
-                    : 'https://www.figma.com/design/BVk88Tno1MTxZiM0k3MToy/Foundation'
+                    : page === 'logo'
+                      ? 'https://www.figma.com/design/BVk88Tno1MTxZiM0k3MToy/Foundation?node-id=37-2886'
+                      : 'https://www.figma.com/design/BVk88Tno1MTxZiM0k3MToy/Foundation'
         }
         target="_blank"
         rel="noreferrer"
@@ -1857,7 +2023,13 @@ export function App() {
             />
           )}
           {currentPage === 'modal' && (
-            <ModalPage onPrevious={() => navigate('header')} />
+            <ModalPage
+              onPrevious={() => navigate('header')}
+              onNext={() => navigate('logo')}
+            />
+          )}
+          {currentPage === 'logo' && (
+            <LogoPage onPrevious={() => navigate('modal')} />
           )}
           <footer className="article-footer">
             <span>Kofa Design System</span>

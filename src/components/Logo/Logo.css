@@ -1,0 +1,55 @@
+@layer kofa.components {
+  .kofa-logo {
+    display: inline-block;
+    flex: none;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .kofa-logo__artwork {
+    display: block;
+    height: 100%;
+    width: 100%;
+  }
+
+  .kofa-logo[data-variant='wordmark'] .kofa-logo__artwork {
+    height: 45.94%;
+    left: 8.05%;
+    position: absolute;
+    top: 26.16%;
+    width: 83.91%;
+  }
+
+  .kofa-powered-by {
+    color: rgb(16 24 32 / 50%);
+    display: inline-flex;
+    flex-direction: column;
+    font-family: var(--kofa-font-family-product);
+    height: 46px;
+    justify-content: center;
+    width: 205px;
+  }
+
+  .kofa-powered-by__brand {
+    align-items: center;
+    display: flex;
+    font-size: 20px;
+    font-weight: var(--kofa-font-weight-medium);
+    gap: var(--kofa-space-xl);
+    line-height: 24px;
+    white-space: nowrap;
+  }
+
+  .kofa-powered-by__brand img {
+    display: block;
+    height: 13.225px;
+    width: 80px;
+  }
+
+  .kofa-powered-by__platform {
+    font-size: 14px;
+    font-weight: var(--kofa-font-weight-regular);
+    line-height: 20px;
+    white-space: nowrap;
+  }
+}
