@@ -16,7 +16,8 @@ The React component library for Kofa web products. Components are authored in Ty
 - Figma-derived web typography tokens, responsive mappings, and a React Text primitive
 - Responsive documentation app with searchable navigation and interactive token references
 - Changesets for versioning and a GitHub Actions verification workflow
-- A tested, accessible Button reference implementation
+- Figma-aligned Button variants with destructive, disabled, compact, loading,
+  and four icon-placement states
 
 ## Get started
 
@@ -57,7 +58,11 @@ import { Button } from '@kofa/web-design-system';
 import '@kofa/web-design-system/styles.css';
 
 export function Example() {
-  return <Button>Continue</Button>;
+  return (
+    <Button variant="primary" iconPosition="right">
+      Invite member(s)
+    </Button>
+  );
 }
 ```
 
@@ -85,6 +90,10 @@ The source audit and four Figma label/fill discrepancies are documented in `toke
 The web type ramp and responsive mappings are documented in `tokens/FIGMA_TYPOGRAPHY_SOURCE.md`. TWK Everett Regular and Medium are bundled locally; the Thin file is still required before Thin styles are production-ready.
 
 The approved spacing and radius scales are documented in `tokens/FIGMA_SPACING_RADIUS_SOURCE.md` and are available as generated CSS variables and typed JavaScript references.
+
+The Button component is mapped from the Foundation file’s 72-variant component
+set. Its implementation notes and Figma-to-React property mapping live in
+`src/components/Button/FIGMA_SOURCE.md`.
 
 Useful details to include with the Figma file:
 

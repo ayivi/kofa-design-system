@@ -1,10 +1,11 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
+import { Button } from '../src/components/Button';
 import colourSource from '../tokens/colours.json';
 import coreSource from '../tokens/core.json';
 import semanticSource from '../tokens/semantic.json';
 import typographySource from '../tokens/typography.json';
 
-type PageId = 'colors' | 'typography' | 'spacing' | 'radius';
+type PageId = 'colors' | 'typography' | 'spacing' | 'radius' | 'button';
 type Theme = 'light' | 'dark';
 type ColorToken = { $value: string; $description?: string };
 type DimensionToken = { $value: { value: number; unit: string } };
@@ -31,7 +32,7 @@ const navigation: Array<{ label: string; items: NavigationItem[] }> = [
   {
     label: 'Components',
     items: [
-      { label: 'Button', status: 'Soon' },
+      { label: 'Button', page: 'button' },
       { label: 'Text', status: 'Soon' },
     ],
   },
@@ -82,7 +83,12 @@ const typographyStyles = Object.keys(typeSizes).map((name) => {
 
 function getPageFromHash(): PageId {
   const page = window.location.hash.replace('#/', '');
-  if (page === 'typography' || page === 'spacing' || page === 'radius') {
+  if (
+    page === 'typography' ||
+    page === 'spacing' ||
+    page === 'radius' ||
+    page === 'button'
+  ) {
     return page;
   }
   return 'colors';
@@ -138,14 +144,18 @@ function Brand() {
 }
 
 function Header({
+  currentPage,
   theme,
   onThemeChange,
   onMenuOpen,
 }: {
+  currentPage: PageId;
   theme: Theme;
   onThemeChange: () => void;
   onMenuOpen: () => void;
 }) {
+  const isComponentPage = currentPage === 'button';
+
   return (
     <header className="topbar">
       <button
@@ -158,10 +168,18 @@ function Header({
       </button>
       <Brand />
       <div className="topbar__links" aria-label="Primary navigation">
-        <a className="topbar__link topbar__link--active" href="#/colors">
+        <a
+          className={`topbar__link ${!isComponentPage ? 'topbar__link--active' : ''}`}
+          href="#/colors"
+        >
           Foundations
         </a>
-        <span className="topbar__link topbar__link--muted">Components</span>
+        <a
+          className={`topbar__link ${isComponentPage ? 'topbar__link--active' : ''}`}
+          href="#/button"
+        >
+          Components
+        </a>
         <span className="topbar__link topbar__link--muted">Patterns</span>
       </div>
       <div className="topbar__actions">
@@ -729,7 +747,13 @@ function SpacingPage({
   );
 }
 
-function RadiusPage({ onPrevious }: { onPrevious: () => void }) {
+function RadiusPage({
+  onPrevious,
+  onNext,
+}: {
+  onPrevious: () => void;
+  onNext: () => void;
+}) {
   return (
     <>
       <PageIntro eyebrow="Foundations" title="Radius">
@@ -810,10 +834,179 @@ function RadiusPage({ onPrevious }: { onPrevious: () => void }) {
         </div>
       </section>
 
+      <div className="page-pagination-group">
+        <PagePagination
+          direction="previous"
+          eyebrow="Previous foundation"
+          title="Spacing"
+          onClick={onPrevious}
+        />
+        <PagePagination
+          direction="next"
+          eyebrow="Next component"
+          title="Button"
+          onClick={onNext}
+        />
+      </div>
+    </>
+  );
+}
+
+function ButtonPage({ onPrevious }: { onPrevious: () => void }) {
+  const variants = ['primary', 'secondary', 'tertiary'] as const;
+  const placements = ['none', 'left', 'right', 'both'] as const;
+
+  return (
+    <>
+      <PageIntro eyebrow="Components" title="Button">
+        Buttons trigger actions and guide people through Kofa workflows with
+        clear hierarchy, predictable states, and flexible icon placement.
+      </PageIntro>
+
+      <section className="doc-section" id="button-preview">
+        <div className="section-heading">
+          <div>
+            <p className="section-kicker">Interactive preview</p>
+            <h2>Button anatomy</h2>
+          </div>
+          <span className="count-pill">72 Figma variants</span>
+        </div>
+        <p>
+          The default button is 38px high with 16px horizontal padding, a 2px
+          radius, and the 13/18 medium body style. The compact size is 34px
+          high.
+        </p>
+        <div className="button-showcase">
+          <Button iconPosition="left">Invite member(s)</Button>
+          <Button variant="secondary" iconPosition="right">
+            Invite member(s)
+          </Button>
+          <Button variant="tertiary" iconPosition="both">
+            Invite member(s)
+          </Button>
+        </div>
+      </section>
+
+      <section className="doc-section" id="button-variants">
+        <div className="section-heading">
+          <div>
+            <p className="section-kicker">Visual hierarchy</p>
+            <h2>Variants and states</h2>
+          </div>
+        </div>
+        <p>
+          Use primary for the main action, secondary for a quieter action, and
+          tertiary on neutral surfaces. Destructive tone is reserved for
+          irreversible or high-risk actions.
+        </p>
+        <div className="button-matrix">
+          {variants.map((variant) => (
+            <article className="button-matrix__column" key={variant}>
+              <h3>{variant}</h3>
+              <Button variant={variant}>Invite member(s)</Button>
+              <Button variant={variant} tone="destructive">
+                Invite member(s)
+              </Button>
+              <Button variant={variant} disabled>
+                Invite member(s)
+              </Button>
+              <Button variant={variant} size="small">
+                Invite member(s)
+              </Button>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="doc-section" id="button-icons">
+        <div className="section-heading">
+          <div>
+            <p className="section-kicker">Composition</p>
+            <h2>Icon placement</h2>
+          </div>
+        </div>
+        <p>
+          Icons are decorative by default. Choose a placement variant or supply
+          custom leading and trailing React nodes when the action needs specific
+          artwork.
+        </p>
+        <div className="button-icon-grid">
+          {placements.map((placement) => (
+            <div key={placement}>
+              <code>{placement}</code>
+              <Button iconPosition={placement}>Invite member(s)</Button>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="doc-section" id="button-api">
+        <div className="section-heading">
+          <div>
+            <p className="section-kicker">React</p>
+            <h2>Using Button</h2>
+          </div>
+        </div>
+        <p>
+          Button extends the native HTML button attributes, forwards its ref,
+          and uses the native disabled attribute for reliable keyboard and form
+          behavior.
+        </p>
+        <div className="code-sample">
+          <div className="code-sample__bar">
+            <span>TSX</span>
+            <CopyButton
+              value={`<Button
+  variant="primary"
+  tone="destructive"
+  iconPosition="right"
+>
+  Remove member
+</Button>`}
+              label="Copy"
+            />
+          </div>
+          <pre>
+            <code>
+              <span className="syntax-selector">&lt;Button</span>
+              {`\n  `}
+              <span className="syntax-prop">variant</span>=
+              <span className="syntax-string">&quot;primary&quot;</span>
+              {`\n  `}
+              <span className="syntax-prop">tone</span>=
+              <span className="syntax-string">&quot;destructive&quot;</span>
+              {`\n  `}
+              <span className="syntax-prop">iconPosition</span>=
+              <span className="syntax-string">&quot;right&quot;</span>
+              {`\n`}
+              <span className="syntax-selector">&gt;</span>
+              {`\n  `}Remove member
+              {`\n`}
+              <span className="syntax-selector">&lt;/Button&gt;</span>
+            </code>
+          </pre>
+        </div>
+        <div className="props-table" role="table" aria-label="Button props">
+          {[
+            ['variant', 'primary | secondary | tertiary', 'primary'],
+            ['tone', 'default | destructive', 'default'],
+            ['size', 'default | small', 'default'],
+            ['iconPosition', 'none | left | right | both', 'none'],
+            ['loading', 'boolean', 'false'],
+          ].map(([name, type, defaultValue]) => (
+            <div className="props-table__row" role="row" key={name}>
+              <code role="cell">{name}</code>
+              <span role="cell">{type}</span>
+              <code role="cell">{defaultValue}</code>
+            </div>
+          ))}
+        </div>
+      </section>
+
       <PagePagination
         direction="previous"
         eyebrow="Previous foundation"
-        title="Spacing"
+        title="Radius"
         onClick={onPrevious}
       />
     </>
@@ -867,6 +1060,12 @@ function TableOfContents({ page }: { page: PageId }) {
       ['radius-scale', 'Radius scale'],
       ['radius-usage', 'Using radius'],
     ],
+    button: [
+      ['button-preview', 'Button anatomy'],
+      ['button-variants', 'Variants and states'],
+      ['button-icons', 'Icon placement'],
+      ['button-api', 'Using Button'],
+    ],
   };
   const links = pageLinks[page];
 
@@ -891,7 +1090,11 @@ function TableOfContents({ page }: { page: PageId }) {
       </nav>
       <a
         className="toc__figma"
-        href="https://www.figma.com/design/BVk88Tno1MTxZiM0k3MToy/Foundation"
+        href={
+          page === 'button'
+            ? 'https://www.figma.com/design/BVk88Tno1MTxZiM0k3MToy/Foundation?node-id=34-1997'
+            : 'https://www.figma.com/design/BVk88Tno1MTxZiM0k3MToy/Foundation'
+        }
         target="_blank"
         rel="noreferrer"
       >
@@ -930,6 +1133,7 @@ export function App() {
   return (
     <div className="docs-app">
       <Header
+        currentPage={currentPage}
         theme={theme}
         onThemeChange={() =>
           setTheme((current) => (current === 'light' ? 'dark' : 'light'))
@@ -960,7 +1164,13 @@ export function App() {
             />
           )}
           {currentPage === 'radius' && (
-            <RadiusPage onPrevious={() => navigate('spacing')} />
+            <RadiusPage
+              onPrevious={() => navigate('spacing')}
+              onNext={() => navigate('button')}
+            />
+          )}
+          {currentPage === 'button' && (
+            <ButtonPage onPrevious={() => navigate('radius')} />
           )}
           <footer className="article-footer">
             <span>Kofa Design System</span>

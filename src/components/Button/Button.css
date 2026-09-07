@@ -1,19 +1,24 @@
 @layer kofa.components {
   .kofa-button {
     align-items: center;
-    border: 1px solid transparent;
-    border-radius: var(--kofa-radius-s);
+    appearance: none;
+    border: 0;
+    border-radius: var(--kofa-radius-xxs);
+    box-sizing: border-box;
     cursor: pointer;
     display: inline-flex;
+    font-size: var(--kofa-font-size-body-base);
     font-family: var(--kofa-font-family-product);
     font-weight: var(--kofa-font-weight-medium);
-    gap: var(--kofa-space-md);
+    gap: var(--kofa-space-s);
     justify-content: center;
-    line-height: 1;
+    line-height: var(--kofa-line-height-body-base);
+    padding-inline: var(--kofa-space-xl);
+    white-space: nowrap;
     transition:
       background-color 150ms ease,
-      border-color 150ms ease,
-      box-shadow 150ms ease;
+      box-shadow 150ms ease,
+      filter 150ms ease;
   }
 
   .kofa-button:focus-visible {
@@ -25,56 +30,82 @@
 
   .kofa-button:disabled {
     cursor: not-allowed;
-    opacity: 0.52;
+    filter: none;
   }
 
   .kofa-button--primary {
-    background: var(--kofa-semantic-color-background-brand);
-    color: var(--kofa-semantic-color-text-on-brand);
+    background: var(--kofa-color-amber-500);
+    color: var(--kofa-color-neutral-black);
   }
 
   .kofa-button--primary:hover:not(:disabled) {
-    filter: brightness(0.9);
+    filter: brightness(0.96);
   }
 
   .kofa-button--secondary {
-    background: var(--kofa-semantic-color-background-canvas);
-    border-color: var(--kofa-semantic-color-border-default);
-    color: var(--kofa-semantic-color-text-primary);
+    background: var(--kofa-color-neutral-white);
+    color: var(--kofa-color-neutral-black);
   }
 
   .kofa-button--secondary:hover:not(:disabled),
-  .kofa-button--ghost:hover:not(:disabled) {
-    background: var(--kofa-semantic-color-background-subtle);
+  .kofa-button--tertiary:hover:not(:disabled) {
+    filter: brightness(0.96);
   }
 
-  .kofa-button--ghost {
-    background: transparent;
-    color: var(--kofa-semantic-color-text-primary);
+  .kofa-button--tertiary {
+    background: var(--kofa-color-neutral-100);
+    color: var(--kofa-color-neutral-black);
   }
 
-  .kofa-button--sm {
-    font-size: 0.8125rem;
-    min-height: 2rem;
-    padding: var(--kofa-space-md) var(--kofa-space-lg);
+  .kofa-button--destructive.kofa-button--primary {
+    background: var(--kofa-color-red-600);
+    color: var(--kofa-color-neutral-white);
   }
 
-  .kofa-button--md {
-    font-size: 0.875rem;
-    min-height: 2.5rem;
-    padding: var(--kofa-space-lg) var(--kofa-space-xl);
+  .kofa-button--destructive.kofa-button--secondary {
+    background: var(--kofa-color-neutral-white);
+    color: var(--kofa-color-red-600);
   }
 
-  .kofa-button--lg {
-    font-size: 1rem;
-    min-height: 3rem;
-    padding: var(--kofa-space-xl) var(--kofa-space-3xl);
+  .kofa-button--destructive.kofa-button--tertiary {
+    background: var(--kofa-color-neutral-100);
+    color: var(--kofa-color-red-600);
+  }
+
+  .kofa-button:disabled {
+    background: var(--kofa-color-neutral-200);
+    color: var(--kofa-color-neutral-500);
+  }
+
+  .kofa-button--default {
+    min-height: 38px;
+    padding-block: 10px;
+  }
+
+  .kofa-button--small {
+    min-height: 34px;
+    padding-block: var(--kofa-space-md);
   }
 
   .kofa-button__icon {
     align-items: center;
     display: inline-flex;
     flex: none;
+    height: 16px;
+    justify-content: center;
+    width: 16px;
+  }
+
+  .kofa-button__icon > svg,
+  .kofa-button__icon > img,
+  .kofa-button__figma-icon {
+    display: block;
+    height: 16px;
+    width: 16px;
+  }
+
+  .kofa-button__label {
+    display: block;
   }
 
   .kofa-button__spinner {
@@ -82,8 +113,9 @@
     border: 2px solid currentColor;
     border-right-color: transparent;
     border-radius: var(--kofa-radius-full);
-    height: 1em;
-    width: 1em;
+    flex: none;
+    height: 16px;
+    width: 16px;
   }
 
   @keyframes kofa-spin {

@@ -118,7 +118,9 @@
   --kofa-letter-spacing-body-xsmall: 0px;
   --kofa-semantic-color-background-canvas: var(--kofa-color-neutral-white);
   --kofa-semantic-color-background-subtle: var(--kofa-color-neutral-50);
-  --kofa-semantic-color-background-brand: var(--kofa-color-blue-500); /** Provisional action/brand mapping until semantic colours are supplied in Figma. */
+  --kofa-semantic-color-background-brand: var(
+    --kofa-color-blue-500
+  ); /** Provisional action/brand mapping until semantic colours are supplied in Figma. */
   --kofa-semantic-color-text-primary: var(--kofa-color-neutral-black);
   --kofa-semantic-color-text-secondary: var(--kofa-color-neutral-700);
   --kofa-semantic-color-text-on-brand: var(--kofa-color-neutral-white);
