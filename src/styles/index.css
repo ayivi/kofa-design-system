@@ -9,6 +9,7 @@
 @import '../components/Logo/Logo.css';
 @import '../components/Modal/Modal.css';
 @import '../components/Pagination/Pagination.css';
+@import '../components/Table/Table.css';
 
 @layer kofa.base {
   *,

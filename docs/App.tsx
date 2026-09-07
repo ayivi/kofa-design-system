@@ -8,6 +8,14 @@ import { Header as KofaHeader } from '../src/components/Header';
 import { Logo, PoweredByKofa } from '../src/components/Logo';
 import { ModalFooter, ModalHeader } from '../src/components/Modal';
 import { Pagination } from '../src/components/Pagination';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
+} from '../src/components/Table';
 import colourSource from '../tokens/colours.json';
 import coreSource from '../tokens/core.json';
 import semanticSource from '../tokens/semantic.json';
@@ -25,7 +33,8 @@ type PageId =
   | 'modal'
   | 'logo'
   | 'pagination'
-  | 'avatar';
+  | 'avatar'
+  | 'table';
 type Theme = 'light' | 'dark';
 type ColorToken = { $value: string; $description?: string };
 type DimensionToken = { $value: { value: number; unit: string } };
@@ -60,6 +69,7 @@ const navigation: Array<{ label: string; items: NavigationItem[] }> = [
       { label: 'Logo', page: 'logo' },
       { label: 'Pagination', page: 'pagination' },
       { label: 'Avatar', page: 'avatar' },
+      { label: 'Table', page: 'table' },
       { label: 'Text', status: 'Soon' },
     ],
   },
@@ -121,7 +131,8 @@ function getPageFromHash(): PageId {
     page === 'modal' ||
     page === 'logo' ||
     page === 'pagination' ||
-    page === 'avatar'
+    page === 'avatar' ||
+    page === 'table'
   ) {
     return page;
   }
@@ -196,7 +207,8 @@ function Header({
     currentPage === 'modal' ||
     currentPage === 'logo' ||
     currentPage === 'pagination' ||
-    currentPage === 'avatar';
+    currentPage === 'avatar' ||
+    currentPage === 'table';
 
   return (
     <header className="topbar">
@@ -1978,7 +1990,13 @@ function PaginationPage({
   );
 }
 
-function AvatarPage({ onPrevious }: { onPrevious: () => void }) {
+function AvatarPage({
+  onPrevious,
+  onNext,
+}: {
+  onPrevious: () => void;
+  onNext: () => void;
+}) {
   const sizes = ['2xl', 'xl', 'lg', 'md', 's', 'xs', 'xxs'] as const;
 
   return (
@@ -2109,10 +2127,214 @@ function AvatarPage({ onPrevious }: { onPrevious: () => void }) {
         </div>
       </section>
 
+      <div className="page-pagination-group">
+        <PagePagination
+          direction="previous"
+          eyebrow="Previous component"
+          title="Pagination"
+          onClick={onPrevious}
+        />
+        <PagePagination
+          direction="next"
+          eyebrow="Next component"
+          title="Table"
+          onClick={onNext}
+        />
+      </div>
+    </>
+  );
+}
+
+function TablePage({ onPrevious }: { onPrevious: () => void }) {
+  const positions = ['none', 'left', 'right', 'both'] as const;
+
+  return (
+    <>
+      <PageIntro eyebrow="Data display" title="Table">
+        Structure dense operational data with semantic headers, consistent cell
+        spacing, supporting text, and flexible selection or action slots.
+      </PageIntro>
+
+      <section className="doc-section" id="table-composition">
+        <div className="section-heading">
+          <div>
+            <p className="section-kicker">Composed example</p>
+            <h2>Vehicle assignments</h2>
+          </div>
+          <span className="count-pill">Semantic HTML</span>
+        </div>
+        <p>
+          Table primitives render native table elements and can compose existing
+          Kofa components inside any cell.
+        </p>
+        <div className="table-showcase">
+          <Table aria-label="Vehicle assignments">
+            <TableHead>
+              <TableRow>
+                <TableHeaderCell iconPosition="left">
+                  Chassis number
+                </TableHeaderCell>
+                <TableHeaderCell>Driver</TableHeaderCell>
+                <TableHeaderCell>Status</TableHeaderCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              <TableRow>
+                <TableCell iconPosition="left">LGMDWY3Z9S0000901</TableCell>
+                <TableCell subtext="travis.hill@sparkxpress.com">
+                  Travis Hill
+                </TableCell>
+                <TableCell>
+                  <Badge state="positive">Active</Badge>
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell iconPosition="left">LGMDWY3Z9S0000902</TableCell>
+                <TableCell subtext="ama.kusi@sparkxpress.com">
+                  Ama Kusi
+                </TableCell>
+                <TableCell>
+                  <Badge state="pending">Pending</Badge>
+                </TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </div>
+      </section>
+
+      <section className="doc-section" id="table-headers">
+        <div className="section-heading">
+          <div>
+            <p className="section-kicker">Eight Figma variants</p>
+            <h2>Header cells</h2>
+          </div>
+        </div>
+        <p>
+          Header cells support neutral fill or divider-only treatments and four
+          icon positions. The default artwork is Figma’s indeterminate checkbox.
+        </p>
+        <div className="table-variant-grid">
+          {[true, false].map((background) => (
+            <article key={String(background)}>
+              <code>{background ? 'background="yes"' : 'background="no"'}</code>
+              {positions.map((position) => (
+                <Table key={position} aria-label={`${position} header example`}>
+                  <TableHead>
+                    <TableRow>
+                      <TableHeaderCell
+                        background={background}
+                        iconPosition={position}
+                      >
+                        Chassis number
+                      </TableHeaderCell>
+                    </TableRow>
+                  </TableHead>
+                </Table>
+              ))}
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="doc-section" id="table-cells">
+        <div className="section-heading">
+          <div>
+            <p className="section-kicker">Body variants</p>
+            <h2>Cell content</h2>
+          </div>
+          <span className="count-pill">50px or 68px</span>
+        </div>
+        <p>
+          Single-line cells support every icon position. Add{' '}
+          <Code>subtext</Code> for the 68px two-line treatment used by names,
+          descriptions, and secondary identifiers.
+        </p>
+        <div className="table-cell-grid">
+          <Table aria-label="Cell variants">
+            <TableBody>
+              <TableRow>
+                <TableCell>LGMDWY3Z9S0000901</TableCell>
+                <TableCell background iconPosition="left">
+                  LGMDWY3Z9S0000901
+                </TableCell>
+                <TableCell iconPosition="right">LGMDWY3Z9S0000901</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell subtext="travis.hill@sparkxpress.com">
+                  Travis Hill
+                </TableCell>
+                <TableCell
+                  background
+                  iconPosition="left"
+                  subtext="travis.hill@sparkxpress.com"
+                >
+                  Travis Hill
+                </TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </div>
+      </section>
+
+      <section className="doc-section" id="table-api">
+        <div className="section-heading">
+          <div>
+            <p className="section-kicker">React</p>
+            <h2>Using table primitives</h2>
+          </div>
+        </div>
+        <div className="code-sample">
+          <div className="code-sample__bar">
+            <span>TSX</span>
+            <CopyButton
+              value={`<Table aria-label="Vehicles">
+  <TableHead>
+    <TableRow>
+      <TableHeaderCell>Chassis number</TableHeaderCell>
+      <TableHeaderCell>Driver</TableHeaderCell>
+    </TableRow>
+  </TableHead>
+  <TableBody>
+    <TableRow>
+      <TableCell>LGMDWY3Z9S0000901</TableCell>
+      <TableCell subtext="travis@example.com">Travis Hill</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>`}
+              label="Copy"
+            />
+          </div>
+          <pre>
+            <code>{`<Table aria-label="Vehicles">
+  <TableHead>
+    <TableRow>
+      <TableHeaderCell>Chassis number</TableHeaderCell>
+      <TableHeaderCell>Driver</TableHeaderCell>
+    </TableRow>
+  </TableHead>
+  <TableBody>
+    <TableRow>
+      <TableCell>LGMDWY3Z9S0000901</TableCell>
+      <TableCell subtext="travis@example.com">Travis Hill</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>`}</code>
+          </pre>
+        </div>
+        <div className="callout">
+          <InfoIcon />
+          <p>
+            Wrap wide tables in an overflow container. Pass a real checkbox,
+            button, or menu through <Code>icon</Code> when the slot must be
+            interactive; the built-in Figma artwork is decorative.
+          </p>
+        </div>
+      </section>
+
       <PagePagination
         direction="previous"
         eyebrow="Previous component"
-        title="Pagination"
+        title="Avatar"
         onClick={onPrevious}
       />
     </>
@@ -2214,6 +2436,12 @@ function TableOfContents({ page }: { page: PageId }) {
       ['avatar-fallback', 'Fallback behavior'],
       ['avatar-api', 'Using Avatar'],
     ],
+    table: [
+      ['table-composition', 'Composed table'],
+      ['table-headers', 'Header cells'],
+      ['table-cells', 'Cell content'],
+      ['table-api', 'Using table primitives'],
+    ],
   };
   const links = pageLinks[page];
 
@@ -2255,7 +2483,9 @@ function TableOfContents({ page }: { page: PageId }) {
                         ? 'https://www.figma.com/design/BVk88Tno1MTxZiM0k3MToy/Foundation?node-id=37-3300'
                         : page === 'avatar'
                           ? 'https://www.figma.com/design/BVk88Tno1MTxZiM0k3MToy/Foundation?node-id=37-8287'
-                          : 'https://www.figma.com/design/BVk88Tno1MTxZiM0k3MToy/Foundation'
+                          : page === 'table'
+                            ? 'https://www.figma.com/design/BVk88Tno1MTxZiM0k3MToy/Foundation?node-id=37-7899'
+                            : 'https://www.figma.com/design/BVk88Tno1MTxZiM0k3MToy/Foundation'
         }
         target="_blank"
         rel="noreferrer"
@@ -2374,7 +2604,13 @@ export function App() {
             />
           )}
           {currentPage === 'avatar' && (
-            <AvatarPage onPrevious={() => navigate('pagination')} />
+            <AvatarPage
+              onPrevious={() => navigate('pagination')}
+              onNext={() => navigate('table')}
+            />
+          )}
+          {currentPage === 'table' && (
+            <TablePage onPrevious={() => navigate('avatar')} />
           )}
           <footer className="article-footer">
             <span>Kofa Design System</span>
