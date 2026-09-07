@@ -1,0 +1,79 @@
+@layer kofa.components {
+  .kofa-badge {
+    align-items: center;
+    border-radius: var(--kofa-radius-xxs);
+    display: inline-flex;
+    font-family: var(--kofa-font-family-product);
+    font-size: var(--kofa-font-size-body-base);
+    font-weight: var(--kofa-font-weight-medium);
+    gap: var(--kofa-space-xs);
+    height: 26px;
+    line-height: var(--kofa-line-height-body-base);
+    overflow: hidden;
+    padding: var(--kofa-space-xs) var(--kofa-space-md);
+    white-space: nowrap;
+  }
+
+  .kofa-badge[data-state='positive'] {
+    background: #effce3;
+    color: var(--kofa-color-green-500);
+  }
+
+  .kofa-badge[data-state='negative'] {
+    background: var(--kofa-color-red-100);
+    color: var(--kofa-color-red-600);
+  }
+
+  .kofa-badge[data-state='pending'] {
+    background: var(--kofa-color-amber-100);
+    color: var(--kofa-color-yellow-800);
+  }
+
+  .kofa-badge[data-state='neutral'] {
+    background: var(--kofa-color-neutral-100);
+    color: var(--kofa-color-neutral-black);
+  }
+
+  .kofa-badge[data-state='informative'] {
+    background: var(--kofa-color-blue-100);
+    color: var(--kofa-color-blue-600);
+  }
+
+  .kofa-badge__label {
+    display: block;
+  }
+
+  .kofa-badge__icon {
+    align-items: center;
+    display: inline-flex;
+    flex: 0 0 12px;
+    height: 12px;
+    justify-content: center;
+    width: 12px;
+  }
+
+  .kofa-badge__icon > svg,
+  .kofa-badge__icon > img,
+  .kofa-badge__figma-icon {
+    display: block;
+    height: 12px;
+    width: 12px;
+  }
+
+  .kofa-counter-badge {
+    align-items: center;
+    background: var(--kofa-color-red-600);
+    border-radius: 3px;
+    color: var(--kofa-color-neutral-white);
+    display: inline-flex;
+    font-family: var(--kofa-font-family-product);
+    font-size: var(--kofa-font-size-body-xsmall);
+    font-weight: var(--kofa-font-weight-medium);
+    height: 16px;
+    justify-content: center;
+    letter-spacing: 0.5px;
+    line-height: var(--kofa-line-height-body-xsmall);
+    min-width: 16px;
+    padding-inline: 2px;
+  }
+}

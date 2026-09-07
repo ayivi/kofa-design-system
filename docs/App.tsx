@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
+import { Badge, CounterBadge } from '../src/components/Badge';
 import { Button } from '../src/components/Button';
 import { DropdownMenu, DropdownMenuItem } from '../src/components/DropdownMenu';
 import colourSource from '../tokens/colours.json';
@@ -7,7 +8,13 @@ import semanticSource from '../tokens/semantic.json';
 import typographySource from '../tokens/typography.json';
 
 type PageId =
-  'colors' | 'typography' | 'spacing' | 'radius' | 'button' | 'dropdown-menu';
+  | 'colors'
+  | 'typography'
+  | 'spacing'
+  | 'radius'
+  | 'button'
+  | 'dropdown-menu'
+  | 'badge';
 type Theme = 'light' | 'dark';
 type ColorToken = { $value: string; $description?: string };
 type DimensionToken = { $value: { value: number; unit: string } };
@@ -36,6 +43,7 @@ const navigation: Array<{ label: string; items: NavigationItem[] }> = [
     items: [
       { label: 'Button', page: 'button' },
       { label: 'Dropdown menu', page: 'dropdown-menu' },
+      { label: 'Badge', page: 'badge' },
       { label: 'Text', status: 'Soon' },
     ],
   },
@@ -91,7 +99,8 @@ function getPageFromHash(): PageId {
     page === 'spacing' ||
     page === 'radius' ||
     page === 'button' ||
-    page === 'dropdown-menu'
+    page === 'dropdown-menu' ||
+    page === 'badge'
   ) {
     return page;
   }
@@ -159,7 +168,9 @@ function Header({
   onMenuOpen: () => void;
 }) {
   const isComponentPage =
-    currentPage === 'button' || currentPage === 'dropdown-menu';
+    currentPage === 'button' ||
+    currentPage === 'dropdown-menu' ||
+    currentPage === 'badge';
 
   return (
     <header className="topbar">
@@ -1032,7 +1043,13 @@ function ButtonPage({
   );
 }
 
-function DropdownMenuPage({ onPrevious }: { onPrevious: () => void }) {
+function DropdownMenuPage({
+  onPrevious,
+  onNext,
+}: {
+  onPrevious: () => void;
+  onNext: () => void;
+}) {
   const [selectedItem, setSelectedItem] = useState('Item 2');
 
   return (
@@ -1183,10 +1200,156 @@ function DropdownMenuPage({ onPrevious }: { onPrevious: () => void }) {
         </div>
       </section>
 
+      <div className="page-pagination-group">
+        <PagePagination
+          direction="previous"
+          eyebrow="Previous component"
+          title="Button"
+          onClick={onPrevious}
+        />
+        <PagePagination
+          direction="next"
+          eyebrow="Next component"
+          title="Badge"
+          onClick={onNext}
+        />
+      </div>
+    </>
+  );
+}
+
+function BadgePage({ onPrevious }: { onPrevious: () => void }) {
+  const states = [
+    ['positive', 'Positive state'],
+    ['negative', 'Negative state'],
+    ['pending', 'Middle state'],
+    ['neutral', 'Neutral state'],
+    ['informative', 'Informative'],
+  ] as const;
+
+  return (
+    <>
+      <PageIntro eyebrow="Components" title="Badge">
+        Badges communicate compact statuses and counts with consistent semantic
+        color, typography, and optional supporting iconography.
+      </PageIntro>
+
+      <section className="doc-section" id="badge-preview">
+        <div className="section-heading">
+          <div>
+            <p className="section-kicker">Semantic status</p>
+            <h2>Badge states</h2>
+          </div>
+          <span className="count-pill">15 Figma variants</span>
+        </div>
+        <p>
+          Every badge is 26px high with 8px horizontal padding, a 2px radius,
+          and the 13/18 medium body style.
+        </p>
+        <div className="badge-showcase">
+          {states.map(([state, label]) => (
+            <Badge key={state} state={state}>
+              {label}
+            </Badge>
+          ))}
+        </div>
+      </section>
+
+      <section className="doc-section" id="badge-icons">
+        <div className="section-heading">
+          <div>
+            <p className="section-kicker">Composition</p>
+            <h2>Icon placement</h2>
+          </div>
+        </div>
+        <p>
+          Each semantic state includes matching 12px Figma artwork that can sit
+          before or after the label. Custom decorative icons are also accepted.
+        </p>
+        <div className="badge-matrix">
+          {states.map(([state, label]) => (
+            <div className="badge-matrix__row" key={state}>
+              {(['none', 'right', 'left'] as const).map((iconPosition) => (
+                <Badge
+                  iconPosition={iconPosition}
+                  key={iconPosition}
+                  state={state}
+                >
+                  {label}
+                </Badge>
+              ))}
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="doc-section" id="counter-badge">
+        <div className="section-heading">
+          <div>
+            <p className="section-kicker">Compact count</p>
+            <h2>Counter badge</h2>
+          </div>
+        </div>
+        <p>
+          CounterBadge presents a short notification count in the 16px format
+          defined alongside the status badges.
+        </p>
+        <div className="counter-showcase">
+          <CounterBadge aria-label="3 unread notifications">3</CounterBadge>
+          <span>Unread notifications</span>
+        </div>
+      </section>
+
+      <section className="doc-section" id="badge-api">
+        <div className="section-heading">
+          <div>
+            <p className="section-kicker">React</p>
+            <h2>Using Badge</h2>
+          </div>
+        </div>
+        <div className="code-sample">
+          <div className="code-sample__bar">
+            <span>TSX</span>
+            <CopyButton
+              value={`<Badge state="positive" iconPosition="left">
+  Payment complete
+</Badge>
+
+<CounterBadge aria-label="3 notifications">3</CounterBadge>`}
+              label="Copy"
+            />
+          </div>
+          <pre>
+            <code>{`<Badge state="positive" iconPosition="left">
+  Payment complete
+</Badge>
+
+<CounterBadge aria-label="3 notifications">3</CounterBadge>`}</code>
+          </pre>
+        </div>
+        <div className="props-table" role="table" aria-label="Badge props">
+          {[
+            [
+              'state',
+              'positive | negative | pending | neutral | informative',
+              'positive',
+            ],
+            ['iconPosition', 'none | left | right', 'none'],
+            ['icon', 'ReactNode', 'State icon'],
+          ].map(([name, type, defaultValue]) => (
+            <div className="props-table__row" role="row" key={name}>
+              <code role="cell">{name}</code>
+              <span role="cell">{type}</span>
+              <code role="cell">{defaultValue}</code>
+            </div>
+          ))}
+        </div>
+      </section>
+
       <PagePagination
         direction="previous"
         eyebrow="Previous component"
-        title="Button"
+        title="Dropdown menu"
         onClick={onPrevious}
       />
     </>
@@ -1252,6 +1415,12 @@ function TableOfContents({ page }: { page: PageId }) {
       ['dropdown-keyboard', 'Keyboard behavior'],
       ['dropdown-api', 'Using DropdownMenu'],
     ],
+    badge: [
+      ['badge-preview', 'Badge states'],
+      ['badge-icons', 'Icon placement'],
+      ['counter-badge', 'Counter badge'],
+      ['badge-api', 'Using Badge'],
+    ],
   };
   const links = pageLinks[page];
 
@@ -1281,7 +1450,9 @@ function TableOfContents({ page }: { page: PageId }) {
             ? 'https://www.figma.com/design/BVk88Tno1MTxZiM0k3MToy/Foundation?node-id=34-1997'
             : page === 'dropdown-menu'
               ? 'https://www.figma.com/design/BVk88Tno1MTxZiM0k3MToy/Foundation?node-id=35-2533'
-              : 'https://www.figma.com/design/BVk88Tno1MTxZiM0k3MToy/Foundation'
+              : page === 'badge'
+                ? 'https://www.figma.com/design/BVk88Tno1MTxZiM0k3MToy/Foundation?node-id=37-2746'
+                : 'https://www.figma.com/design/BVk88Tno1MTxZiM0k3MToy/Foundation'
         }
         target="_blank"
         rel="noreferrer"
@@ -1364,7 +1535,13 @@ export function App() {
             />
           )}
           {currentPage === 'dropdown-menu' && (
-            <DropdownMenuPage onPrevious={() => navigate('button')} />
+            <DropdownMenuPage
+              onPrevious={() => navigate('button')}
+              onNext={() => navigate('badge')}
+            />
+          )}
+          {currentPage === 'badge' && (
+            <BadgePage onPrevious={() => navigate('dropdown-menu')} />
           )}
           <footer className="article-footer">
             <span>Kofa Design System</span>
