@@ -1403,6 +1403,53 @@ button.side-nav__item:hover {
   min-width: 0;
 }
 
+.toast-showcase {
+  align-items: center;
+  background:
+    linear-gradient(var(--docs-surface), var(--docs-surface)) padding-box,
+    repeating-linear-gradient(
+        45deg,
+        var(--docs-border) 0,
+        var(--docs-border) 1px,
+        transparent 1px,
+        transparent 8px
+      )
+      border-box;
+  border: 1px solid transparent;
+  border-radius: 14px;
+  display: grid;
+  gap: 18px;
+  justify-content: center;
+  margin-top: 28px;
+  padding: 34px;
+}
+
+.toast-state-grid {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 28px;
+}
+
+.toast-state-grid article {
+  align-items: center;
+  background: var(--docs-surface);
+  border: 1px solid var(--docs-border);
+  border-radius: 14px;
+  display: grid;
+  gap: 14px;
+  justify-items: center;
+  min-width: 0;
+  padding: 24px;
+}
+
+.toast-state-grid article > code {
+  color: var(--docs-muted);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
 .pagination-showcase {
   background:
     linear-gradient(var(--docs-surface), var(--docs-surface)) padding-box,
@@ -1862,6 +1909,10 @@ button.side-nav__item:hover {
     padding: 24px;
   }
 
+  .toast-state-grid {
+    grid-template-columns: 1fr;
+  }
+
   .pagination-showcase .kofa-pagination,
   .pagination-state-grid .kofa-pagination {
     min-width: 0;
@@ -1893,6 +1944,14 @@ button.side-nav__item:hover {
   .avatar-treatment-grid article {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .toast-showcase {
+    padding: 24px 12px;
+  }
+
+  .toast-state-grid article {
+    padding-inline: 12px;
   }
 
   .props-table__row {

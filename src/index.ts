@@ -11,4 +11,5 @@ export * from './components/Pagination';
 export * from './components/Table';
 export * from './components/Tabs';
 export * from './components/Text';
+export * from './components/Toast';
 export * from './tokens';

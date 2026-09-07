@@ -17,6 +17,7 @@ import {
   TableRow,
 } from '../src/components/Table';
 import { Tab, TabList, TabPanel, Tabs } from '../src/components/Tabs';
+import { Toast, type ToastState } from '../src/components/Toast';
 import colourSource from '../tokens/colours.json';
 import coreSource from '../tokens/core.json';
 import semanticSource from '../tokens/semantic.json';
@@ -36,7 +37,8 @@ type PageId =
   | 'pagination'
   | 'avatar'
   | 'table'
-  | 'tabs';
+  | 'tabs'
+  | 'toast';
 type Theme = 'light' | 'dark';
 type ColorToken = { $value: string; $description?: string };
 type DimensionToken = { $value: { value: number; unit: string } };
@@ -73,6 +75,7 @@ const navigation: Array<{ label: string; items: NavigationItem[] }> = [
       { label: 'Avatar', page: 'avatar' },
       { label: 'Table', page: 'table' },
       { label: 'Tabs', page: 'tabs' },
+      { label: 'Toast', page: 'toast' },
       { label: 'Text', status: 'Soon' },
     ],
   },
@@ -136,7 +139,8 @@ function getPageFromHash(): PageId {
     page === 'pagination' ||
     page === 'avatar' ||
     page === 'table' ||
-    page === 'tabs'
+    page === 'tabs' ||
+    page === 'toast'
   ) {
     return page;
   }
@@ -213,7 +217,8 @@ function Header({
     currentPage === 'pagination' ||
     currentPage === 'avatar' ||
     currentPage === 'table' ||
-    currentPage === 'tabs';
+    currentPage === 'tabs' ||
+    currentPage === 'toast';
 
   return (
     <header className="topbar">
@@ -2360,7 +2365,13 @@ function TablePage({
   );
 }
 
-function TabsPage({ onPrevious }: { onPrevious: () => void }) {
+function TabsPage({
+  onPrevious,
+  onNext,
+}: {
+  onPrevious: () => void;
+  onNext: () => void;
+}) {
   const [activeTab, setActiveTab] = useState('overview');
   const labels = [
     'Tab item 1',
@@ -2493,10 +2504,142 @@ function TabsPage({ onPrevious }: { onPrevious: () => void }) {
         </div>
       </section>
 
+      <div className="page-pagination-group">
+        <PagePagination
+          direction="previous"
+          eyebrow="Previous component"
+          title="Table"
+          onClick={onPrevious}
+        />
+        <PagePagination
+          direction="next"
+          eyebrow="Next component"
+          title="Toast"
+          onClick={onNext}
+        />
+      </div>
+    </>
+  );
+}
+
+function ToastPage({ onPrevious }: { onPrevious: () => void }) {
+  const states: Array<{ state: ToastState; label: string; message: string }> = [
+    {
+      state: 'success',
+      label: 'Success',
+      message: 'Invoice create successfully.',
+    },
+    { state: 'error', label: 'Error', message: 'Something went wrong.' },
+    {
+      state: 'informative',
+      label: 'Informative',
+      message: 'Information for you.',
+    },
+    { state: 'warning', label: 'Warning', message: 'Something went wrong.' },
+  ];
+
+  return (
+    <>
+      <PageIntro eyebrow="Feedback" title="Toast">
+        Give people concise, contextual feedback after an action without
+        interrupting their current task.
+      </PageIntro>
+
+      <section className="doc-section" id="toast-states">
+        <div className="section-heading">
+          <div>
+            <p className="section-kicker">Figma component</p>
+            <h2>Semantic states</h2>
+          </div>
+          <span className="count-pill">4 states</span>
+        </div>
+        <p>
+          Each state pairs an exact 16px Figma icon with a tinted surface and
+          matching foreground color. The compact toast is 256px wide and 34px
+          high.
+        </p>
+        <div className="toast-showcase">
+          {states.map(({ state, message }) => (
+            <Toast state={state} key={state}>
+              {message}
+            </Toast>
+          ))}
+        </div>
+      </section>
+
+      <section className="doc-section" id="toast-content">
+        <div className="section-heading">
+          <div>
+            <p className="section-kicker">Content guidance</p>
+            <h2>Keep feedback concise</h2>
+          </div>
+          <span className="count-pill">One message</span>
+        </div>
+        <p>
+          State the outcome in a short sentence. Use success for completed
+          actions, error for failures, informative for neutral updates, and
+          warning when attention is needed before a problem occurs.
+        </p>
+        <div className="toast-state-grid">
+          {states.map(({ state, label, message }) => (
+            <article key={state}>
+              <code>{label}</code>
+              <Toast state={state}>{message}</Toast>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="doc-section" id="toast-accessibility">
+        <div className="section-heading">
+          <div>
+            <p className="section-kicker">Accessibility</p>
+            <h2>Live-region defaults</h2>
+          </div>
+        </div>
+        <p>
+          Success, informative, and warning messages use{' '}
+          <Code>role="status"</Code> so assistive technology announces them
+          politely. Error toasts use
+          <Code>role="alert"</Code> for immediate announcement.
+        </p>
+        <div className="callout">
+          <InfoIcon />
+          <p>
+            Render the toast only when a new message is ready. Updating content
+            inside a live region that was already announced may produce
+            inconsistent results across screen readers.
+          </p>
+        </div>
+      </section>
+
+      <section className="doc-section" id="toast-api">
+        <div className="section-heading">
+          <div>
+            <p className="section-kicker">React</p>
+            <h2>Using Toast</h2>
+          </div>
+        </div>
+        <div className="code-sample">
+          <div className="code-sample__bar">
+            <span>TSX</span>
+            <CopyButton
+              value={`<Toast state="success">Invoice created successfully.</Toast>`}
+              label="Copy"
+            />
+          </div>
+          <pre>
+            <code>{`<Toast state="success">
+  Invoice created successfully.
+</Toast>`}</code>
+          </pre>
+        </div>
+      </section>
+
       <PagePagination
         direction="previous"
         eyebrow="Previous component"
-        title="Table"
+        title="Tabs"
         onClick={onPrevious}
       />
     </>
@@ -2610,6 +2753,12 @@ function TableOfContents({ page }: { page: PageId }) {
       ['tabs-keyboard', 'Keyboard behavior'],
       ['tabs-api', 'Using Tabs'],
     ],
+    toast: [
+      ['toast-states', 'Semantic states'],
+      ['toast-content', 'Content guidance'],
+      ['toast-accessibility', 'Live-region defaults'],
+      ['toast-api', 'Using Toast'],
+    ],
   };
   const links = pageLinks[page];
 
@@ -2655,7 +2804,9 @@ function TableOfContents({ page }: { page: PageId }) {
                             ? 'https://www.figma.com/design/BVk88Tno1MTxZiM0k3MToy/Foundation?node-id=37-7899'
                             : page === 'tabs'
                               ? 'https://www.figma.com/design/BVk88Tno1MTxZiM0k3MToy/Foundation?node-id=37-8157'
-                              : 'https://www.figma.com/design/BVk88Tno1MTxZiM0k3MToy/Foundation'
+                              : page === 'toast'
+                                ? 'https://www.figma.com/design/BVk88Tno1MTxZiM0k3MToy/Foundation?node-id=37-8205'
+                                : 'https://www.figma.com/design/BVk88Tno1MTxZiM0k3MToy/Foundation'
         }
         target="_blank"
         rel="noreferrer"
@@ -2786,7 +2937,13 @@ export function App() {
             />
           )}
           {currentPage === 'tabs' && (
-            <TabsPage onPrevious={() => navigate('table')} />
+            <TabsPage
+              onPrevious={() => navigate('table')}
+              onNext={() => navigate('toast')}
+            />
+          )}
+          {currentPage === 'toast' && (
+            <ToastPage onPrevious={() => navigate('tabs')} />
           )}
           <footer className="article-footer">
             <span>Kofa Design System</span>
