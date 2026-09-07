@@ -4,6 +4,7 @@
 @import '../components/Badge/Badge.css';
 @import '../components/Button/Button.css';
 @import '../components/DropdownMenu/DropdownMenu.css';
+@import '../components/Header/Header.css';
 
 @layer kofa.base {
   *,

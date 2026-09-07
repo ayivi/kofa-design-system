@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { Badge, CounterBadge } from '../src/components/Badge';
 import { Button } from '../src/components/Button';
 import { DropdownMenu, DropdownMenuItem } from '../src/components/DropdownMenu';
+import { Header as KofaHeader } from '../src/components/Header';
 import colourSource from '../tokens/colours.json';
 import coreSource from '../tokens/core.json';
 import semanticSource from '../tokens/semantic.json';
@@ -14,7 +15,8 @@ type PageId =
   | 'radius'
   | 'button'
   | 'dropdown-menu'
-  | 'badge';
+  | 'badge'
+  | 'header';
 type Theme = 'light' | 'dark';
 type ColorToken = { $value: string; $description?: string };
 type DimensionToken = { $value: { value: number; unit: string } };
@@ -44,6 +46,7 @@ const navigation: Array<{ label: string; items: NavigationItem[] }> = [
       { label: 'Button', page: 'button' },
       { label: 'Dropdown menu', page: 'dropdown-menu' },
       { label: 'Badge', page: 'badge' },
+      { label: 'Header', page: 'header' },
       { label: 'Text', status: 'Soon' },
     ],
   },
@@ -100,7 +103,8 @@ function getPageFromHash(): PageId {
     page === 'radius' ||
     page === 'button' ||
     page === 'dropdown-menu' ||
-    page === 'badge'
+    page === 'badge' ||
+    page === 'header'
   ) {
     return page;
   }
@@ -170,7 +174,8 @@ function Header({
   const isComponentPage =
     currentPage === 'button' ||
     currentPage === 'dropdown-menu' ||
-    currentPage === 'badge';
+    currentPage === 'badge' ||
+    currentPage === 'header';
 
   return (
     <header className="topbar">
@@ -1218,7 +1223,13 @@ function DropdownMenuPage({
   );
 }
 
-function BadgePage({ onPrevious }: { onPrevious: () => void }) {
+function BadgePage({
+  onPrevious,
+  onNext,
+}: {
+  onPrevious: () => void;
+  onNext: () => void;
+}) {
   const states = [
     ['positive', 'Positive state'],
     ['negative', 'Negative state'],
@@ -1346,10 +1357,144 @@ function BadgePage({ onPrevious }: { onPrevious: () => void }) {
         </div>
       </section>
 
+      <div className="page-pagination-group">
+        <PagePagination
+          direction="previous"
+          eyebrow="Previous component"
+          title="Dropdown menu"
+          onClick={onPrevious}
+        />
+        <PagePagination
+          direction="next"
+          eyebrow="Next component"
+          title="Header"
+          onClick={onNext}
+        />
+      </div>
+    </>
+  );
+}
+
+function HeaderPage({ onPrevious }: { onPrevious: () => void }) {
+  const placements = ['right', 'none', 'both', 'left'] as const;
+
+  return (
+    <>
+      <PageIntro eyebrow="Components" title="Header">
+        Headers orient people within a product area and provide a consistent
+        place for primary contextual actions.
+      </PageIntro>
+
+      <section className="doc-section" id="header-preview">
+        <div className="section-heading">
+          <div>
+            <p className="section-kicker">Interactive preview</p>
+            <h2>Header anatomy</h2>
+          </div>
+          <span className="count-pill">4 Figma variants</span>
+        </div>
+        <p>
+          The product header is 54px high with 16px horizontal and 10px vertical
+          padding. Its title uses the 16/22 medium body style and actions reuse
+          the small Button component.
+        </p>
+        <div className="header-showcase">
+          <KofaHeader title="Billing" actionPlacement="right" />
+        </div>
+      </section>
+
+      <section className="doc-section" id="header-placement">
+        <div className="section-heading">
+          <div>
+            <p className="section-kicker">Composition</p>
+            <h2>Action placement</h2>
+          </div>
+        </div>
+        <p>
+          Choose the variant that matches the available actions. Left and both
+          placements keep the title geometrically centered in the header.
+        </p>
+        <div className="header-matrix">
+          {placements.map((placement) => (
+            <div className="header-matrix__row" key={placement}>
+              <code>{placement}</code>
+              <KofaHeader title="Billing" actionPlacement={placement} />
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="doc-section" id="header-actions">
+        <div className="section-heading">
+          <div>
+            <p className="section-kicker">Extensibility</p>
+            <h2>Custom actions</h2>
+          </div>
+        </div>
+        <p>
+          Use the built-in small buttons for the standard treatment, or provide
+          custom left and right React nodes when the header needs different
+          controls.
+        </p>
+        <div className="callout">
+          <InfoIcon />
+          <p>
+            Keep header actions concise. When both sides are used, custom
+            controls should remain visually balanced around the centered title.
+          </p>
+        </div>
+      </section>
+
+      <section className="doc-section" id="header-api">
+        <div className="section-heading">
+          <div>
+            <p className="section-kicker">React</p>
+            <h2>Using Header</h2>
+          </div>
+        </div>
+        <div className="code-sample">
+          <div className="code-sample__bar">
+            <span>TSX</span>
+            <CopyButton
+              value={`<Header
+  title="Billing"
+  actionPlacement="right"
+  actionLabel="Invite member(s)"
+  onRightAction={inviteMembers}
+/>`}
+              label="Copy"
+            />
+          </div>
+          <pre>
+            <code>{`<Header
+  title="Billing"
+  actionPlacement="right"
+  actionLabel="Invite member(s)"
+  onRightAction={inviteMembers}
+/>`}</code>
+          </pre>
+        </div>
+        <div className="props-table" role="table" aria-label="Header props">
+          {[
+            ['title', 'ReactNode', 'Required'],
+            ['actionPlacement', 'none | left | right | both', 'right'],
+            ['actionLabel', 'ReactNode', 'Invite member(s)'],
+            ['leftAction', 'ReactNode', 'Small Button'],
+            ['rightAction', 'ReactNode', 'Small Button'],
+          ].map(([name, type, defaultValue]) => (
+            <div className="props-table__row" role="row" key={name}>
+              <code role="cell">{name}</code>
+              <span role="cell">{type}</span>
+              <code role="cell">{defaultValue}</code>
+            </div>
+          ))}
+        </div>
+      </section>
+
       <PagePagination
         direction="previous"
         eyebrow="Previous component"
-        title="Dropdown menu"
+        title="Badge"
         onClick={onPrevious}
       />
     </>
@@ -1421,6 +1566,12 @@ function TableOfContents({ page }: { page: PageId }) {
       ['counter-badge', 'Counter badge'],
       ['badge-api', 'Using Badge'],
     ],
+    header: [
+      ['header-preview', 'Header anatomy'],
+      ['header-placement', 'Action placement'],
+      ['header-actions', 'Custom actions'],
+      ['header-api', 'Using Header'],
+    ],
   };
   const links = pageLinks[page];
 
@@ -1452,7 +1603,9 @@ function TableOfContents({ page }: { page: PageId }) {
               ? 'https://www.figma.com/design/BVk88Tno1MTxZiM0k3MToy/Foundation?node-id=35-2533'
               : page === 'badge'
                 ? 'https://www.figma.com/design/BVk88Tno1MTxZiM0k3MToy/Foundation?node-id=37-2746'
-                : 'https://www.figma.com/design/BVk88Tno1MTxZiM0k3MToy/Foundation'
+                : page === 'header'
+                  ? 'https://www.figma.com/design/BVk88Tno1MTxZiM0k3MToy/Foundation?node-id=37-2846'
+                  : 'https://www.figma.com/design/BVk88Tno1MTxZiM0k3MToy/Foundation'
         }
         target="_blank"
         rel="noreferrer"
@@ -1541,7 +1694,13 @@ export function App() {
             />
           )}
           {currentPage === 'badge' && (
-            <BadgePage onPrevious={() => navigate('dropdown-menu')} />
+            <BadgePage
+              onPrevious={() => navigate('dropdown-menu')}
+              onNext={() => navigate('header')}
+            />
+          )}
+          {currentPage === 'header' && (
+            <HeaderPage onPrevious={() => navigate('badge')} />
           )}
           <footer className="article-footer">
             <span>Kofa Design System</span>

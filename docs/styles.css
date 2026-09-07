@@ -1116,6 +1116,33 @@ button.side-nav__item:hover {
   padding: 34px;
 }
 
+.header-showcase,
+.header-matrix {
+  background: var(--kofa-color-neutral-200);
+  border: 1px solid var(--docs-border);
+  border-radius: 14px;
+  margin-top: 28px;
+  overflow: hidden;
+  padding: 28px 16px;
+}
+
+.header-matrix {
+  display: grid;
+  gap: 16px;
+  overflow-x: auto;
+}
+
+.header-matrix__row {
+  display: grid;
+  gap: 8px;
+  min-width: 620px;
+}
+
+.header-matrix__row > code {
+  color: var(--docs-muted);
+  font-size: 10px;
+}
+
 .button-matrix {
   border: 1px solid var(--docs-border);
   border-radius: 14px;
