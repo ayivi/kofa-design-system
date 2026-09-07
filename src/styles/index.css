@@ -2,6 +2,7 @@
 @import './generated/tokens.css';
 @import './typography.css';
 @import '../components/Button/Button.css';
+@import '../components/DropdownMenu/DropdownMenu.css';
 
 @layer kofa.base {
   *,

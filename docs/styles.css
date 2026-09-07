@@ -51,7 +51,7 @@ body {
     color 180ms ease;
 }
 
-button:not(.kofa-button),
+button:not(.kofa-button):not(.kofa-dropdown-menu__item),
 input {
   font: inherit;
 }
@@ -1036,6 +1036,40 @@ button.side-nav__item:hover {
   gap: 16px;
   margin-top: 28px;
   min-height: 150px;
+  padding: 34px;
+}
+
+.dropdown-showcase {
+  align-items: flex-start;
+  background:
+    linear-gradient(var(--docs-surface), var(--docs-surface)) padding-box,
+    repeating-linear-gradient(
+        45deg,
+        var(--docs-border) 0,
+        var(--docs-border) 1px,
+        transparent 1px,
+        transparent 8px
+      )
+      border-box;
+  border: 1px solid transparent;
+  border-radius: 14px;
+  display: flex;
+  gap: 24px;
+  margin-top: 28px;
+  padding: 34px;
+}
+
+.dropdown-showcase > p {
+  color: var(--docs-muted);
+  font-size: 12px;
+  margin: 10px 0 0;
+}
+
+.dropdown-variant-grid {
+  background: var(--docs-surface);
+  border: 1px solid var(--docs-border);
+  border-radius: 14px;
+  margin-top: 28px;
   padding: 34px;
 }
 

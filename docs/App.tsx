@@ -1,11 +1,13 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { Button } from '../src/components/Button';
+import { DropdownMenu, DropdownMenuItem } from '../src/components/DropdownMenu';
 import colourSource from '../tokens/colours.json';
 import coreSource from '../tokens/core.json';
 import semanticSource from '../tokens/semantic.json';
 import typographySource from '../tokens/typography.json';
 
-type PageId = 'colors' | 'typography' | 'spacing' | 'radius' | 'button';
+type PageId =
+  'colors' | 'typography' | 'spacing' | 'radius' | 'button' | 'dropdown-menu';
 type Theme = 'light' | 'dark';
 type ColorToken = { $value: string; $description?: string };
 type DimensionToken = { $value: { value: number; unit: string } };
@@ -33,6 +35,7 @@ const navigation: Array<{ label: string; items: NavigationItem[] }> = [
     label: 'Components',
     items: [
       { label: 'Button', page: 'button' },
+      { label: 'Dropdown menu', page: 'dropdown-menu' },
       { label: 'Text', status: 'Soon' },
     ],
   },
@@ -87,7 +90,8 @@ function getPageFromHash(): PageId {
     page === 'typography' ||
     page === 'spacing' ||
     page === 'radius' ||
-    page === 'button'
+    page === 'button' ||
+    page === 'dropdown-menu'
   ) {
     return page;
   }
@@ -154,7 +158,8 @@ function Header({
   onThemeChange: () => void;
   onMenuOpen: () => void;
 }) {
-  const isComponentPage = currentPage === 'button';
+  const isComponentPage =
+    currentPage === 'button' || currentPage === 'dropdown-menu';
 
   return (
     <header className="topbar">
@@ -852,7 +857,13 @@ function RadiusPage({
   );
 }
 
-function ButtonPage({ onPrevious }: { onPrevious: () => void }) {
+function ButtonPage({
+  onPrevious,
+  onNext,
+}: {
+  onPrevious: () => void;
+  onNext: () => void;
+}) {
   const variants = ['primary', 'secondary', 'tertiary'] as const;
   const placements = ['none', 'left', 'right', 'both'] as const;
 
@@ -1003,10 +1014,179 @@ function ButtonPage({ onPrevious }: { onPrevious: () => void }) {
         </div>
       </section>
 
+      <div className="page-pagination-group">
+        <PagePagination
+          direction="previous"
+          eyebrow="Previous foundation"
+          title="Radius"
+          onClick={onPrevious}
+        />
+        <PagePagination
+          direction="next"
+          eyebrow="Next component"
+          title="Dropdown menu"
+          onClick={onNext}
+        />
+      </div>
+    </>
+  );
+}
+
+function DropdownMenuPage({ onPrevious }: { onPrevious: () => void }) {
+  const [selectedItem, setSelectedItem] = useState('Item 2');
+
+  return (
+    <>
+      <PageIntro eyebrow="Components" title="Dropdown menu">
+        Dropdown menus present a compact set of actions or choices with clear
+        selection, supporting text, and predictable keyboard navigation.
+      </PageIntro>
+
+      <section className="doc-section" id="dropdown-preview">
+        <div className="section-heading">
+          <div>
+            <p className="section-kicker">Interactive preview</p>
+            <h2>Menu anatomy</h2>
+          </div>
+          <span className="count-pill">18 item variants</span>
+        </div>
+        <p>
+          The menu is 236px wide with a 4px radius, 2px inset padding, and a
+          subtle border and shadow. Standard items are 34px high; descriptions
+          increase the item height to 50px.
+        </p>
+        <div className="dropdown-showcase">
+          <DropdownMenu aria-label="Example order options">
+            {['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5'].map((item) => (
+              <DropdownMenuItem
+                key={item}
+                selected={selectedItem === item}
+                onClick={() => setSelectedItem(item)}
+              >
+                {item}
+              </DropdownMenuItem>
+            ))}
+          </DropdownMenu>
+          <p>
+            Selected: <strong>{selectedItem}</strong>
+          </p>
+        </div>
+      </section>
+
+      <section className="doc-section" id="dropdown-variants">
+        <div className="section-heading">
+          <div>
+            <p className="section-kicker">Composition</p>
+            <h2>Icons and descriptions</h2>
+          </div>
+        </div>
+        <p>
+          Place an icon before or after the content, and add a short description
+          when the label alone does not communicate enough context.
+        </p>
+        <div className="dropdown-variant-grid">
+          <DropdownMenu aria-label="Dropdown item variants">
+            <DropdownMenuItem iconPosition="left">
+              Order confirmed successfully.
+            </DropdownMenuItem>
+            <DropdownMenuItem iconPosition="right" selected>
+              Order confirmed successfully.
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              description="Subtext goes here"
+              iconPosition="left"
+            >
+              Order confirmed successfully.
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              description="Subtext goes here"
+              iconPosition="right"
+            >
+              Order confirmed successfully.
+            </DropdownMenuItem>
+          </DropdownMenu>
+        </div>
+      </section>
+
+      <section className="doc-section" id="dropdown-keyboard">
+        <div className="section-heading">
+          <div>
+            <p className="section-kicker">Accessibility</p>
+            <h2>Keyboard behavior</h2>
+          </div>
+        </div>
+        <p>
+          Use Arrow Up and Arrow Down to move between enabled items, Home and
+          End to jump to the first or last item, and Escape to close the menu
+          from its trigger integration.
+        </p>
+        <div className="callout">
+          <InfoIcon />
+          <p>
+            Give every menu an accessible label, and return focus to its trigger
+            when <Code>onEscapeKeyDown</Code> closes it.
+          </p>
+        </div>
+      </section>
+
+      <section className="doc-section" id="dropdown-api">
+        <div className="section-heading">
+          <div>
+            <p className="section-kicker">React</p>
+            <h2>Using DropdownMenu</h2>
+          </div>
+        </div>
+        <div className="code-sample">
+          <div className="code-sample__bar">
+            <span>TSX</span>
+            <CopyButton
+              value={`<DropdownMenu aria-label="Order options">
+  <DropdownMenuItem iconPosition="left">
+    View order
+  </DropdownMenuItem>
+  <DropdownMenuItem description="Cannot be undone" selected>
+    Cancel order
+  </DropdownMenuItem>
+</DropdownMenu>`}
+              label="Copy"
+            />
+          </div>
+          <pre>
+            <code>{`<DropdownMenu aria-label="Order options">
+  <DropdownMenuItem iconPosition="left">
+    View order
+  </DropdownMenuItem>
+  <DropdownMenuItem description="Cannot be undone" selected>
+    Cancel order
+  </DropdownMenuItem>
+</DropdownMenu>`}</code>
+          </pre>
+        </div>
+        <div
+          className="props-table"
+          role="table"
+          aria-label="Dropdown menu item props"
+        >
+          {[
+            ['iconPosition', 'none | left | right', 'none'],
+            ['icon', 'ReactNode', 'Figma check'],
+            ['description', 'ReactNode', '—'],
+            ['selected', 'boolean', 'false'],
+            ['disabled', 'boolean', 'false'],
+          ].map(([name, type, defaultValue]) => (
+            <div className="props-table__row" role="row" key={name}>
+              <code role="cell">{name}</code>
+              <span role="cell">{type}</span>
+              <code role="cell">{defaultValue}</code>
+            </div>
+          ))}
+        </div>
+      </section>
+
       <PagePagination
         direction="previous"
-        eyebrow="Previous foundation"
-        title="Radius"
+        eyebrow="Previous component"
+        title="Button"
         onClick={onPrevious}
       />
     </>
@@ -1066,6 +1246,12 @@ function TableOfContents({ page }: { page: PageId }) {
       ['button-icons', 'Icon placement'],
       ['button-api', 'Using Button'],
     ],
+    'dropdown-menu': [
+      ['dropdown-preview', 'Menu anatomy'],
+      ['dropdown-variants', 'Icons and descriptions'],
+      ['dropdown-keyboard', 'Keyboard behavior'],
+      ['dropdown-api', 'Using DropdownMenu'],
+    ],
   };
   const links = pageLinks[page];
 
@@ -1093,7 +1279,9 @@ function TableOfContents({ page }: { page: PageId }) {
         href={
           page === 'button'
             ? 'https://www.figma.com/design/BVk88Tno1MTxZiM0k3MToy/Foundation?node-id=34-1997'
-            : 'https://www.figma.com/design/BVk88Tno1MTxZiM0k3MToy/Foundation'
+            : page === 'dropdown-menu'
+              ? 'https://www.figma.com/design/BVk88Tno1MTxZiM0k3MToy/Foundation?node-id=35-2533'
+              : 'https://www.figma.com/design/BVk88Tno1MTxZiM0k3MToy/Foundation'
         }
         target="_blank"
         rel="noreferrer"
@@ -1170,7 +1358,13 @@ export function App() {
             />
           )}
           {currentPage === 'button' && (
-            <ButtonPage onPrevious={() => navigate('radius')} />
+            <ButtonPage
+              onPrevious={() => navigate('radius')}
+              onNext={() => navigate('dropdown-menu')}
+            />
+          )}
+          {currentPage === 'dropdown-menu' && (
+            <DropdownMenuPage onPrevious={() => navigate('button')} />
           )}
           <footer className="article-footer">
             <span>Kofa Design System</span>
