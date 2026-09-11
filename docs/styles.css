@@ -63,7 +63,7 @@ a {
 
 button:focus-visible,
 a:focus-visible,
-input:focus-visible {
+input:not(.kofa-input__native):focus-visible {
   outline: 2px solid var(--docs-brand);
   outline-offset: 2px;
 }
@@ -1619,6 +1619,49 @@ button.side-nav__item:hover {
   overflow: hidden;
 }
 
+.input-showcase {
+  background:
+    linear-gradient(var(--docs-surface-raised), var(--docs-surface-raised))
+      padding-box,
+    repeating-linear-gradient(
+        45deg,
+        var(--docs-border) 0,
+        var(--docs-border) 1px,
+        transparent 1px,
+        transparent 8px
+      )
+      border-box;
+  border: 1px solid transparent;
+  border-radius: 14px;
+  margin-top: 28px;
+  padding: 34px;
+}
+
+.input-showcase .kofa-input {
+  max-width: 300px;
+}
+
+.input-state-grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 28px;
+}
+
+.input-state-grid article {
+  background: var(--docs-surface-raised);
+  border: 1px solid var(--docs-border);
+  border-radius: 12px;
+  display: grid;
+  gap: 14px;
+  padding: 24px;
+}
+
+.input-state-grid article > code {
+  color: var(--docs-faint);
+  font-size: 10px;
+}
+
 .props-table__row {
   align-items: center;
   background: var(--docs-surface-raised);
@@ -1970,6 +2013,10 @@ button.side-nav__item:hover {
     grid-template-columns: 1fr;
   }
 
+  .input-state-grid {
+    grid-template-columns: 1fr;
+  }
+
   .pagination-showcase .kofa-pagination,
   .pagination-state-grid .kofa-pagination {
     min-width: 0;
@@ -2015,6 +2062,11 @@ button.side-nav__item:hover {
   .sidebar-item-showcase,
   .sidebar-section-showcase {
     padding-inline: 12px;
+  }
+
+  .input-showcase,
+  .input-state-grid article {
+    padding-inline: 18px;
   }
 
   .props-table__row {

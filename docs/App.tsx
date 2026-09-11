@@ -5,6 +5,7 @@ import { Badge, CounterBadge } from '../src/components/Badge';
 import { Button } from '../src/components/Button';
 import { DropdownMenu, DropdownMenuItem } from '../src/components/DropdownMenu';
 import { Header as KofaHeader } from '../src/components/Header';
+import { Input } from '../src/components/Input';
 import { Logo, PoweredByKofa } from '../src/components/Logo';
 import { ModalFooter, ModalHeader } from '../src/components/Modal';
 import { Pagination } from '../src/components/Pagination';
@@ -55,7 +56,8 @@ type PageId =
   | 'table'
   | 'tabs'
   | 'toast'
-  | 'sidebar';
+  | 'sidebar'
+  | 'input';
 type Theme = 'light' | 'dark';
 type ColorToken = { $value: string; $description?: string };
 type DimensionToken = { $value: { value: number; unit: string } };
@@ -94,6 +96,7 @@ const navigation: Array<{ label: string; items: NavigationItem[] }> = [
       { label: 'Tabs', page: 'tabs' },
       { label: 'Toast', page: 'toast' },
       { label: 'Sidebar', page: 'sidebar' },
+      { label: 'Input', page: 'input' },
       { label: 'Text', status: 'Soon' },
     ],
   },
@@ -159,7 +162,8 @@ function getPageFromHash(): PageId {
     page === 'table' ||
     page === 'tabs' ||
     page === 'toast' ||
-    page === 'sidebar'
+    page === 'sidebar' ||
+    page === 'input'
   ) {
     return page;
   }
@@ -238,8 +242,8 @@ function Header({
     currentPage === 'table' ||
     currentPage === 'tabs' ||
     currentPage === 'toast' ||
-    currentPage === 'sidebar';
-
+    currentPage === 'sidebar' ||
+    currentPage === 'input';
   return (
     <header className="topbar">
       <button
@@ -2929,6 +2933,158 @@ function SidebarPage({ onPrevious }: { onPrevious: () => void }) {
   );
 }
 
+function InputPage({ onPrevious }: { onPrevious: () => void }) {
+  return (
+    <>
+      <PageIntro eyebrow="Forms" title="Input">
+        Collect short-form text with an accessible label, optional helper copy,
+        validation feedback, adornments, and Kofa’s Ghana phone-number format.
+      </PageIntro>
+
+      <section className="doc-section" id="input-anatomy">
+        <div className="section-heading">
+          <div>
+            <p className="section-kicker">Interactive preview</p>
+            <h2>Input anatomy</h2>
+          </div>
+          <span className="count-pill">Body base · 40px control</span>
+        </div>
+        <p>
+          The input value and placeholder use the Body Base regular style
+          (13px/18px). Labels and helper text are linked to the native input.
+          Focus is represented by the dark outer ring from Figma; click the
+          field to inspect it.
+        </p>
+        <div className="input-showcase">
+          <Input
+            label="Vehicle chassis number"
+            helperText="Find this number on the vehicle frame"
+            placeholder="Enter chassis number"
+          />
+        </div>
+      </section>
+
+      <section className="doc-section" id="input-states">
+        <div className="section-heading">
+          <div>
+            <p className="section-kicker">Figma variants</p>
+            <h2>Content and validation states</h2>
+          </div>
+        </div>
+        <p>
+          Empty, focused, and filled styles follow native input behavior. Use
+          <Code>invalid</Code> only after validation has found an error.
+        </p>
+        <div className="input-state-grid">
+          <article>
+            <code>Empty</code>
+            <Input label="Label" placeholder="Placeholder text" />
+          </article>
+          <article>
+            <code>Filled</code>
+            <Input label="Label" defaultValue="Placeholder text" />
+          </article>
+          <article>
+            <code>Error</code>
+            <Input
+              label="Label"
+              defaultValue="Placeholder text"
+              helperText="Helper text goes here"
+              invalid
+            />
+          </article>
+          <article>
+            <code>Helper on top</code>
+            <Input
+              label="Label"
+              helperText="Helper text goes here"
+              helperTextPosition="top"
+              placeholder="Placeholder text"
+            />
+          </article>
+        </div>
+      </section>
+
+      <section className="doc-section" id="input-phone">
+        <div className="section-heading">
+          <div>
+            <p className="section-kicker">Phone format</p>
+            <h2>Ghana phone number</h2>
+          </div>
+          <span className="count-pill">+233</span>
+        </div>
+        <p>
+          The phone variant uses the supplied Ghana flag asset, exposes the
+          country code to assistive technology, and applies native telephone
+          input semantics.
+        </p>
+        <div className="input-showcase">
+          <Input
+            label="Phone number"
+            helperText="Use the number linked to the customer account"
+            placeholder="20 120 0000"
+            variant="phone"
+          />
+        </div>
+      </section>
+
+      <section className="doc-section" id="input-api">
+        <div className="section-heading">
+          <div>
+            <p className="section-kicker">React</p>
+            <h2>Using Input</h2>
+          </div>
+        </div>
+        <div className="code-sample">
+          <div className="code-sample__bar">
+            <span>TSX</span>
+            <CopyButton
+              value={`<Input
+  label="Phone number"
+  helperText="Use the account contact number"
+  placeholder="20 120 0000"
+  variant="phone"
+/>`}
+              label="Copy"
+            />
+          </div>
+          <pre>
+            <code>{`<Input
+  label="Phone number"
+  helperText="Use the account contact number"
+  placeholder="20 120 0000"
+  variant="phone"
+/>`}</code>
+          </pre>
+        </div>
+        <div className="props-table" role="table" aria-label="Input props">
+          {[
+            ['label', 'Visible label content', 'ReactNode'],
+            ['helperText', 'Supporting or error text', 'ReactNode'],
+            ['helperTextPosition', 'Helper placement', 'top | bottom'],
+            ['variant', 'Text or Ghana phone input', 'default | phone'],
+            ['invalid', 'Error visuals and semantics', 'boolean'],
+            ['leadingIcon / trailingIcon', 'Optional adornments', 'ReactNode'],
+          ].map(([name, description, type]) => (
+            <div className="props-table__row" role="row" key={name}>
+              <code role="cell">{name}</code>
+              <span role="cell">{description}</span>
+              <code role="cell">{type}</code>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <PagePagination
+        direction="previous"
+        eyebrow="Previous component"
+        title="Sidebar"
+        onClick={onPrevious}
+      />
+    </>
+  );
+}
+
 function PagePagination({
   direction,
   eyebrow,
@@ -3048,6 +3204,12 @@ function TableOfContents({ page }: { page: PageId }) {
       ['sidebar-sections', 'Disclosure sections'],
       ['sidebar-api', 'Composing Sidebar'],
     ],
+    input: [
+      ['input-anatomy', 'Input anatomy'],
+      ['input-states', 'Content and error states'],
+      ['input-phone', 'Ghana phone number'],
+      ['input-api', 'Using Input'],
+    ],
   };
   const links = pageLinks[page];
 
@@ -3097,7 +3259,9 @@ function TableOfContents({ page }: { page: PageId }) {
                                 ? 'https://www.figma.com/design/BVk88Tno1MTxZiM0k3MToy/Foundation?node-id=37-8205'
                                 : page === 'sidebar'
                                   ? 'https://www.figma.com/design/BVk88Tno1MTxZiM0k3MToy/Foundation?node-id=37-3463'
-                                  : 'https://www.figma.com/design/BVk88Tno1MTxZiM0k3MToy/Foundation'
+                                  : page === 'input'
+                                    ? 'https://www.figma.com/design/BVk88Tno1MTxZiM0k3MToy/Foundation?node-id=110-785'
+                                    : 'https://www.figma.com/design/BVk88Tno1MTxZiM0k3MToy/Foundation'
         }
         target="_blank"
         rel="noreferrer"
@@ -3241,6 +3405,9 @@ export function App() {
           )}
           {currentPage === 'sidebar' && (
             <SidebarPage onPrevious={() => navigate('toast')} />
+          )}
+          {currentPage === 'input' && (
+            <InputPage onPrevious={() => navigate('sidebar')} />
           )}
           <footer className="article-footer">
             <span>Kofa Design System</span>
