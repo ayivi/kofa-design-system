@@ -209,12 +209,7 @@ function CopyButton({ value, label }: { value: string; label?: string }) {
 function Brand() {
   return (
     <a className="brand" href="#/colors" aria-label="Kofa design system home">
-      <span className="brand__mark" aria-hidden="true">
-        K
-      </span>
-      <span>Kofa</span>
-      <span className="brand__divider" />
-      <span className="brand__product">Design</span>
+      <Logo variant="lockup" size={32} color="black" />
     </a>
   );
 }
