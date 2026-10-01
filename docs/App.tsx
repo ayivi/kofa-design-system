@@ -48,7 +48,11 @@ import coreSource from '../tokens/core.json';
 import semanticSource from '../tokens/semantic.json';
 import typographySource from '../packages/web/tokens/typography.json';
 
+import { PlatformsPage } from './PlatformsPage';
+import { MobileTypeScale, MobileTypeUsage } from './MobileTypography';
+
 type PageId =
+  | 'platforms'
   | 'colors'
   | 'typography'
   | 'spacing'
@@ -76,7 +80,7 @@ const navigation: Array<{ label: string; items: NavigationItem[] }> = [
   {
     label: 'Getting started',
     items: [
-      { label: 'Introduction', status: 'Soon' },
+      { label: 'Web & mobile', page: 'platforms' },
       { label: 'Installation', status: 'Soon' },
     ],
   },
@@ -156,6 +160,7 @@ const typographyStyles = Object.keys(typeSizes).map((name) => {
 function getPageFromHash(): PageId {
   const page = window.location.hash.replace('#/', '');
   if (
+    page === 'platforms' ||
     page === 'typography' ||
     page === 'spacing' ||
     page === 'radius' ||
@@ -605,12 +610,35 @@ function TypographyPage({
   onPrevious: () => void;
   onNext: () => void;
 }) {
+  const [platform, setPlatform] = useState<'web' | 'mobile'>('web');
+
   return (
     <>
       <PageIntro eyebrow="Foundations" title="Typography">
         TWK Everett gives Kofa a precise, confident voice across product
         interfaces and supporting experiences.
       </PageIntro>
+
+      <div
+        className="typography-platform-switch"
+        role="group"
+        aria-label="Typography platform"
+      >
+        <button
+          type="button"
+          aria-pressed={platform === 'web'}
+          onClick={() => setPlatform('web')}
+        >
+          Web
+        </button>
+        <button
+          type="button"
+          aria-pressed={platform === 'mobile'}
+          onClick={() => setPlatform('mobile')}
+        >
+          Mobile
+        </button>
+      </div>
 
       <section className="doc-section" id="typeface">
         <div className="section-heading">
@@ -635,76 +663,85 @@ function TypographyPage({
         </div>
       </section>
 
-      <section className="doc-section" id="type-scale">
-        <div className="section-heading">
-          <div>
-            <p className="section-kicker">Web platform</p>
-            <h2>Type scale</h2>
-          </div>
-        </div>
-        <p>
-          The scale separates visual style from document semantics. Choose an
-          appropriate HTML element, then apply the matching Text variant.
-        </p>
-        <div className="type-table">
-          {typographyStyles.map((style) => (
-            <article className="type-row" key={style.name}>
-              <div className="type-row__meta">
-                <strong>{style.name}</strong>
-                <span>
-                  {style.weight} · {style.size}/{style.lineHeight} ·{' '}
-                  {style.tracking}
-                </span>
+      {platform === 'mobile' ? (
+        <>
+          <MobileTypeScale />
+          <MobileTypeUsage />
+        </>
+      ) : (
+        <>
+          <section className="doc-section" id="type-scale">
+            <div className="section-heading">
+              <div>
+                <p className="section-kicker">Web platform</p>
+                <h2>Type scale</h2>
               </div>
-              <p className={`kofa-text kofa-text--${style.name}`}>
-                Build with clarity.
-              </p>
-              <CopyButton value={style.name} />
-            </article>
-          ))}
-        </div>
-      </section>
+            </div>
+            <p>
+              The scale separates visual style from document semantics. Choose
+              an appropriate HTML element, then apply the matching Text variant.
+            </p>
+            <div className="type-table">
+              {typographyStyles.map((style) => (
+                <article className="type-row" key={style.name}>
+                  <div className="type-row__meta">
+                    <strong>{style.name}</strong>
+                    <span>
+                      {style.weight} · {style.size}/{style.lineHeight} ·{' '}
+                      {style.tracking}
+                    </span>
+                  </div>
+                  <p className={`kofa-text kofa-text--${style.name}`}>
+                    Build with clarity.
+                  </p>
+                  <CopyButton value={style.name} />
+                </article>
+              ))}
+            </div>
+          </section>
 
-      <section className="doc-section" id="text-component">
-        <div className="section-heading">
-          <div>
-            <p className="section-kicker">React</p>
-            <h2>Text component</h2>
-          </div>
-        </div>
-        <p>
-          Use the polymorphic <Code>Text</Code> primitive to keep semantic HTML
-          independent from the visual type style.
-        </p>
-        <div className="code-sample">
-          <div className="code-sample__bar">
-            <span>TSX</span>
-            <CopyButton
-              value={`<Text as="h1" variant="display-1">\n  Welcome to Kofa\n</Text>`}
-              label="Copy"
-            />
-          </div>
-          <pre>
-            <code>
-              <span className="syntax-selector">&lt;Text</span>{' '}
-              <span className="syntax-prop">as</span>=
-              <span className="syntax-string">&quot;h1&quot;</span>{' '}
-              <span className="syntax-prop">variant</span>=
-              <span className="syntax-string">&quot;display-1&quot;</span>
-              <span className="syntax-selector">&gt;</span>
-              {`\n  `}Welcome to Kofa{`\n`}
-              <span className="syntax-selector">&lt;/Text&gt;</span>
-            </code>
-          </pre>
-        </div>
-        <div className="callout callout--warning">
-          <InfoIcon />
-          <p>
-            Thin styles exist in Figma, but require the licensed TWK Everett
-            Thin font file before they are production-ready.
-          </p>
-        </div>
-      </section>
+          <section className="doc-section" id="text-component">
+            <div className="section-heading">
+              <div>
+                <p className="section-kicker">React</p>
+                <h2>Text component</h2>
+              </div>
+            </div>
+            <p>
+              Use the polymorphic <Code>Text</Code> primitive to keep semantic
+              HTML independent from the visual type style.
+            </p>
+            <div className="code-sample">
+              <div className="code-sample__bar">
+                <span>TSX</span>
+                <CopyButton
+                  value={`<Text as="h1" variant="display-1">\n  Welcome to Kofa\n</Text>`}
+                  label="Copy"
+                />
+              </div>
+              <pre>
+                <code>
+                  <span className="syntax-selector">&lt;Text</span>{' '}
+                  <span className="syntax-prop">as</span>=
+                  <span className="syntax-string">&quot;h1&quot;</span>{' '}
+                  <span className="syntax-prop">variant</span>=
+                  <span className="syntax-string">&quot;display-1&quot;</span>
+                  <span className="syntax-selector">&gt;</span>
+                  {`\n  `}Welcome to Kofa{`\n`}
+                  <span className="syntax-selector">&lt;/Text&gt;</span>
+                </code>
+              </pre>
+            </div>
+            <div className="callout callout--warning">
+              <InfoIcon />
+              <p>
+                Thin styles exist in Figma, but require the licensed TWK Everett
+                Thin font file before they are production-ready.
+              </p>
+            </div>
+          </section>
+        </>
+      )}
 
       <div className="page-pagination-group">
         <PagePagination
@@ -3117,6 +3154,12 @@ function PagePagination({
 
 function TableOfContents({ page }: { page: PageId }) {
   const pageLinks: Record<PageId, Array<[string, string]>> = {
+    platforms: [
+      ['platform-foundations', 'Shared foundations'],
+      ['platform-typography', 'Typography differences'],
+      ['platform-behavior', 'Layout & interaction'],
+      ['platform-availability', 'Availability'],
+    ],
     colors: [
       ['palette', 'Color palette'],
       ['semantic-colors', 'Semantic colors'],
@@ -3125,7 +3168,7 @@ function TableOfContents({ page }: { page: PageId }) {
     typography: [
       ['typeface', 'Typeface'],
       ['type-scale', 'Type scale'],
-      ['text-component', 'Text component'],
+      ['text-component', 'Using typography'],
     ],
     spacing: [
       ['spacing-scale', 'Spacing scale'],
@@ -3319,6 +3362,19 @@ export function App() {
       />
       <div className="content-layout">
         <main className="article">
+          {currentPage !== 'platforms' && (
+            <div className="platform-scope">
+              <span>
+                {['colors', 'spacing', 'radius'].includes(currentPage)
+                  ? 'Shared foundation · Web & mobile'
+                  : currentPage === 'typography'
+                    ? 'Typography · Web & mobile'
+                    : 'Web component · React'}
+              </span>
+              <a href="#/platforms">Compare web & mobile →</a>
+            </div>
+          )}
+          {currentPage === 'platforms' && <PlatformsPage />}
           {currentPage === 'colors' && (
             <ColorsPage onNext={() => navigate('typography')} />
           )}
