@@ -9,7 +9,7 @@ permissions:
   contents: read
 
 jobs:
-  verify:
+  web:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -25,3 +25,23 @@ jobs:
       - run: npm run build
       - run: npm run docs:build
       - run: npm run build:storybook
+
+  flutter:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: npm run tokens:build:flutter
+      - run: git diff --exit-code -- packages/flutter/lib/src/generated packages/flutter/assets/fonts
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+      - run: flutter pub get
+        working-directory: packages/flutter
+      - run: flutter analyze
+        working-directory: packages/flutter
+      - run: flutter test
+        working-directory: packages/flutter

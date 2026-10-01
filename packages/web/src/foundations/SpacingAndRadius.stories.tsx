@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import coreSource from '../../tokens/core.json';
+import coreSource from '../../../../tokens/core.json';
 import { Text } from '../components/Text';
 import './SpacingAndRadius.css';
 
