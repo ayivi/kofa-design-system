@@ -48,7 +48,10 @@ import coreSource from '../tokens/core.json';
 import semanticSource from '../tokens/semantic.json';
 import typographySource from '../packages/web/tokens/typography.json';
 
+import { PlatformsPage } from './PlatformsPage';
+
 type PageId =
+  | 'platforms'
   | 'colors'
   | 'typography'
   | 'spacing'
@@ -76,7 +79,7 @@ const navigation: Array<{ label: string; items: NavigationItem[] }> = [
   {
     label: 'Getting started',
     items: [
-      { label: 'Introduction', status: 'Soon' },
+      { label: 'Web & mobile', page: 'platforms' },
       { label: 'Installation', status: 'Soon' },
     ],
   },
@@ -156,6 +159,7 @@ const typographyStyles = Object.keys(typeSizes).map((name) => {
 function getPageFromHash(): PageId {
   const page = window.location.hash.replace('#/', '');
   if (
+    page === 'platforms' ||
     page === 'typography' ||
     page === 'spacing' ||
     page === 'radius' ||
@@ -3117,6 +3121,12 @@ function PagePagination({
 
 function TableOfContents({ page }: { page: PageId }) {
   const pageLinks: Record<PageId, Array<[string, string]>> = {
+    platforms: [
+      ['platform-foundations', 'Shared foundations'],
+      ['platform-typography', 'Typography differences'],
+      ['platform-behavior', 'Layout & interaction'],
+      ['platform-availability', 'Availability'],
+    ],
     colors: [
       ['palette', 'Color palette'],
       ['semantic-colors', 'Semantic colors'],
@@ -3319,6 +3329,19 @@ export function App() {
       />
       <div className="content-layout">
         <main className="article">
+          {currentPage !== 'platforms' && (
+            <div className="platform-scope">
+              <span>
+                {['colors', 'spacing', 'radius'].includes(currentPage)
+                  ? 'Shared foundation · Web & mobile'
+                  : currentPage === 'typography'
+                    ? 'Web typography · React'
+                    : 'Web component · React'}
+              </span>
+              <a href="#/platforms">Compare web & mobile →</a>
+            </div>
+          )}
+          {currentPage === 'platforms' && <PlatformsPage />}
           {currentPage === 'colors' && (
             <ColorsPage onNext={() => navigate('typography')} />
           )}
