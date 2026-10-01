@@ -1,0 +1,25 @@
+{
+  "font": {
+    "family": {
+      "product": {
+        "$type": "fontFamily",
+        "$value": ["TWK Everett", "Arial", "sans-serif"]
+      }
+    },
+    "weight": {
+      "thin": {
+        "$type": "fontWeight",
+        "$value": 100,
+        "$description": "Specified in Figma; the Thin font file has not yet been supplied."
+      },
+      "regular": {
+        "$type": "fontWeight",
+        "$value": 400
+      },
+      "medium": {
+        "$type": "fontWeight",
+        "$value": 500
+      }
+    }
+  }
+}

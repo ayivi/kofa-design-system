@@ -3,7 +3,7 @@
   font-family: 'TWK Everett';
   font-style: normal;
   font-weight: 400;
-  src: url('../../font/TWKEverett-Regular-web.ttf') format('truetype');
+  src: url('../../../../font/TWKEverett-Regular-web.ttf') format('truetype');
 }
 
 @font-face {
@@ -11,5 +11,5 @@
   font-family: 'TWK Everett';
   font-style: normal;
   font-weight: 500;
-  src: url('../../font/TWKEverett-Medium-web.ttf') format('truetype');
+  src: url('../../../../font/TWKEverett-Medium-web.ttf') format('truetype');
 }

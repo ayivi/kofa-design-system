@@ -1,14 +1,17 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
-import { Avatar } from '../src/components/Avatar';
-import avatarExample from '../src/components/Avatar/assets/avatar-example.jpg';
-import { Badge, CounterBadge } from '../src/components/Badge';
-import { Button } from '../src/components/Button';
-import { DropdownMenu, DropdownMenuItem } from '../src/components/DropdownMenu';
-import { Header as KofaHeader } from '../src/components/Header';
-import { Input } from '../src/components/Input';
-import { Logo, PoweredByKofa } from '../src/components/Logo';
-import { ModalFooter, ModalHeader } from '../src/components/Modal';
-import { Pagination } from '../src/components/Pagination';
+import { Avatar } from '../packages/web/src/components/Avatar';
+import avatarExample from '../packages/web/src/components/Avatar/assets/avatar-example.jpg';
+import { Badge, CounterBadge } from '../packages/web/src/components/Badge';
+import { Button } from '../packages/web/src/components/Button';
+import {
+  DropdownMenu,
+  DropdownMenuItem,
+} from '../packages/web/src/components/DropdownMenu';
+import { Header as KofaHeader } from '../packages/web/src/components/Header';
+import { Input } from '../packages/web/src/components/Input';
+import { Logo, PoweredByKofa } from '../packages/web/src/components/Logo';
+import { ModalFooter, ModalHeader } from '../packages/web/src/components/Modal';
+import { Pagination } from '../packages/web/src/components/Pagination';
 import {
   Sidebar as KofaSidebar,
   SidebarFooter,
@@ -16,15 +19,15 @@ import {
   SidebarMenuItem,
   SidebarNav,
   SidebarSection,
-} from '../src/components/Sidebar';
-import sidebarBilling from '../src/components/Sidebar/assets/billing.svg';
-import sidebarDashboard from '../src/components/Sidebar/assets/dashboard.svg';
-import sidebarDashboardBlue from '../src/components/Sidebar/assets/dashboard-active-blue.svg';
-import sidebarMembers from '../src/components/Sidebar/assets/members.svg';
-import sidebarNetwork from '../src/components/Sidebar/assets/network-active.svg';
-import sidebarSettings from '../src/components/Sidebar/assets/settings.svg';
-import sidebarStorage from '../src/components/Sidebar/assets/storage.svg';
-import sidebarVehicles from '../src/components/Sidebar/assets/vehicles.svg';
+} from '../packages/web/src/components/Sidebar';
+import sidebarBilling from '../packages/web/src/components/Sidebar/assets/billing.svg';
+import sidebarDashboard from '../packages/web/src/components/Sidebar/assets/dashboard.svg';
+import sidebarDashboardBlue from '../packages/web/src/components/Sidebar/assets/dashboard-active-blue.svg';
+import sidebarMembers from '../packages/web/src/components/Sidebar/assets/members.svg';
+import sidebarNetwork from '../packages/web/src/components/Sidebar/assets/network-active.svg';
+import sidebarSettings from '../packages/web/src/components/Sidebar/assets/settings.svg';
+import sidebarStorage from '../packages/web/src/components/Sidebar/assets/storage.svg';
+import sidebarVehicles from '../packages/web/src/components/Sidebar/assets/vehicles.svg';
 import {
   Table,
   TableBody,
@@ -32,13 +35,18 @@ import {
   TableHead,
   TableHeaderCell,
   TableRow,
-} from '../src/components/Table';
-import { Tab, TabList, TabPanel, Tabs } from '../src/components/Tabs';
-import { Toast, type ToastState } from '../src/components/Toast';
+} from '../packages/web/src/components/Table';
+import {
+  Tab,
+  TabList,
+  TabPanel,
+  Tabs,
+} from '../packages/web/src/components/Tabs';
+import { Toast, type ToastState } from '../packages/web/src/components/Toast';
 import colourSource from '../tokens/colours.json';
 import coreSource from '../tokens/core.json';
 import semanticSource from '../tokens/semantic.json';
-import typographySource from '../tokens/typography.json';
+import typographySource from '../packages/web/tokens/typography.json';
 
 type PageId =
   | 'colors'
@@ -277,7 +285,7 @@ function Header({
         </button>
         <a
           className="icon-button"
-          href="https://github.com/ayivi/gogetit"
+          href="https://github.com/ayivi/kofa-design-system"
           aria-label="Kofa on GitHub"
           target="_blank"
           rel="noreferrer"

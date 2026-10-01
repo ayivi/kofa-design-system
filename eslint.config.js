@@ -6,7 +6,14 @@ import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
-  { ignores: ['dist', 'storybook-static', 'coverage'] },
+  {
+    ignores: [
+      '**/dist/**',
+      '**/storybook-static/**',
+      '**/coverage/**',
+      'docs-dist/**',
+    ],
+  },
   js.configs.recommended,
   ...tseslint.configs.recommended,
   {
@@ -20,7 +27,7 @@ export default tseslint.config(
   },
   reactHooks.configs.flat.recommended,
   {
-    files: ['src/**/*.{ts,tsx}'],
+    files: ['packages/web/src/**/*.{ts,tsx}'],
     plugins: {
       'react-refresh': reactRefresh,
     },

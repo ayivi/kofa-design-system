@@ -11,3 +11,7 @@ The web type ramp uses TWK Everett. Display and heading styles use Medium. Body 
 The repository currently contains the supplied Regular and Medium TTF files. Add the licensed TWK Everett Thin web font before using Thin styles in production.
 
 Figma also defines desktop, tablet, and mobile style mappings, but it does not define breakpoint widths on this page. The mapping is exported as `responsiveTypographyScale`; consuming products should apply it at their approved breakpoints.
+
+Web dimensions live in `packages/web/tokens/typography.json`; shared font family
+and weights live in `tokens/typeface.json`. Mobile has its own supplied scale in
+`packages/flutter/tokens/typography.json`. Paths are relative to the repo root.

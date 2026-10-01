@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import colourSource from '../../tokens/colours.json';
+import colourSource from '../../../../tokens/colours.json';
 import './Colors.css';
 
 function titleCase(value: string) {

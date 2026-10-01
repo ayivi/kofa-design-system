@@ -1,109 +1,109 @@
-# Kofa Web Design System
+# Kofa Design System
 
-The React component library for Kofa web products. Components are authored in TypeScript and shipped as JavaScript (ES modules and CommonJS) with TypeScript declarations and a standalone CSS bundle.
+One repository for Kofa's shared foundations, React web components, and Flutter
+mobile design system. The packages share brand tokens and font assets while
+keeping platform typography and implementations separate.
 
-> The primitive colour palette is sourced from the Kofa Foundation Figma file. Semantic brand/action mappings remain provisional until their Figma specification is supplied.
+## Packages
 
-## What is included
+| Package                   | Location                                       | Consumption                     |
+| ------------------------- | ---------------------------------------------- | ------------------------------- |
+| `@kofa/web-design-system` | [packages/web](packages/web/README.md)         | npm workspace or packed tarball |
+| `kofa_design_system`      | [packages/flutter](packages/flutter/README.md) | Dart path or Git dependency     |
 
-- React and TypeScript component source
-- Vite library builds for ESM and CommonJS consumers
-- Storybook for component development and accessibility checks
-- Vitest, Testing Library, and coverage reporting
-- ESLint and Prettier
-- DTCG-format design tokens compiled to CSS custom properties by Style Dictionary
-- Self-hosted TWK Everett Regular and Medium font faces
-- Figma-derived web typography tokens, responsive mappings, and a React Text primitive
-- Responsive documentation app with searchable navigation and interactive token references
-- Changesets for versioning and a GitHub Actions verification workflow
-- Figma-aligned Button variants with destructive, disabled, compact, loading,
-  and four icon-placement states
+The web package name and exports are unchanged. Both packages remain private.
 
-## Get started
-
-```bash
-npm install
-npm run dev
+```text
+packages/
+  web/             React components, Storybook, web typography, npm manifest
+  flutter/         Flutter foundation, mobile typography, tests, pubspec
+tokens/           Shared palette, semantic colors, spacing, radius, typeface
+font/             Shared Everett source fonts
+scripts/          Token generators
+docs/             Documentation app
+.changeset/       Web package versioning
 ```
 
-Run the Kofa documentation site:
+## Development
 
-```bash
-npm run docs:dev
+From the repository root, using Node 24:
+
+```sh
+npm ci
+npm run dev                  # Web Storybook
+npm run docs:dev             # Documentation app
+npm run tokens:build         # Generate both platforms and sync Flutter fonts
+npm run build                # Web library -> packages/web/dist
+npm run docs:build           # Documentation -> docs-dist
+npm run build:storybook      # Storybook -> packages/web/storybook-static
+npm run lint
+npm run typecheck
+npm run test:coverage        # Web tests
+npm run check:flutter       # Requires Flutter SDK: resolve, analyze, test
 ```
 
-Storybook opens at `http://localhost:6006`.
+Web commands can also run directly in the workspace, for example
+`npm run test --workspace @kofa/web-design-system`. Flutter uses its own pubspec,
+not npm workspaces; run Flutter commands in `packages/flutter`.
 
-## Common commands
+## Shared and platform-specific tokens
 
-```bash
-npm run dev              # Develop components in Storybook
-npm run test             # Run unit tests once
-npm run test:watch       # Run unit tests in watch mode
-npm run test:coverage    # Generate coverage
-npm run lint             # Lint source and configuration
-npm run typecheck        # Check TypeScript
-npm run tokens:build     # Regenerate CSS variables from /tokens
-npm run build            # Build tokens and the package
-npm run build:storybook  # Build the static documentation site
-npm run changeset        # Describe a user-facing package change
-```
+Edit `tokens/` for shared foundations. Edit `packages/web/tokens/typography.json`
+or `packages/flutter/tokens/typography.json` for platform typography. Regenerate
+with `npm run tokens:build`; do not hand-edit generated CSS/Dart or copied fonts.
+Generators resolve paths relative to this repository, so they also work from
+package directories. The web generator never reads Flutter typography.
 
-## Using the package
+The Figma source audits remain in `tokens/FIGMA_*.md`. Brand/action semantics are
+still provisional. Regular and Medium fonts are bundled; Thin is specified but
+its asset is still missing. The Flutter foundation currently supports light mode.
 
-Publishing is intentionally disabled with `private: true` until Kofa's package registry, package scope, access policy, and release credentials are confirmed. During local development, consumers can install the package from a workspace or packed tarball. The build output and export map are already package-ready.
+## Consuming the packages
+
+Web consumers keep their existing imports:
 
 ```tsx
 import { Button } from '@kofa/web-design-system';
 import '@kofa/web-design-system/styles.css';
-
-export function Example() {
-  return (
-    <Button variant="primary" iconPosition="right">
-      Invite member(s)
-    </Button>
-  );
-}
 ```
 
-The same package works in JavaScript projects; TypeScript projects additionally receive generated declarations and prop autocomplete.
+Build then pack with `npm pack --workspace @kofa/web-design-system` for local
+installation. Consumers installing the old repository root must switch to the
+web package or its tarball; the root is now a workspace coordinator.
 
-## Project structure
+Flutter consumers can use a local path to `packages/flutter`, or this Git
+configuration after the migration is merged (use a tested tag or commit for ref):
 
-```text
-.storybook/              Storybook configuration
-.changeset/              Package versioning configuration
-scripts/                 Build utilities
-src/components/          Component source, tests, stories, and styles
-src/styles/              CSS entry point and generated variables
-src/tokens/              Type-safe CSS-variable references
-font/                    Licensed source font files bundled by Vite
-tokens/                  Platform-neutral token source files
+```yaml
+dependencies:
+  kofa_design_system:
+    git:
+      url: https://github.com/ayivi/kofa-design-system.git
+      ref: main
+      path: packages/flutter
 ```
 
-## Figma token workflow
+Private-repository consumers need their own GitHub access.
 
-The source files in `tokens/` follow the Design Tokens Community Group shape. The colour primitives in `tokens/colours.json` were extracted from the Foundation file's rendered swatches. Components consume semantic tokens rather than raw palette values. The generated file in `src/styles/generated/` should never be edited by hand.
+## Validation and releases
 
-The source audit and four Figma label/fill discrepancies are documented in `tokens/FIGMA_SOURCE.md`.
+CI has independent web and Flutter jobs. Web runs formatting, lint, TypeScript,
+unit tests, library, docs, and Storybook builds. Flutter regenerates its tokens,
+checks generated-file drift, analyzes, and runs widget tests.
 
-The web type ramp and responsive mappings are documented in `tokens/FIGMA_TYPOGRAPHY_SOURCE.md`. TWK Everett Regular and Medium are bundled locally; the Thin file is still required before Thin styles are production-ready.
+Web uses Changesets (`npm run changeset`); Flutter maintains its own version in
+`packages/flutter/pubspec.yaml` and history in `packages/flutter/CHANGELOG.md`.
+Use platform-specific release tags such as `web-v0.1.0` and `flutter-v0.1.0`.
+A shared token change should document its impact on both packages, but versions
+and releases are independent. Publishing remains disabled until configured.
 
-The approved spacing and radius scales are documented in `tokens/FIGMA_SPACING_RADIUS_SOURCE.md` and are available as generated CSS variables and typed JavaScript references.
+## Repository migration
 
-The Button component is mapped from the Foundation file’s 72-variant component
-set. Its implementation notes and Figma-to-React property mapping live in
-`src/components/Button/FIGMA_SOURCE.md`.
+The repository is now `ayivi/kofa-design-system`. Existing clones can update with:
 
-Useful details to include with the Figma file:
+```sh
+git remote set-url origin https://github.com/ayivi/kofa-design-system.git
+```
 
-- Which variable collections and modes are approved for web
-- Whether Figma is the permanent source of truth or tokens will sync from a repository
-- Supported themes (for example light, dark, or brand variants)
-- Font files and licensing/hosting requirements
-- Icon source and export rules
-- Target browsers and the intended package registry
-
-## Component conventions
-
-Each component owns its implementation, stylesheet, tests, Storybook stories, and public exports. Public APIs must be re-exported from `src/index.ts`. Components use the `kofa-` CSS prefix and consume semantic tokens rather than raw visual values.
+The local checkout folder can retain its current name. Root documentation build
+commands and `docs-dist` remain compatible with the existing Vercel configuration.

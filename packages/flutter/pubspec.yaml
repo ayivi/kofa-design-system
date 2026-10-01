@@ -1,0 +1,21 @@
+name: kofa_design_system
+description: Kofa mobile foundations derived from the shared web design tokens.
+version: 0.1.0
+publish_to: none
+environment:
+  sdk: '>=3.4.0 <4.0.0'
+  flutter: '>=3.22.0'
+dependencies:
+  flutter:
+    sdk: flutter
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+flutter:
+  fonts:
+    - family: TWK Everett
+      fonts:
+        - asset: assets/fonts/TWKEverett-Regular-web.ttf
+          weight: 400
+        - asset: assets/fonts/TWKEverett-Medium-web.ttf
+          weight: 500

@@ -1,52 +1,35 @@
 {
-  "name": "@kofa/web-design-system",
-  "version": "0.1.0",
   "private": true,
-  "description": "Kofa's shared React design system for the web.",
   "type": "module",
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
-    },
-    "./styles.css": "./dist/kofa.css",
-    "./package.json": "./package.json"
+  "engines": {
+    "node": ">=22.0.0"
   },
-  "files": [
-    "dist"
-  ],
-  "sideEffects": [
-    "**/*.css"
+  "packageManager": "npm@12.0.2",
+  "name": "kofa-design-system",
+  "description": "Shared Kofa foundations and web and Flutter design system packages.",
+  "workspaces": [
+    "packages/web"
   ],
   "scripts": {
-    "build": "npm run tokens:build && vite build",
-    "build:storybook": "storybook build",
+    "build": "npm run build --workspace @kofa/web-design-system",
+    "build:storybook": "npm run build:storybook --workspace @kofa/web-design-system",
     "changeset": "changeset",
-    "dev": "storybook dev -p 6006",
+    "dev": "npm run dev --workspace @kofa/web-design-system",
     "docs:build": "vite build --config vite.docs.config.ts",
     "docs:dev": "vite --config vite.docs.config.ts",
     "docs:preview": "vite preview --config vite.docs.config.ts",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "lint": "eslint src docs .storybook vite.config.ts vite.docs.config.ts",
-    "test": "vitest run",
-    "test:coverage": "vitest run --coverage",
-    "test:watch": "vitest",
-    "tokens:build": "node scripts/build-tokens.mjs",
-    "typecheck": "tsc --noEmit"
+    "lint": "eslint packages/web/src packages/web/.storybook packages/web/vite.config.ts docs vite.docs.config.ts",
+    "test": "npm run test --workspace @kofa/web-design-system",
+    "test:coverage": "npm run test:coverage --workspace @kofa/web-design-system",
+    "test:watch": "npm run test:watch --workspace @kofa/web-design-system",
+    "tokens:build": "node scripts/build-tokens.mjs && node scripts/build-flutter-tokens.mjs",
+    "typecheck": "npm run typecheck --workspace @kofa/web-design-system && tsc --noEmit",
+    "tokens:build:flutter": "node scripts/build-flutter-tokens.mjs",
+    "tokens:build:web": "node scripts/build-tokens.mjs",
+    "check:flutter": "cd packages/flutter && flutter pub get && flutter analyze && flutter test"
   },
-  "peerDependencies": {
-    "react": ">=18.3.0",
-    "react-dom": ">=18.3.0"
-  },
-  "engines": {
-    "node": ">=22.0.0"
-  },
-  "packageManager": "npm@12.0.2",
   "devDependencies": {
     "@changesets/cli": "3.0.2",
     "@eslint/js": "10.0.1",
